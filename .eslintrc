@@ -1,0 +1,48 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier"],
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "env": {
+        "jest": true // now **/*.test.js files' env has both es6 *and* jest,
+      },
+      "files": ["**/*.test.ts"],
+      "plugins": ["jest"]
+    }
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "semi": "off",
+    "@typescript-eslint/semi": ["off"],
+    "quotes": ["error", "double"],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": "off",
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "off",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}

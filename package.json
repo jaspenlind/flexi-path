@@ -1,0 +1,57 @@
+{
+  "name": "flexi-path",
+  "description": "Flexible paths",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "commit": "npm run test-ci",
+    "push": "npm run test",
+    "pretest": "npm run lint && npm run build",
+    "lint": "eslint --ext .ts,.js ./",
+    "build": "tsc",
+    "test": "npm run test-ci -- --forceExit --detectOpenHandles --coverage",
+    "test-ci": "jest --verbose",
+    "watch-test": "npm run test-ci -- --watchAll -t",
+    "prettier": "npm run prettier-base -- -c",
+    "prettier-base": "prettier --ignore-path .eslintignore '**/*.{js,ts}'",
+    "lint-check": "npm run prettier-base -- --list-different && npm run lint -- --quiet",
+    "debug": "node --nolazy --inspect-brk=9229 node_modules/jest/bin/jest.js -i"
+  },
+  "repository": "https://github.com/jaspenlind/flexi-path.git",
+  "author": "jaspenlind",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.1",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.2.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-airbnb-typescript": "^4.0.1",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.15.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "jest-matcher-utils": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run commit",
+      "pre-push": "npm run push",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
