@@ -2,6 +2,11 @@
 
 ## Work with paths in a more flexible way
 
+[![Build Status](https://travis-ci.com/jaspenlind/flexi-path.svg?branch=master)](https://travis-ci.com/jaspenlind/flexi-path)
+![GitHub top language](https://img.shields.io/github/languages/top/jaspenlind/flexi-path)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
+
 ### Usage
 
 ```js
