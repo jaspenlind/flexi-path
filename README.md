@@ -6,6 +6,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/jaspenlind/flexi-path)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Coverage Status](https://coveralls.io/repos/jaspenlind/flexi-path/badge.svg?branch=master)](https://coveralls.io/r/jaspenlind/flexi-path?branch=master)
+![David](https://img.shields.io/david/dev/jaspenlind/flexi-path)
 ![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
 
 ### Usage
