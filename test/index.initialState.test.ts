@@ -1,15 +1,15 @@
 import FlexiPath, { PathType } from "../src";
 
 describe("initial state", () => {
-  const filePath = "/folder/containing/a/file.js";
+  const path = "/directory/containing/a/file.js";
   let flex: FlexiPath;
 
   beforeEach(() => {
-    flex = FlexiPath(filePath);
+    flex = FlexiPath(path);
   });
 
   it("should have path", () => {
-    expect(flex.path).toBe(filePath);
+    expect(flex.path).toBe(path);
   });
 
   it("should have root", () => {
@@ -17,7 +17,7 @@ describe("initial state", () => {
   });
 
   it("should have dir", () => {
-    expect(flex.dir).toBe("/folder/containing/a");
+    expect(flex.dir).toBe("/directory/containing/a");
   });
 
   it("should have base", () => {
