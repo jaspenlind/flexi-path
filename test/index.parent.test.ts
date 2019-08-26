@@ -13,6 +13,6 @@ describe("parent", () => {
 
     const received = flex.parent();
 
-    expect(received).toHaveMatchingMembers(expected);
+    expect(received).toHaveMatchingMembersOf(expected);
   });
 });

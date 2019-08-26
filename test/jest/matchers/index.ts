@@ -1,5 +1,5 @@
-import toHaveMatchingMembers from "./toHaveMatchingMembers";
+import toHaveMatchingMembersOf from "./toHaveMatchingMembersOf";
 
-const matchers = [toHaveMatchingMembers];
+const matchers = [toHaveMatchingMembersOf];
 
 export default matchers;
