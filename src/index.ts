@@ -45,4 +45,6 @@ export const FlexiPath = (path: string): FlexiPath => {
   };
 };
 
+export const Root = () => FlexiPath("/");
+
 export default FlexiPath;
