@@ -10,13 +10,13 @@
     "plugin:jest/recommended"
   ],
   "parserOptions": {
-    "ecmaVersion": 2019,
+    "ecmaVersion": 2018,
     "sourceType": "module"
   },
   "overrides": [
     {
       "env": {
-        "jest": true // now **/*.test.js files' env has both es6 *and* jest,
+        "jest": true
       },
       "files": ["**/*.test.ts"],
       "plugins": ["jest"]

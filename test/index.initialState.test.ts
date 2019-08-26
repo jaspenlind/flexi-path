@@ -1,11 +1,11 @@
-import FlexiPath, { PathType } from "../src";
+import flexiPath, { PathType } from "../src";
 
 describe("initial state", () => {
   const path = "/directory/containing/a/file.js";
-  let flex: FlexiPath;
+  let flex: flexiPath;
 
   beforeEach(() => {
-    flex = FlexiPath(path);
+    flex = flexiPath(path);
   });
 
   it("should have path", () => {
@@ -49,10 +49,10 @@ describe("initial state", () => {
   });
 
   it("should not have sub directories", () => {
-    expect(flex.subDirectories()).toHaveLength(0);
+    expect(flex.subDirectories()).toBeEmpty();
   });
 
   it("should not have files", () => {
-    expect(flex.files()).toHaveLength(0);
+    expect(flex.files()).toBeEmpty();
   });
 });

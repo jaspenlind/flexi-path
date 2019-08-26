@@ -1,32 +1,18 @@
-import FlexiPath from "../src";
-
-const mockFunctions = <T extends Record<string, any>>(obj: T, mock: any): T => {
-  const copy = { ...obj };
-  Reflect.ownKeys(copy)
-    .filter(key => typeof Reflect.get(copy, key) === "function")
-    .forEach(key => Reflect.set(copy, key, mock));
-  return copy;
-};
+import flexiPath from "../src";
 
 describe("parent", () => {
   const path = "/directory/containing/a/file.js";
-  let flex: FlexiPath;
+  let flex: flexiPath;
 
   beforeEach(() => {
-    flex = FlexiPath(path);
+    flex = flexiPath(path);
   });
 
   it("should be parent", () => {
-    const mock = jest.fn();
+    const expected = flexiPath("/directory/containing/a/");
 
-    const expected = mockFunctions(FlexiPath("/directory/containing/a/"), mock);
+    const received = flex.parent();
 
-    let actual = flex.parent();
-
-    if (actual !== null) {
-      actual = mockFunctions(actual, mock);
-    }
-
-    expect(actual).toMatchObject(expected);
+    expect(received).toHaveMatchingMembers(expected);
   });
 });
