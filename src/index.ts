@@ -7,9 +7,16 @@ export enum PathType {
   File = 2
 }
 
-interface Indexable<T> {
-  (name: string): T;
-  (): T[];
+interface SubDirectoryQuery {
+  (name: string): FlexiPath;
+  (): FlexiPath[];
+  // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath[];
+}
+
+interface ParentQuery {
+  (numberOfLevels: number): FlexiPath;
+  (): FlexiPath;
+  // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath;
 }
 
 export interface FlexiPath extends ParsedPath {
@@ -17,8 +24,8 @@ export interface FlexiPath extends ParsedPath {
   isRoot(): boolean;
   exists(): boolean;
   type(): PathType;
-  parent(): FlexiPath | null;
-  subDirectories: Indexable<FlexiPath>;
+  parent: ParentQuery; // FlexiPath | null;
+  subDirectories: SubDirectoryQuery;
   files(): FlexiPath[];
 }
 
@@ -45,10 +52,26 @@ export const FlexiPath = (path: string): FlexiPath => {
     [];
 
   const parentPath = (): string => join(path, up);
-  const parent = (): FlexiPath | null =>
-    (!isRoot() && FlexiPath(parentPath())) || null;
+  const parent: ParentQuery = (numberOfLevels?: any): any => {
+    if (isRoot()) {
+      return null;
+    }
 
-  const subDirectories: Indexable<FlexiPath> = (directoryName?: any): any => {
+    const levelsToNavigate = ((numberOfLevels as number) || 1) - 1;
+
+    let current = FlexiPath(parentPath());
+
+    // eslint-disable-next-line
+    for (let i = 0; i < levelsToNavigate; i++) {
+      current = current.parent();
+      if (current === null || current.isRoot()) {
+        break;
+      }
+    }
+    return current;
+  };
+
+  const subDirectories: SubDirectoryQuery = (directoryName?: any): any => {
     if (directoryName === undefined) {
       return readdir()
         .filter(x => x.isDirectory())

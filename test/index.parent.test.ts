@@ -24,6 +24,24 @@ describe("parent", () => {
     expect(received).toHaveMatchingMembersOf(expected);
   });
 
+  describe("when passing levels", () => {
+    it("should return parent number of levels up", () => {
+      const longPath = flexiPath(
+        "/deep/directory/structure/with/multiple/sub/folders"
+      );
+
+      const expected = flexiPath("/deep/directory/");
+
+      const received = longPath.parent(5);
+
+      expect(received).toHaveMatchingMembersOf(expected);
+    });
+
+    it("should be null when levels is greater than path", () => {
+      expect(Root().parent(5000)).toBeNull();
+    });
+  });
+
   const goToRoot = (current: FlexiPath): FlexiPath | null => {
     const parent = current.parent();
 

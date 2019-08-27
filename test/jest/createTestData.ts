@@ -15,14 +15,6 @@ beforeEach(() => {
   }
 });
 
-afterEach(() => {
-  try {
-    shell.rm("-rf", testDir);
-  } catch (e) {
-    console.error(e);
-  }
-});
-
 export const createFile = (relativePath: string, fileName: string): string => {
   const filePath = join(testDir, relativePath, fileName);
 
