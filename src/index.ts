@@ -47,7 +47,10 @@ export const FlexiPath = (path: string): FlexiPath => {
       .filter(x => x.isDirectory())
       .map(x => FlexiPath(join(path, x.name)));
 
-  const files = (): FlexiPath[] => [];
+  const files = (): FlexiPath[] =>
+    readdir()
+      .filter(x => x.isFile())
+      .map(x => FlexiPath(join(path, x.name)));
 
   return {
     root,

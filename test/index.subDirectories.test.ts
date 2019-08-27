@@ -1,25 +1,12 @@
-import shell from "shelljs";
 import FlexiPath from "../src";
-
-const testDir = `${__dirname}/index.subDirectories.test-data`;
-const testFile = `${testDir}/testfile.js`;
-const subDirectory = `${testDir}/subDirectory`;
-
-beforeEach(() => {
-  shell.rm("-rf", testDir);
-  shell.mkdir(testDir);
-  shell.touch(testFile);
-});
-
-afterEach(() => {
-  shell.rm("-rf", testDir);
-});
+import testData from "./jest/createTestData";
 
 describe("subDirectories", () => {
   it("should contain sub directory", () => {
-    shell.mkdir(subDirectory);
+    const subDirectory = testData.createDirectory("subDirectory");
+
     expect(
-      FlexiPath(testDir)
+      FlexiPath(testData.testDir)
         .subDirectories()
         .map(x => x.path)
     ).toContain(subDirectory);
@@ -27,7 +14,7 @@ describe("subDirectories", () => {
 
   it("should be empty when path is file", () => {
     expect(
-      FlexiPath(testFile)
+      FlexiPath(testData.testFile)
         .subDirectories()
         .map(x => x.path)
     ).toBeEmpty();
