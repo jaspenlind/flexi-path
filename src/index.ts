@@ -1,5 +1,5 @@
 import { parse, ParsedPath, join } from "path";
-import { existsSync } from "fs";
+import { existsSync, lstatSync, Stats, readdirSync, Dirent } from "fs";
 
 export enum PathType {
   Unknown = 0,
@@ -22,11 +22,31 @@ export const FlexiPath = (path: string): FlexiPath => {
   const { root, dir, ext, base, name } = parse(path);
   const isRoot = () => ["./", "/"].find(x => x === path) !== undefined;
   const exists = () => existsSync(path);
-  const type = () => PathType.Unknown;
+  const stats = (): Stats | null => (exists() && lstatSync(path)) || null;
+  const type = (): PathType => {
+    const stat = stats();
+
+    return (
+      (stat && stat.isDirectory() && PathType.Directory) ||
+      (stat && stat.isFile() && PathType.File) ||
+      PathType.Unknown
+    );
+  };
+
+  const readdir = (): Dirent[] =>
+    (exists() &&
+      type() === PathType.Directory &&
+      readdirSync(path, { withFileTypes: true })) ||
+    [];
+
   const parentPath = (): string => join(path, up);
   const parent = (): FlexiPath | null =>
     (!isRoot() && FlexiPath(parentPath())) || null;
-  const subDirectories = (): FlexiPath[] => [];
+  const subDirectories = (): FlexiPath[] =>
+    readdir()
+      .filter(x => x.isDirectory())
+      .map(x => FlexiPath(join(path, x.name)));
+
   const files = (): FlexiPath[] => [];
 
   return {
