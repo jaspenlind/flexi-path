@@ -1,5 +1,6 @@
 import shell from "shelljs";
-import FlexiPath, { PathType } from "../src";
+import FlexiPath from "../src";
+import { PathType } from "../src/types";
 
 const testDir = `${__dirname}/index.type.test-data`;
 const testFile = `${testDir}/testfile.js`;

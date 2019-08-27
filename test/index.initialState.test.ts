@@ -1,8 +1,9 @@
-import flexiPath, { PathType } from "../src";
+import flexiPath from "../src";
+import { FlexiPath, PathType } from "../src/types";
 
 describe("initial state", () => {
   const path = "/directory/containing/a/file.js";
-  let flex: flexiPath;
+  let flex: FlexiPath;
 
   beforeEach(() => {
     flex = flexiPath(path);

@@ -1,8 +1,9 @@
-import flexiPath, { Root, FlexiPath } from "../src";
+import flexiPath, { Root } from "../src";
+import { FlexiPath } from "../src/types";
 
 describe("parent", () => {
   const path = "/directory/containing/a/file.js";
-  let flex: flexiPath;
+  let flex: FlexiPath;
 
   beforeEach(() => {
     flex = flexiPath(path);

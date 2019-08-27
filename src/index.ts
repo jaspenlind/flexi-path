@@ -1,35 +1,8 @@
-import { parse, ParsedPath, join } from "path";
+import { parse, join } from "path";
 import { existsSync, lstatSync, Stats, readdirSync, Dirent } from "fs";
+import { FlexiPath, PathType, ParentQuery, SubDirectoryQuery } from "./types";
 
-export enum PathType {
-  Unknown = 0,
-  Directory = 1,
-  File = 2
-}
-
-interface SubDirectoryQuery {
-  (name: string): FlexiPath;
-  (): FlexiPath[];
-  // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath[];
-}
-
-interface ParentQuery {
-  (numberOfLevels: number): FlexiPath;
-  (): FlexiPath;
-  // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath;
-}
-
-export interface FlexiPath extends ParsedPath {
-  path: string;
-  isRoot(): boolean;
-  exists(): boolean;
-  type(): PathType;
-  parent: ParentQuery; // FlexiPath | null;
-  subDirectories: SubDirectoryQuery;
-  files(): FlexiPath[];
-}
-
-export const FlexiPath = (path: string): FlexiPath => {
+export const flexiPath = (path: string): FlexiPath => {
   const up = "../";
   const { root, dir, ext, base, name } = parse(path);
   const isRoot = () => ["./", "/"].find(x => x === path) !== undefined;
@@ -59,7 +32,7 @@ export const FlexiPath = (path: string): FlexiPath => {
 
     const levelsToNavigate = ((numberOfLevels as number) || 1) - 1;
 
-    let current = FlexiPath(parentPath());
+    let current = flexiPath(parentPath());
 
     // eslint-disable-next-line
     for (let i = 0; i < levelsToNavigate; i++) {
@@ -75,16 +48,16 @@ export const FlexiPath = (path: string): FlexiPath => {
     if (directoryName === undefined) {
       return readdir()
         .filter(x => x.isDirectory())
-        .map(x => FlexiPath(join(path, x.name)));
+        .map(x => flexiPath(join(path, x.name)));
     }
 
-    return FlexiPath(join(path, directoryName));
+    return flexiPath(join(path, directoryName));
   };
 
   const files = (): FlexiPath[] =>
     readdir()
       .filter(x => x.isFile())
-      .map(x => FlexiPath(join(path, x.name)));
+      .map(x => flexiPath(join(path, x.name)));
 
   const api: FlexiPath = {
     root,
@@ -104,6 +77,6 @@ export const FlexiPath = (path: string): FlexiPath => {
   return api;
 };
 
-export const Root = () => FlexiPath("/");
+export const Root = () => flexiPath("/");
 
-export default FlexiPath;
+export default flexiPath;
