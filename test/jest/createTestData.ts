@@ -6,13 +6,21 @@ export const testDir = join(__dirname, "flex.test-data");
 export const testFile = join(testDir, "testfile.js");
 
 beforeEach(() => {
-  shell.rm("-rf", testDir);
-  shell.mkdir(testDir);
-  shell.touch(testFile);
+  try {
+    shell.rm("-rf", testDir);
+    shell.mkdir(testDir);
+    shell.touch(testFile);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 afterEach(() => {
-  shell.rm("-rf", testDir);
+  try {
+    shell.rm("-rf", testDir);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 export const createFile = (relativePath: string, fileName: string): string => {

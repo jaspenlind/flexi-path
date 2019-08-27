@@ -2,7 +2,7 @@ import FlexiPath from "../src";
 import testData from "./jest/createTestData";
 
 describe("subDirectories", () => {
-  it("should contain sub directory", () => {
+  it("should contain subdirectory", () => {
     const subDirectory = testData.createDirectory("subDirectory");
 
     expect(
@@ -22,5 +22,14 @@ describe("subDirectories", () => {
 
   it("should be empty when path is invalid", () => {
     expect(FlexiPath("invalid").subDirectories()).toBeEmpty();
+  });
+
+  describe("when passing name", () => {
+    it("should have subdirectory with parent", () => {
+      const parent = FlexiPath("root/");
+      const sub = parent.subDirectories("sub");
+
+      expect(sub.parent()).toHaveMatchingMembersOf(parent);
+    });
   });
 });

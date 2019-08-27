@@ -7,13 +7,18 @@ export enum PathType {
   File = 2
 }
 
+interface Indexable<T> {
+  (name: string): T;
+  (): T[];
+}
+
 export interface FlexiPath extends ParsedPath {
   path: string;
   isRoot(): boolean;
   exists(): boolean;
   type(): PathType;
   parent(): FlexiPath | null;
-  subDirectories(): FlexiPath[];
+  subDirectories: Indexable<FlexiPath>;
   files(): FlexiPath[];
 }
 
@@ -42,17 +47,23 @@ export const FlexiPath = (path: string): FlexiPath => {
   const parentPath = (): string => join(path, up);
   const parent = (): FlexiPath | null =>
     (!isRoot() && FlexiPath(parentPath())) || null;
-  const subDirectories = (): FlexiPath[] =>
-    readdir()
-      .filter(x => x.isDirectory())
-      .map(x => FlexiPath(join(path, x.name)));
+
+  const subDirectories: Indexable<FlexiPath> = (directoryName?: any): any => {
+    if (directoryName === undefined) {
+      return readdir()
+        .filter(x => x.isDirectory())
+        .map(x => FlexiPath(join(path, x.name)));
+    }
+
+    return FlexiPath(join(path, directoryName));
+  };
 
   const files = (): FlexiPath[] =>
     readdir()
       .filter(x => x.isFile())
       .map(x => FlexiPath(join(path, x.name)));
 
-  return {
+  const api: FlexiPath = {
     root,
     dir,
     ext,
@@ -66,6 +77,8 @@ export const FlexiPath = (path: string): FlexiPath => {
     subDirectories,
     files
   };
+
+  return api;
 };
 
 export const Root = () => FlexiPath("/");
