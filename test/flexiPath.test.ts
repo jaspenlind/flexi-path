@@ -1,5 +1,4 @@
-import flexi from "../src";
-import { FlexiPath, PathType } from "../src/types";
+import flexi, { FlexiPath, PathType } from "../src";
 
 describe("initial state", () => {
   const path = "/directory/containing/a/file.js";

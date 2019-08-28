@@ -1,9 +1,11 @@
 import { parse } from "path";
-import subDirectories from "./subDirectories";
-
-import { FlexiPath, files } from ".";
-import parent from "./parent";
-import pathHelper from "./path";
+import {
+  FlexiPath,
+  files,
+  subDirectories,
+  parent,
+  path as pathHelper
+} from ".";
 
 export const flexiPath = (path: string): FlexiPath => {
   const { root, dir, ext, base, name } = parse(path);

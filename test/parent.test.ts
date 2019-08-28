@@ -1,5 +1,4 @@
-import parent from "../src/parent";
-import flexi, { FlexiPath } from "../src";
+import flexi, { FlexiPath, parent } from "../src";
 
 describe("parent", () => {
   const path = "/directory/containing/a/file.js";
@@ -12,7 +11,7 @@ describe("parent", () => {
   it("should be parent", () => {
     const expected = flexi.path("/directory/containing/a/");
 
-    const received = parent(flex.path)(); // flex.parent();
+    const received = parent(flex.path)();
 
     expect(received).toHaveMatchingMembersOf(expected);
   });
@@ -23,8 +22,6 @@ describe("parent", () => {
     const flexParent = parent(flex.path)();
     const grandParent =
       (flexParent !== null && parent(flexParent.path)()) || null;
-
-    // const received = parent(parent(flex.path)() || flexi.root())(); // (flex.parent() || flexi.root()).parent();
 
     expect(grandParent).toHaveMatchingMembersOf(expected);
   });
@@ -44,7 +41,6 @@ describe("parent", () => {
 
     it("should be null when levels is greater than path", () => {
       expect(parent(flexi.root().path)(5000)).toBeNull();
-      // expect(flexi.root().parent(5000)).toBeNull();
     });
   });
 

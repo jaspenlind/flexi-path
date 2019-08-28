@@ -1,5 +1,4 @@
-import flexi from "../src";
-import subDirectories from "../src/subDirectories";
+import flexi, { subDirectories } from "../src";
 import testData from "./jest/createTestData";
 
 describe("subDirectories", () => {
@@ -9,6 +8,10 @@ describe("subDirectories", () => {
     expect(subDirectories(testData.testDir)().map(x => x.path)).toContain(
       subDirectory
     );
+  });
+
+  it("can get directories when path is flexi", () => {
+    expect(subDirectories(flexi.path("invalid"))()).toBeEmpty();
   });
 
   it("should be empty when path is file", () => {

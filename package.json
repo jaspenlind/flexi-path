@@ -12,7 +12,7 @@
     "lint": "eslint --ext .ts,.js ./",
     "build": "tsc",
     "clean": "rm -rf dist && rm -rf coverage",
-    "test": "npm run test-ci -- --forceExit --detectOpenHandles --coverage",
+    "test": "npm run test-ci -- --forceExit --detectOpenHandles --coverage -t",
     "test-ci": "jest --verbose",
     "watch-test": "npm run test-ci -- --watchAll -t",
     "prettier": "npm run prettier-base -- -c",
