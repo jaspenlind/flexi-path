@@ -25,7 +25,7 @@ describe("subDirectories", () => {
 
   describe("when passing name", () => {
     it("should have subdirectory with parent", () => {
-      const parent = flexi.path("root/");
+      const parent = flexi.path("/root/");
       const sub = parent.subDirectories("sub");
 
       expect(sub.parent()).toHaveMatchingMembersOf(parent);

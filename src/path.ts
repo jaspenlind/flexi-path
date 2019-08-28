@@ -1,3 +1,4 @@
+import p from "path";
 import { Stats, existsSync, lstatSync, readdirSync, Dirent } from "fs";
 import { PathType, FlexiPath } from ".";
 
@@ -5,8 +6,13 @@ const pathAsString = (path: string | FlexiPath): string => {
   return typeof path === "object" ? path.path : path;
 };
 
-export const isRoot = (path: string | FlexiPath) =>
-  ["./", "/"].find(x => x === pathAsString(path)) !== undefined;
+export const root = "/";
+
+export const isValid = (path: string | FlexiPath): boolean => {
+  return pathAsString(path).startsWith(root);
+};
+
+export const isRoot = (path: string | FlexiPath) => pathAsString(path) === root;
 
 export const exists = (path: string | FlexiPath) =>
   existsSync(pathAsString(path));
@@ -32,6 +38,8 @@ export const readDir = (path: string | FlexiPath): Dirent[] =>
 
 export const path = (currentPath: string | FlexiPath) => {
   return {
+    root,
+    isValid: () => isValid(currentPath),
     isRoot: () => isRoot(currentPath),
     exists: () => exists(currentPath),
     stats: () => stats(currentPath),

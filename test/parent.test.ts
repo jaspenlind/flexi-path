@@ -8,6 +8,12 @@ describe("parent", () => {
     flex = flexi.path(path);
   });
 
+  it("should be null when path is invalid", () => {
+    const invalid = flexi.path("invalid");
+
+    expect(invalid.parent()).toBeNull();
+  });
+
   it("should be parent", () => {
     const expected = flexi.path("/directory/containing/a/");
 

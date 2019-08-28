@@ -1,10 +1,10 @@
-import flexiPath, { Root } from "./flexiPath";
-import { isRoot } from "./path";
+import { flexiPath, isRoot, resolve, root } from "./types";
 
 export * from "./types";
 
 export default {
   path: flexiPath,
-  root: Root,
-  isRoot
+  root: () => flexiPath(root),
+  isRoot,
+  resolve
 };

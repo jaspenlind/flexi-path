@@ -1,5 +1,5 @@
 import { join } from "path";
-import flexi, { FlexiPath, isRoot, ParentQuery } from ".";
+import flexi, { FlexiPath, isRoot, isValid, ParentQuery } from ".";
 
 export const up = "../";
 export const parentPath = (path: string): string => join(path, up);
@@ -9,7 +9,7 @@ export const parent = (childPath: string | FlexiPath): ParentQuery => (
 ): FlexiPath | null => {
   const path = typeof childPath === "object" ? childPath.path : childPath;
 
-  if (isRoot(path)) {
+  if (!isValid(path) || isRoot(path)) {
     return null;
   }
 

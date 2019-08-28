@@ -32,6 +32,4 @@ export const flexiPath = (path: string): FlexiPath => {
   return api;
 };
 
-export const Root = () => flexiPath("/");
-
 export default flexiPath;
