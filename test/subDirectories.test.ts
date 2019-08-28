@@ -1,32 +1,28 @@
-import FlexiPath from "../src";
+import flexi from "../src";
+import subDirectories from "../src/subDirectories";
 import testData from "./jest/createTestData";
 
 describe("subDirectories", () => {
   it("should contain subdirectory", () => {
     const subDirectory = testData.createDirectory("subDirectory");
 
-    expect(
-      FlexiPath(testData.testDir)
-        .subDirectories()
-        .map(x => x.path)
-    ).toContain(subDirectory);
+    expect(subDirectories(testData.testDir)().map(x => x.path)).toContain(
+      subDirectory
+    );
   });
 
   it("should be empty when path is file", () => {
-    expect(
-      FlexiPath(testData.testFile)
-        .subDirectories()
-        .map(x => x.path)
-    ).toBeEmpty();
+    const testFile = testData.createFile("subDirectories.test");
+    expect(subDirectories(testFile)().map(x => x.path)).toBeEmpty();
   });
 
   it("should be empty when path is invalid", () => {
-    expect(FlexiPath("invalid").subDirectories()).toBeEmpty();
+    expect(subDirectories("invalid")()).toBeEmpty();
   });
 
   describe("when passing name", () => {
     it("should have subdirectory with parent", () => {
-      const parent = FlexiPath("root/");
+      const parent = flexi.path("root/");
       const sub = parent.subDirectories("sub");
 
       expect(sub.parent()).toHaveMatchingMembersOf(parent);

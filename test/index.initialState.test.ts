@@ -1,4 +1,4 @@
-import flexiPath from "../src";
+import flexi from "../src";
 import { FlexiPath, PathType } from "../src/types";
 
 describe("initial state", () => {
@@ -6,7 +6,7 @@ describe("initial state", () => {
   let flex: FlexiPath;
 
   beforeEach(() => {
-    flex = flexiPath(path);
+    flex = flexi.path(path);
   });
 
   it("should have path", () => {

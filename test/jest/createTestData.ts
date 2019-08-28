@@ -3,24 +3,19 @@ import { join } from "path";
 
 export const testDir = join(__dirname, "flex.test-data");
 
-export const testFile = join(testDir, "testfile.js");
-
-beforeEach(() => {
-  try {
+beforeAll(() => {
+  if (shell.test("-d", testDir)) {
     shell.rm("-rf", testDir);
-    shell.mkdir(testDir);
-    shell.touch(testFile);
-  } catch (e) {
-    console.error(e);
   }
+  shell.mkdir(testDir);
 });
 
-export const createFile = (relativePath: string, fileName: string): string => {
-  const filePath = join(testDir, relativePath, fileName);
+export const createFile = (fileName: string): string => {
+  const filePath = join(testDir, fileName);
 
   shell.touch(filePath);
 
-  return fileName;
+  return filePath;
 };
 
 export const createDirectory = (relativePath: string): string => {
@@ -33,7 +28,6 @@ export const createDirectory = (relativePath: string): string => {
 
 export default {
   testDir,
-  testFile,
   createFile,
   createDirectory
 };

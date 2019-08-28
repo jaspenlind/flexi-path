@@ -9,6 +9,10 @@ module.exports = {
     "<rootDir>/test/jest/setupFilesAfterEnv.ts"
   ],
   moduleFileExtensions: ["ts", "js"],
+  modulePathIgnorePatterns: [
+    "<rootDir>/dist/",
+    "<rootDir>/test/jest/flex.test-data"
+  ],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },

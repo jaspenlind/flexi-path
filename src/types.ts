@@ -13,8 +13,8 @@ export interface SubDirectoryQuery {
 }
 
 export interface ParentQuery {
-  (numberOfLevels: number): FlexiPath;
-  (): FlexiPath;
+  (numberOfLevels: number): FlexiPath | null;
+  (): FlexiPath | null;
   // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath;
 }
 
@@ -28,4 +28,7 @@ export interface FlexiPath extends ParsedPath {
   files(): FlexiPath[];
 }
 
-export default { PathType };
+export * from "./subDirectories";
+export * from "./files";
+export * from "./parent";
+export * from "./path";
