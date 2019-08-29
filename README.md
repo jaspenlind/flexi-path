@@ -9,7 +9,53 @@
 ![David](https://img.shields.io/david/dev/jaspenlind/flexi-path)
 ![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
 
-### Usage
+### Api
+
+<a name="flexi"></a>
+
+flexi-path
+
+**Kind**: global variable  
+
+* [flexi](#flexi)
+    * [.path](#flexi.path)
+    * [.isRoot](#flexi.isRoot)
+    * [.resolve](#flexi.resolve)
+    * [.root()](#flexi.root)
+
+<a name="flexi.path"></a>
+
+### flexi.path
+creates a new path
+
+**Kind**: static property of [<code>flexi</code>](#flexi)  
+**Example**  
+```js
+import flexi from "flexi";
+
+const path = flexi.path("any path");
+```
+<a name="flexi.isRoot"></a>
+
+### flexi.isRoot
+Indicates if the `path` is a root path
+
+**Kind**: static property of [<code>flexi</code>](#flexi)  
+<a name="flexi.resolve"></a>
+
+### flexi.resolve
+Navigates the `path` until a condition is met
+
+**Kind**: static property of [<code>flexi</code>](#flexi)  
+<a name="flexi.root"></a>
+
+### flexi.root()
+A `path` representing the `root`
+
+**Kind**: static method of [<code>flexi</code>](#flexi)
+
+### Examples
+
 
 #### Get files in currect directory
 ```ts
