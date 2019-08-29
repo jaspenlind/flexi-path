@@ -13,19 +13,15 @@
 
 <a name="flexi"></a>
 
-flexi-path
-
-**Kind**: global variable  
-
 * [flexi](#flexi)
-    * [.path](#flexi.path)
-    * [.isRoot](#flexi.isRoot)
-    * [.resolve](#flexi.resolve)
+    * [.path()](#flexi.path)
+    * [.isRoot()](#flexi.isRoot)
+    * [.resolve()](#flexi.resolve)
     * [.root()](#flexi.root)
 
 <a name="flexi.path"></a>
 
-### flexi.path
+### flexi.path()
 creates a new path
 
 **Kind**: static property of [<code>flexi</code>](#flexi)  
@@ -37,13 +33,13 @@ const path = flexi.path("any path");
 ```
 <a name="flexi.isRoot"></a>
 
-### flexi.isRoot
+### flexi.isRoot()
 Indicates if the `path` is a root path
 
 **Kind**: static property of [<code>flexi</code>](#flexi)  
 <a name="flexi.resolve"></a>
 
-### flexi.resolve
+### flexi.resolve()
 Navigates the `path` until a condition is met
 
 **Kind**: static property of [<code>flexi</code>](#flexi)  
