@@ -1,4 +1,3 @@
-import p from "path";
 import { Stats, existsSync, lstatSync, readdirSync, Dirent } from "fs";
 import { PathType, FlexiPath } from ".";
 

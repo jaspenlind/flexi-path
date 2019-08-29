@@ -37,8 +37,8 @@ describe("resolve", () => {
     const path = flexi.path("/fictional/path/with/file.js");
 
     const result = flexi.resolve(path, {
-      predicate: x => true,
-      onNavigate: x => NavigationState.Abort
+      predicate: () => true,
+      onNavigate: () => NavigationState.Abort
     });
 
     expect(result).toBeNull();
