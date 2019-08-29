@@ -1,6 +1,10 @@
 import { join } from "path";
 import flexi, { FlexiPath, SubDirectoryQuery, path as pathHelper } from ".";
 
+/**
+ * The sub directories of the `path` and a `path` builder
+ * @param path The current `path`
+ */
 export const subDirectories = (path: string | FlexiPath): SubDirectoryQuery => (
   directoryName?: any
 ): any => {

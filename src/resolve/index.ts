@@ -8,6 +8,9 @@ import flexi, {
 
 import getState from "./state";
 
+/**
+ * Navigates the `path` until a condition is met
+ */
 const resolve = (
   path: Path,
   options: ResolveOptions | PathResolverStrategy

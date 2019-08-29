@@ -4,6 +4,9 @@ import flexi, { FlexiPath, isRoot, isValid, ParentQuery } from ".";
 export const up = "../";
 export const parentPath = (path: string): string => join(path, up);
 
+/**
+ * The `parent` directory of the `path`
+ */
 export const parent = (childPath: string | FlexiPath): ParentQuery => (
   numberOfLevels?: any
 ): FlexiPath | null => {

@@ -11,22 +11,51 @@
 
 ### Usage
 
-```js
-const path = FlexiPath("/Rootdir/Level1/Level2")
+#### Get files in currect directory
+```ts
+import flexi from "flexi";
 
-const root = path.parent().parent()
+const currentPath = flexi.path(__dirname);
 
-const index = root.files.find(x => x.base === "index.js")
+const files = currentPath.files();
+
+//==> [...]
+```
+
+#### Build dynamic path
+```ts
+import flexi from "flexi";
+
+const path = flexi.path("root");
+
+const deeperPath = path.subDirectories("deeper").subDirectories("path");
+
+//=> root/deeper/path
+
+```
+
+#### Get directory with conditions
+```ts
+import flexi from "flexi";
+
+const path = flexi.path("/Rootdir/Level1/Level2");
+
+const root = path.parent().parent();
+
+const index = root.files.find(x => x.base === "index.js");
 
 //==> /Rootdir/index.js
 ```
 
-```js
-const path = FlexiPath("/Rootdir/Level1/file/some/invalid/path/segments")
+#### Find first valid path
+```ts
+import flexi, { pathExists } from "flexi";
 
-const navigator = closestValidPath({ ignoreFileExtensions: true })
+const invalidPath = flexi,path("/Rootdir/Level1/file/some/invalid/path/segments")
 
-const validPath = navigator.navigate(path)
+const validPath = flexi.resolve(invalidPath, pathExists());
 
-//==> /Rootdir/Level1/file.js
+//==> /Rootdir/Level1/file
+
+const exists = validPath.exists();
 ```

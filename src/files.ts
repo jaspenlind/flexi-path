@@ -1,6 +1,9 @@
 import { join } from "path";
 import flexi, { FlexiPath, path as pathHelper } from ".";
 
+/**
+ * The files in the current `path`
+ */
 export const files = (path: string): FlexiPath[] =>
   pathHelper(path)
     .readDir()

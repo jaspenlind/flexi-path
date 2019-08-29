@@ -7,6 +7,11 @@ import {
   path as pathHelper
 } from ".";
 
+/**
+ * Creates a new `flexi`.`path`
+ *
+ * @param path A `string` representation of a valid file path or any arbitrary path
+ */
 export const flexiPath = (path: string): FlexiPath => {
   const normalizedPath = normalize(path);
   const { root, dir, ext, base, name } = parse(normalizedPath);

@@ -35,13 +35,33 @@ export const readDir = (path: string | FlexiPath): Dirent[] =>
     readdirSync(pathAsString(path), { withFileTypes: true })) ||
   [];
 
+/**
+ *
+ * @param currentPath Path utility function
+ */
 export const path = (currentPath: string | FlexiPath) => {
   return {
+    /**
+     * A `path` representing the `root`
+     */
     root,
+    /**
+     * `boolean` value representing if the `path` can be created on the disk
+     */
     isValid: () => isValid(currentPath),
+    /**
+     * `boolean` value indicating if the `path` is a `root` path
+     */
     isRoot: () => isRoot(currentPath),
+    /**
+     * `boolean` value indicating if the `path` exists or not
+     */
     exists: () => exists(currentPath),
     stats: () => stats(currentPath),
+    /**
+     * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
+     * on disk is `Unknown`
+     */
     type: () => type(currentPath),
     readDir: () => readDir(currentPath)
   };
