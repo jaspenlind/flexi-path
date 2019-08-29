@@ -37,13 +37,12 @@ export enum NavigationState {
 }
 
 export interface ResolveOptions {
-  predicate: (current: ParsedPath) => boolean;
-  onNavigate?(current: ParsedPath): NavigationState;
+  predicate: (current: FlexiPath) => boolean;
+  onNavigate?(current: FlexiPath): NavigationState;
 }
 
-export * from "./flexiPath";
-export * from "./subDirectories";
-export * from "./files";
-export * from "./parent";
-export * from "./path";
-export * from "./resolve";
+export interface PathResolverStrategy {
+  resolve(current: FlexiPath): ResolveOptions;
+}
+
+export type Path = string | FlexiPath;

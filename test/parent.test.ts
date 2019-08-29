@@ -14,6 +14,12 @@ describe("parent", () => {
     expect(invalid.parent()).toBeNull();
   });
 
+  it("should be null when path is root", () => {
+    const root = flexi.root();
+
+    expect(root.parent()).toBeNull();
+  });
+
   it("should be parent", () => {
     const expected = flexi.path("/directory/containing/a/");
 

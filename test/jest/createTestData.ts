@@ -10,8 +10,8 @@ beforeAll(() => {
   shell.mkdir(testDir);
 });
 
-export const createFile = (fileName: string): string => {
-  const filePath = join(testDir, fileName);
+export const createFile = (fileName: string, relativePath = ""): string => {
+  const filePath = join(testDir, relativePath, fileName);
 
   shell.touch(filePath);
 
@@ -21,7 +21,7 @@ export const createFile = (fileName: string): string => {
 export const createDirectory = (relativePath: string): string => {
   const directoryPath = join(testDir, relativePath);
 
-  shell.mkdir(directoryPath);
+  shell.mkdir("-p", directoryPath);
 
   return directoryPath;
 };

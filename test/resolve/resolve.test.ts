@@ -1,5 +1,6 @@
-import { ParsedPath } from "path";
-import flexi, { NavigationState } from "../src";
+import { ParsedPath, join } from "path";
+import flexi, { NavigationState, ResolveOptions } from "../../src";
+import testData from "../jest/createTestData";
 
 describe("resolve", () => {
   it("can resolve with predicate", () => {
@@ -42,5 +43,27 @@ describe("resolve", () => {
     });
 
     expect(result).toBeNull();
+  });
+
+  it("can return directory with predicate", () => {
+    const subFolderName = "resolve-subFolder-predicate";
+    const subOfSubName = join(subFolderName, "subOfSubFolder");
+    testData.createDirectory(subFolderName);
+    testData.createFile("resolve.t", subFolderName);
+    testData.createDirectory(subOfSubName);
+
+    const path = flexi.path(join(testData.testDir, subOfSubName));
+    const expected = flexi.path(join(testData.testDir, subFolderName, "/"));
+
+    const options: ResolveOptions = {
+      predicate: current => {
+        return (
+          current.name === subFolderName &&
+          current.files().find(x => x.base === "resolve.t") !== undefined
+        );
+      }
+    };
+
+    expect(flexi.resolve(path, options)).toHaveMatchingMembersOf(expected);
   });
 });

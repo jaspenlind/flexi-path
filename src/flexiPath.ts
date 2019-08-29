@@ -1,4 +1,4 @@
-import { parse } from "path";
+import { parse, normalize } from "path";
 import {
   FlexiPath,
   files,
@@ -8,10 +8,11 @@ import {
 } from ".";
 
 export const flexiPath = (path: string): FlexiPath => {
-  const { root, dir, ext, base, name } = parse(path);
-  const getParent = parent(path);
-  const getSubDirectories = subDirectories(path);
-  const currentPath = pathHelper(path);
+  const normalizedPath = normalize(path);
+  const { root, dir, ext, base, name } = parse(normalizedPath);
+  const getParent = parent(normalizedPath);
+  const getSubDirectories = subDirectories(normalizedPath);
+  const currentPath = pathHelper(normalizedPath);
 
   const api: FlexiPath = {
     root,
@@ -19,14 +20,14 @@ export const flexiPath = (path: string): FlexiPath => {
     ext,
     base,
     name,
-    path,
+    path: normalizedPath,
     isRoot: () => currentPath.isRoot(),
     exists: () => currentPath.exists(),
     type: () => currentPath.type(),
     parent: (numberOfLevels?: any): any => getParent(numberOfLevels),
     subDirectories: (directoryName?: any): any =>
       getSubDirectories(directoryName),
-    files: () => files(path)
+    files: () => files(normalizedPath)
   };
 
   return api;
