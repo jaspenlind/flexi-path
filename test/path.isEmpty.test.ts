@@ -43,7 +43,7 @@ describe("path", () => {
     });
 
     it("should be true when path is empty()", () => {
-      expect(isEmpty(empty())).toBeTrue();
+      expect(isEmpty(empty)).toBeTrue();
     });
 
     it("should be false when path is not empty", () => {

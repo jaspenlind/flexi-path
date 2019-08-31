@@ -1,4 +1,4 @@
-import flexi, { parse, empty } from "../src";
+import flexi, { parse } from "../src";
 
 describe("path", () => {
   describe("parse", () => {
@@ -8,7 +8,7 @@ describe("path", () => {
     const basePathWithPath = `${basePath}/${path}`;
 
     it("should be empty when path is empty", () => {
-      expect(parse(emptyPath)).toHaveMatchingMembersOf(empty());
+      expect(parse(emptyPath)).toHaveMatchingMembersOf(flexi.empty());
     });
 
     it("can parse string path", () => {

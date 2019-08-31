@@ -1,5 +1,5 @@
-import flexiPath from "./flexiPath";
-import { isRoot, root, empty, concat } from "./path";
+import path from "./flexiPath";
+import { isRoot, root, empty, concat, exists } from "./path";
 import resolve from "./resolve";
 
 export * from "./types";
@@ -21,15 +21,15 @@ export default {
    * const path = flexi.path("any path");
    *
    */
-  path: flexiPath,
+  path,
   /**
    * Represents an empty `path`
    */
-  empty: () => empty(),
+  empty: () => path(empty),
   /**
    * A `path` representing the `root`
    */
-  root: () => flexiPath(root),
+  root: () => path(root),
   /**
    * Indicates if the `path` is a root path
    */
@@ -41,5 +41,9 @@ export default {
   /**
    * Concatinates multiple `path` into a new `path`
    */
-  concat
+  concat,
+  /**
+   * `boolean` value indicating if the `path` exists or not
+   */
+  exists
 };

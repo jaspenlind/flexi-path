@@ -50,7 +50,7 @@ export interface ParentQuery {
 }
 
 /**
- * The `flexi path`
+ * A flexible `path` builder and walker
  */
 export interface FlexiPath extends ParsedPath {
   /**
@@ -61,6 +61,12 @@ export interface FlexiPath extends ParsedPath {
    * `boolean` value indicating if the `path` is a `root` path
    */
   isRoot(): boolean;
+
+  /**
+   * `boolean` value representing if the `path` can be created on the disk
+   */
+  isValid(): boolean;
+
   /**
    * `boolean` value indicating if the `path` exists or not
    */
@@ -92,6 +98,11 @@ export interface FlexiPath extends ParsedPath {
    * @param path The `path` to append
    */
   append(...paths: Path[]): FlexiPath;
+
+  /**
+   * Writes the current `path` to disk if possible
+   */
+  write(): void;
 }
 
 /**

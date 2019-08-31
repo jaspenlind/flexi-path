@@ -1,7 +1,7 @@
 import shell from "shelljs";
 import { join } from "path";
 
-export const testDir = join(__dirname, "flex.test-data");
+export const testDir = join(__dirname, "flex-test-data");
 
 beforeAll(() => {
   if (shell.test("-d", testDir)) {

@@ -44,8 +44,12 @@ describe("initial state", () => {
     expect(flex.exists()).toBe(false);
   });
 
-  it("should be unknown", () => {
-    expect(flex.type()).toBe(PathType.Unknown);
+  it("should be valid", () => {
+    expect(flex.isValid()).toBeTrue();
+  });
+
+  it("should be unknown when not valid", () => {
+    expect(flexi.path("invalid").type()).toBe(PathType.Unknown);
   });
 
   it("should not have sub directories", () => {

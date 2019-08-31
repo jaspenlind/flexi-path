@@ -13,8 +13,16 @@ describe("path", () => {
       expect(path(testFile).type()).toBe(PathType.File);
     });
 
-    it("should be unknown when path does not exist", () => {
-      expect(path("unknown").type()).toBe(PathType.Unknown);
+    it("should be unknown when path is invalid", () => {
+      expect(path("invalid").type()).toBe(PathType.Unknown);
+    });
+
+    it("should be directory when path looks like a directory", () => {
+      expect(path("/testdir/").type()).toBe(PathType.Directory);
+    });
+
+    it("should be file when path looks like a file", () => {
+      expect(path("/testdir/testfile.js").type()).toBe(PathType.File);
     });
   });
 });

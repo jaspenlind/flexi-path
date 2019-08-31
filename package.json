@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "commit": "npm run lint-check",
+    "commit": "npm run lint-check && npm run test",
     "push": "npm run test",
     "pretest": "npm run lint && npm run build",
     "lint": "eslint --ext .ts,.js ./",
@@ -31,7 +31,6 @@
     "@types/expect": "^1.20.4",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.2",
-    "@types/shelljs": "^0.8.5",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "coveralls": "^3.0.6",
@@ -50,7 +49,6 @@
     "jest-extended": "^0.11.2",
     "jest-matcher-utils": "^24.9.0",
     "prettier": "^1.18.2",
-    "shelljs": "^0.8.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
@@ -61,5 +59,9 @@
       "pre-push": "npm run push",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "dependencies": {
+    "@types/shelljs": "^0.8.5",
+    "shelljs": "^0.8.3"
   }
 }

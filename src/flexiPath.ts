@@ -30,12 +30,14 @@ export const flexiPath = (path: string): FlexiPath => {
     isRoot: () => currentPath.isRoot(),
     exists: () => currentPath.exists(),
     isEmpty: () => currentPath.isEmpty(),
+    isValid: () => currentPath.isValid(),
     type: () => currentPath.type(),
     parent: (numberOfLevels?: any): any => getParent(numberOfLevels),
     subDirectories: (directoryName?: any): any =>
       getSubDirectories(directoryName),
     files: () => files(normalizedPath),
-    append: (...paths: Path[]) => currentPath.concat(...paths)
+    append: (...paths: Path[]) => currentPath.concat(...paths),
+    write: () => currentPath.write()
   };
 
   return api;

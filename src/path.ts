@@ -1,8 +1,9 @@
 import { join } from "path";
+import shell from "shelljs";
 import { Stats, existsSync, lstatSync, readdirSync, Dirent } from "fs";
 import flexi, { Path, PathWithBasePath, PathType, FlexiPath } from ".";
 
-export const empty = (): FlexiPath => flexi.path("");
+export const empty = "";
 
 export const parse = (path: Path): FlexiPath => {
   let parsed: FlexiPath | undefined;
@@ -31,11 +32,11 @@ export const concat = (path: Path, ...paths: Path[]): FlexiPath => {
 };
 
 export const isEmpty = (path: Path | null): boolean =>
-  path === null || parse(path).path === empty().path;
+  path === null || parse(path).path === flexi.empty().path;
 
 export const root = "/";
 
-export const isValid = (path: Path): boolean => parse(path).root === root;
+export const isValid = (path: Path): boolean => parse(path).root !== "";
 
 export const isRoot = (path: Path) => parse(path).path === root;
 
@@ -44,7 +45,24 @@ export const exists = (path: Path) => existsSync(parse(path).path);
 export const stats = (path: Path): Stats | null =>
   (exists(path) && lstatSync(parse(path).path)) || null;
 
+export const guessType = (path: Path): PathType => {
+  const parsed = parse(path);
+  if (!isValid(parsed)) {
+    return PathType.Unknown;
+  }
+  const maybeFile =
+    // (parsed.dir.split(/\/|\\/).length > 1 ||
+    (parsed.ext !== "" || !parsed.path.match(/\/|\\$/)) &&
+    parsed.parent() !== null;
+
+  return maybeFile ? PathType.File : PathType.Directory;
+};
+
 export const type = (path: Path): PathType => {
+  if (!exists(path)) {
+    return guessType(path);
+  }
+
   const stat = stats(path);
 
   return (
@@ -59,6 +77,31 @@ export const readDir = (path: Path): Dirent[] =>
     type(path) === PathType.Directory &&
     readdirSync(parse(path).path, { withFileTypes: true })) ||
   [];
+
+export const write = (path: Path): void => {
+  const parsed = parse(path);
+  const parsedType = type(parsed);
+
+  if (parsedType === PathType.Unknown) {
+    throw new Error("Path is not valid or type cannot be determined");
+  }
+
+  if (exists(parsed)) {
+    throw new Error("Path already exists");
+  }
+
+  if (parsedType === PathType.Directory) {
+    shell.mkdir("-p", parsed.path);
+  } else {
+    const parsedParent = parsed.parent();
+    if (parsedParent) {
+      if (!parsedParent.exists()) {
+        shell.mkdir("-p", parsedParent.path);
+      }
+      shell.touch(parsed.path);
+    }
+  }
+};
 
 /**
  *
@@ -100,7 +143,11 @@ export const path = (currentPath: Path) => {
      * on disk is `Unknown`
      */
     type: () => type(currentPath),
-    readDir: () => readDir(currentPath)
+    readDir: () => readDir(currentPath),
+    /**
+     * Writes the current `path` to disk if possible
+     */
+    write: () => write(currentPath)
   };
 };
 
