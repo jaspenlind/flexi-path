@@ -39,7 +39,9 @@ export const flexiPath = (path: string): FlexiPath => {
     append: (...paths: Path[]) => currentPath.concat(...paths),
     prepend: (...paths: Path[]) => currentPath.prepend(...paths),
     diff: (other: Path) => currentPath.diff(other),
-    write: () => currentPath.write()
+    reverse: () => currentPath.reverse(),
+    write: () => currentPath.write(),
+    flatten: () => currentPath.flatten()
   };
 
   return api;

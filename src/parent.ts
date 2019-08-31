@@ -1,9 +1,12 @@
 import { join } from "path";
-import { FlexiPath, isRoot, isValid, ParentQuery, Path, parse } from ".";
+import { FlexiPath, isRoot, ParentQuery, Path, parse } from ".";
 
 export const up = "../";
-export const parentPath = (path: Path): Path =>
-  parse(join(parse(path).path, up));
+export const parentPath = (path: Path): Path | null => {
+  const pathAsString = parse(path).path;
+  const joinedPath = join(pathAsString, up);
+  return joinedPath === "./" ? null : parse(joinedPath);
+};
 
 /**
  * The `parent` directory of the `path`
@@ -11,19 +14,20 @@ export const parentPath = (path: Path): Path =>
 export const parent = (path: Path): ParentQuery => (
   numberOfLevels?: any
 ): FlexiPath | null => {
-  if (!isValid(path) || isRoot(path)) {
+  const parsed = parse(path);
+  if (isRoot(parsed)) {
     return null;
   }
 
   const levelsToNavigate = ((numberOfLevels as number) || 1) - 1;
 
-  let current: FlexiPath | null = parse(parentPath(path));
+  let next = parentPath(parsed);
 
-  if (levelsToNavigate > 0) {
-    current = parent(current)(levelsToNavigate);
+  if (levelsToNavigate > 0 && next !== null) {
+    next = parent(next)(levelsToNavigate);
   }
 
-  return current;
+  return (next && parse(next)) || null;
 };
 
 export default parent;

@@ -1,5 +1,5 @@
 import path from "./flexiPath";
-import { isRoot, root, empty, concat, exists } from "./path";
+import { isRoot, root, empty, concat, exists, isEmpty } from "./path";
 import resolve from "./resolve";
 
 export * from "./types";
@@ -26,6 +26,10 @@ export default {
    * Represents an empty `path`
    */
   empty: () => path(empty),
+  /**
+   * `boolan` value indicatinf if the `path`is empty
+   */
+  isEmpty,
   /**
    * A `path` representing the `root`
    */

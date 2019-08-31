@@ -1,7 +1,13 @@
 import { join, sep } from "path";
 import shell from "shelljs";
 import { Stats, existsSync, lstatSync, readdirSync, Dirent } from "fs";
-import flexi, { Path, PathWithBasePath, PathType, FlexiPath } from ".";
+import flexi, {
+  Path,
+  PathWithBasePath,
+  PathType,
+  FlexiPath,
+  NavigationState
+} from ".";
 import { closestCommonParent } from "./resolve/strategies";
 
 export const empty = "";
@@ -61,8 +67,12 @@ export const diff = (path: Path, other: Path): [FlexiPath, FlexiPath] => {
   flexi.resolve(
     parse(path),
     closestCommonParent(parse(other), {
-      onNavigate: (first: FlexiPath, second: FlexiPath, isMatch: boolean) => {
-        if (!isMatch) {
+      onNavigate: (
+        first: FlexiPath,
+        second: FlexiPath,
+        state: NavigationState
+      ) => {
+        if (state !== NavigationState.Found) {
           path1 = path1.prepend(second.base);
           path2 = path2.prepend(first.base);
         }
@@ -72,6 +82,39 @@ export const diff = (path: Path, other: Path): [FlexiPath, FlexiPath] => {
 
   return [path1, path2];
 };
+/**
+ * Flattens a `path`
+ * @param path The `path` to `flattern`
+ * @returns An array with the flatterned `path`
+ */
+
+export const flatten = (path: Path): FlexiPath[] => {
+  if (flexi.isEmpty(path)) {
+    return [];
+  }
+
+  const result: string[] = [];
+  flexi.resolve(path, {
+    onNavigate: (current: FlexiPath, state: NavigationState) => {
+      result.unshift(current.base);
+      return { state };
+    }
+  });
+
+  return result.map(x => flexi.path(x));
+};
+
+export const reverse = (path: Path): FlexiPath => {
+  const segments = flatten(path).reverse();
+
+  if (segments.length < 2) {
+    return parse(path);
+  }
+
+  const [first, ...rest] = segments;
+
+  return first.append(...rest);
+};
 
 export const isEmpty = (path: Path | null): boolean =>
   path === null || parse(path).path === flexi.empty().path;
@@ -80,7 +123,7 @@ export const root = "/";
 
 export const isValid = (path: Path): boolean => parse(path).root !== "";
 
-export const isRoot = (path: Path) => parse(path).path === root;
+export const isRoot = (path: Path) => parse(path).path === sep;
 
 export const exists = (path: Path) => existsSync(parse(path).path);
 
@@ -184,6 +227,10 @@ export const path = (currentPath: Path) => {
      * @param path The `path` to diff against
      */
     diff: (other: Path) => diff(currentPath, other),
+    /**
+     * Reverses the `path`
+     */
+    reverse: () => reverse(currentPath),
     stats: () => stats(currentPath),
     /**
      * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
@@ -194,7 +241,8 @@ export const path = (currentPath: Path) => {
     /**
      * Writes the current `path` to disk if possible
      */
-    write: () => write(currentPath)
+    write: () => write(currentPath),
+    flatten: () => flatten(currentPath)
   };
 };
 

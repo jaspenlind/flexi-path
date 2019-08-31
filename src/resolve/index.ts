@@ -18,15 +18,18 @@ const resolve = (
 ): FlexiPath | null => {
   const currentPath = parse(path);
   let currentOptions: ResolveOptions;
-
   const pathResolver = options as PathResolverStrategy;
+
   if (pathResolver.resolve) {
     currentOptions = pathResolver.resolve(currentPath);
   } else {
     currentOptions = options as ResolveOptions;
   }
-
-  const [state, replacerPath] = getState(currentPath, currentOptions);
+  const [state, replacerPath] = getState(
+    currentPath,
+    currentOptions,
+    NavigationState.Default
+  );
 
   if (state === NavigationState.Found) {
     return replacerPath || currentPath;

@@ -24,14 +24,11 @@ const resolve = (
     return result;
   };
 
-  const onNavigate = (current: FlexiPath) => {
+  const onNavigate = (current: FlexiPath, state: NavigationState) => {
     if (options && options.onNavigate) {
-      options.onNavigate(parent, current, result);
+      options.onNavigate(parent, current, state);
     }
-
-    return result
-      ? { state: NavigationState.Found }
-      : { state: NavigationState.Default };
+    return { state };
   };
 
   return {

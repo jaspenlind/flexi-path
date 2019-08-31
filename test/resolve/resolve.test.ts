@@ -71,4 +71,19 @@ describe("resolve", () => {
 
     expect(flexi.resolve(path, options)).toHaveMatchingMembersOf(expected);
   });
+
+  it("can report all levels in a path", () => {
+    const path = flexi.path("one/two/three");
+
+    const onNavigate = jest.fn(() => ({
+      state: NavigationState.Default
+    }));
+
+    flexi.resolve(path, {
+      predicate: () => false,
+      onNavigate
+    });
+
+    expect(onNavigate.mock.calls).toHaveLength(3);
+  });
 });

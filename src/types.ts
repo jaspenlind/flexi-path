@@ -115,6 +115,19 @@ export interface FlexiPath extends ParsedPath {
    * @param path The `path` to diff against
    */
   diff(path: Path): [FlexiPath, FlexiPath];
+
+  /**
+   * Flattens a `path`
+   * @param path The `path` to `flattern`
+   * @returns An array with the flatterned `path`
+   */
+  flatten(): FlexiPath[];
+
+  /**
+   * Reverses the `path`
+   */
+  reverse(): FlexiPath;
+
   /**
    * Writes the current `path` to disk if possible
    */
@@ -154,12 +167,12 @@ export interface ResolveOptions {
   /**
    * Condition that has to be met to indicate the `path` is a match
    */
-  predicate: (current: FlexiPath) => boolean;
+  predicate?: (current: FlexiPath, state: NavigationState) => boolean;
   /**
    * Callback function for each level navigated in the `path`
    * @param current The current level of the navigated `path`
    */
-  onNavigate?(current: FlexiPath): NavigationResult;
+  onNavigate?(current: FlexiPath, state: NavigationState): NavigationResult;
 }
 
 interface IgnoreFileExtensions {
@@ -198,7 +211,7 @@ export interface PathResolverStrategyOptions {
   onNavigate?(
     path: FlexiPath | null,
     current: FlexiPath,
-    isMatch: boolean
+    state: NavigationState
   ): void;
 }
 

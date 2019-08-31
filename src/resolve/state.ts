@@ -2,21 +2,23 @@ import { FlexiPath, ResolveOptions, NavigationState } from "..";
 
 export const getState = (
   path: FlexiPath,
-  options: ResolveOptions
+  options: ResolveOptions,
+  state: NavigationState
 ): [NavigationState, FlexiPath | null] => {
-  let state = options.predicate(path)
-    ? NavigationState.Found
-    : NavigationState.Default;
+  let newState =
+    options.predicate && options.predicate(path, state)
+      ? NavigationState.Found
+      : NavigationState.Default;
 
   let replacedPath: FlexiPath | undefined;
 
   if (options.onNavigate) {
-    const result = options.onNavigate(path);
-    state = result.state;
+    const result = options.onNavigate(path, newState);
+    newState = result.state;
     replacedPath = result.replace;
   }
 
-  return [state, replacedPath || null];
+  return [newState, replacedPath || null];
 };
 
 export default getState;
