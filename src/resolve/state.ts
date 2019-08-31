@@ -1,18 +1,22 @@
-import { FlexiPath, ResolveOptions, NavigationState } from "..";
+import flexi, { FlexiPath, ResolveOptions, NavigationState } from "..";
 
 export const getState = (
   path: FlexiPath,
   options: ResolveOptions
-): NavigationState => {
+): [NavigationState, FlexiPath | null] => {
   let state = options.predicate(path)
     ? NavigationState.Found
     : NavigationState.Default;
 
+  let replacedPath: FlexiPath | undefined;
+
   if (options.onNavigate) {
-    state = options.onNavigate(path);
+    const result = options.onNavigate(path);
+    state = result.state;
+    replacedPath = result.replace;
   }
 
-  return state;
+  return [state, replacedPath || null];
 };
 
 export default getState;

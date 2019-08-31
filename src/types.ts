@@ -122,7 +122,28 @@ export interface ResolveOptions {
    * Callback function for each level navigated in the `path`
    * @param current The current level of the navigated `path`
    */
-  onNavigate?(current: FlexiPath): NavigationState;
+  onNavigate?(current: FlexiPath): NavigationResult;
+}
+
+interface IgnoreFileExtensions {
+  ignoreFileExtensions?: boolean;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface PathExistsOptions extends IgnoreFileExtensions {}
+
+/**
+ * The result of a `ResolveOptions`.`onNavigate`
+ */
+export interface NavigationResult {
+  /**
+   * The `NavigationState`
+   */
+  state: NavigationState;
+  /**
+   * A new `path` to replace `current`path with (optional)
+   */
+  replace?: FlexiPath;
 }
 
 /**

@@ -26,10 +26,10 @@ const resolve = (
     currentOptions = options as ResolveOptions;
   }
 
-  const state = getState(currentPath, currentOptions);
+  const [state, replacerPath] = getState(currentPath, currentOptions);
 
   if (state === NavigationState.Found) {
-    return currentPath;
+    return replacerPath || currentPath;
   }
 
   const parent = currentPath.parent();

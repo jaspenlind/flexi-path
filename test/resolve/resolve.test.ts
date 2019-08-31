@@ -27,8 +27,11 @@ describe("resolve", () => {
     const expected = flexi.path("/fictional/");
 
     const predicate = (x: ParsedPath) => x.name === "path";
-    const onNavigate = (x: ParsedPath) =>
-      x.name === "fictional" ? NavigationState.Found : NavigationState.Skip;
+    const onNavigate = (x: ParsedPath) => ({
+      state:
+        x.name === "fictional" ? NavigationState.Found : NavigationState.Skip
+    });
+
     const result = flexi.resolve(path, { predicate, onNavigate });
 
     expect(result).toHaveMatchingMembersOf(expected);
@@ -39,7 +42,9 @@ describe("resolve", () => {
 
     const result = flexi.resolve(path, {
       predicate: () => true,
-      onNavigate: () => NavigationState.Abort
+      onNavigate: () => ({
+        state: NavigationState.Abort
+      })
     });
 
     expect(result).toBeNull();

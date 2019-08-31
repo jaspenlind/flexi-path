@@ -1,2 +1,3 @@
-export * from "./directoryHasPath";
-export * from "./pathExists";
+export * from "./equals";
+export * from "./closestExistingPath";
+export * from "./closestCommonParent";
