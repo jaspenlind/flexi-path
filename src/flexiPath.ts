@@ -28,6 +28,7 @@ export const flexiPath = (path: string): FlexiPath => {
     path: normalizedPath,
     isRoot: () => currentPath.isRoot(),
     exists: () => currentPath.exists(),
+    isEmpty: () => currentPath.isEmpty(),
     type: () => currentPath.type(),
     parent: (numberOfLevels?: any): any => getParent(numberOfLevels),
     subDirectories: (directoryName?: any): any =>

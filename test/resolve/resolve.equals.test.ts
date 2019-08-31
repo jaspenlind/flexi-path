@@ -7,10 +7,7 @@ describe("resolve", () => {
       const path = flexi.path("/a/little/path/");
       const expected = flexi.path("/a/little/");
 
-      const result = flexi.resolve(path, equals(expected));
-
-      console.log(result && result.path);
-      expect(result).toBeNull();
+      expect(flexi.resolve(path, equals(expected))).toBeNull();
     });
 
     it("should return null when paths are not equal", () => {

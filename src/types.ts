@@ -66,6 +66,10 @@ export interface FlexiPath extends ParsedPath {
    */
   exists(): boolean;
   /**
+   * `boolan` value indicatinf if the `path`is empty
+   */
+  isEmpty(): boolean;
+  /**
    * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
    * on disk is `Unknown`
    */
@@ -160,4 +164,9 @@ export interface PathResolverStrategy {
 /**
  * A `string` or `path` representing a `path`
  */
-export type Path = string | FlexiPath;
+export type Path = string | FlexiPath | PathWithBasePath;
+
+export interface PathWithBasePath {
+  basePath: Path;
+  path: Path;
+}

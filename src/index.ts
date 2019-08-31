@@ -1,5 +1,5 @@
 import flexiPath from "./flexiPath";
-import { isRoot, root } from "./path";
+import { isRoot, root, empty } from "./path";
 import resolve from "./resolve";
 
 export * from "./types";
@@ -22,6 +22,10 @@ export default {
    *
    */
   path: flexiPath,
+  /**
+   * Represents an empty `path`
+   */
+  empty: () => empty(),
   /**
    * A `path` representing the `root`
    */

@@ -1,9 +1,10 @@
-import flexi, {
+import {
   FlexiPath,
   ResolveOptions,
   NavigationState,
   PathResolverStrategy,
-  Path
+  Path,
+  parse
 } from "..";
 
 import getState from "./state";
@@ -15,8 +16,9 @@ const resolve = (
   path: Path,
   options: ResolveOptions | PathResolverStrategy
 ): FlexiPath | null => {
-  const currentPath: FlexiPath =
-    typeof path === "object" ? { ...path } : flexi.path(path);
+  const currentPath = parse(path);
+  // const currentPath: FlexiPath =
+  //   typeof path === "object" ? { ...path } : flexi.path(path);
   let currentOptions: ResolveOptions;
 
   const pathResolver = options as PathResolverStrategy;

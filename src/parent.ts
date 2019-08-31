@@ -1,26 +1,23 @@
 import { join } from "path";
-import flexi, { FlexiPath, isRoot, isValid, ParentQuery } from ".";
+import { FlexiPath, isRoot, isValid, ParentQuery, Path, parse } from ".";
 
 export const up = "../";
-export const parentPath = (path: string): string => join(path, up);
+export const parentPath = (path: Path): Path =>
+  parse(join(parse(path).path, up));
 
 /**
  * The `parent` directory of the `path`
  */
-export const parent = (childPath: string | FlexiPath): ParentQuery => (
+export const parent = (path: Path): ParentQuery => (
   numberOfLevels?: any
 ): FlexiPath | null => {
-  const path = typeof childPath === "object" ? childPath.path : childPath;
-
   if (!isValid(path) || isRoot(path)) {
     return null;
   }
 
   const levelsToNavigate = ((numberOfLevels as number) || 1) - 1;
 
-  const pathOfParent = parentPath(path);
-
-  let current: FlexiPath | null = flexi.path(pathOfParent);
+  let current: FlexiPath | null = parse(parentPath(path));
 
   if (levelsToNavigate > 0) {
     current = parent(current)(levelsToNavigate);

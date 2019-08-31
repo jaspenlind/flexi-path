@@ -1,13 +1,13 @@
 import { join } from "path";
-import flexi, { FlexiPath, path as pathHelper } from ".";
+import { FlexiPath, path as pathHelper, parse, Path } from ".";
 
 /**
  * The files in the current `path`
  */
-export const files = (path: string): FlexiPath[] =>
+export const files = (path: Path): FlexiPath[] =>
   pathHelper(path)
     .readDir()
     .filter(x => x.isFile())
-    .map(x => flexi.path(join(path, x.name)));
+    .map(x => parse(join(parse(path).path, x.name)));
 
 export default files;

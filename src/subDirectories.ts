@@ -1,22 +1,22 @@
 import { join } from "path";
-import flexi, { FlexiPath, SubDirectoryQuery, path as pathHelper } from ".";
+import { SubDirectoryQuery, path as pathHelper, parse, Path } from ".";
 
 /**
  * The sub directories of the `path` and a `path` builder
  * @param path The current `path`
  */
-export const subDirectories = (path: string | FlexiPath): SubDirectoryQuery => (
+export const subDirectories = (path: Path): SubDirectoryQuery => (
   directoryName?: any
 ): any => {
-  const pathAsString = typeof path === "object" ? path.path : path;
+  const parsed = parse(path);
   if (directoryName === undefined) {
-    return pathHelper(pathAsString)
+    return pathHelper(parsed)
       .readDir()
       .filter(x => x.isDirectory())
-      .map(x => flexi.path(join(pathAsString, x.name)));
+      .map(x => parse(join(parsed.path, x.name)));
   }
 
-  return flexi.path(join(pathAsString, directoryName));
+  return parse(join(parsed.path, directoryName));
 };
 
 export default subDirectories;

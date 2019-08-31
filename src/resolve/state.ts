@@ -1,4 +1,4 @@
-import flexi, { FlexiPath, ResolveOptions, NavigationState } from "..";
+import { FlexiPath, ResolveOptions, NavigationState } from "..";
 
 export const getState = (
   path: FlexiPath,
