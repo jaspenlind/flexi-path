@@ -1,6 +1,7 @@
 import { parse, normalize } from "path";
 import {
   FlexiPath,
+  Path,
   files,
   subDirectories,
   parent,
@@ -33,7 +34,8 @@ export const flexiPath = (path: string): FlexiPath => {
     parent: (numberOfLevels?: any): any => getParent(numberOfLevels),
     subDirectories: (directoryName?: any): any =>
       getSubDirectories(directoryName),
-    files: () => files(normalizedPath)
+    files: () => files(normalizedPath),
+    append: (...paths: Path[]) => currentPath.concat(...paths)
   };
 
   return api;

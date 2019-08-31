@@ -1,5 +1,5 @@
 import flexiPath from "./flexiPath";
-import { isRoot, root, empty } from "./path";
+import { isRoot, root, empty, concat } from "./path";
 import resolve from "./resolve";
 
 export * from "./types";
@@ -37,5 +37,9 @@ export default {
   /**
    * Navigates the `path` until a condition is met
    */
-  resolve
+  resolve,
+  /**
+   * Concatinates multiple `path` into a new `path`
+   */
+  concat
 };

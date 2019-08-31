@@ -86,6 +86,12 @@ export interface FlexiPath extends ParsedPath {
    * The files in the current `path`
    */
   files(): FlexiPath[];
+
+  /**
+   * Appends a `path` to the path
+   * @param path The `path` to append
+   */
+  append(...paths: Path[]): FlexiPath;
 }
 
 /**

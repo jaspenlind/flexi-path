@@ -20,6 +20,16 @@ export const parse = (path: Path): FlexiPath => {
   return parsed || flexi.path(path as string);
 };
 
+export const concat = (path: Path, ...paths: Path[]): FlexiPath => {
+  const initial = parse(path).path;
+
+  const result = (paths || []).reduce<string>((prev: string, current: Path) => {
+    return join(prev, parse(current).path);
+  }, initial);
+
+  return flexi.path(result);
+};
+
 export const isEmpty = (path: Path | null): boolean =>
   path === null || parse(path).path === empty().path;
 
@@ -80,6 +90,10 @@ export const path = (currentPath: Path) => {
      * `boolean` value indicating if the `path` exists or not
      */
     exists: () => exists(currentPath),
+    /**
+     * Concatinates multiple `path` objects into a new `path`
+     */
+    concat: (...paths: Path[]) => concat(currentPath, ...paths),
     stats: () => stats(currentPath),
     /**
      * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
