@@ -17,8 +17,6 @@ const resolve = (
   options: ResolveOptions | PathResolverStrategy
 ): FlexiPath | null => {
   const currentPath = parse(path);
-  // const currentPath: FlexiPath =
-  //   typeof path === "object" ? { ...path } : flexi.path(path);
   let currentOptions: ResolveOptions;
 
   const pathResolver = options as PathResolverStrategy;

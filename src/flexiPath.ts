@@ -37,6 +37,8 @@ export const flexiPath = (path: string): FlexiPath => {
       getSubDirectories(directoryName),
     files: () => files(normalizedPath),
     append: (...paths: Path[]) => currentPath.concat(...paths),
+    prepend: (...paths: Path[]) => currentPath.prepend(...paths),
+    diff: (other: Path) => currentPath.diff(other),
     write: () => currentPath.write()
   };
 

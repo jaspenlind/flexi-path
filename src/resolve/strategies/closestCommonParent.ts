@@ -1,8 +1,17 @@
-import flexi, { FlexiPath, ResolveOptions } from "../..";
+import flexi, {
+  FlexiPath,
+  ResolveOptions,
+  PathResolverStrategyOptions,
+  NavigationState
+} from "../..";
 import { equals } from ".";
 
-const resolve = (path: FlexiPath): ResolveOptions => {
+const resolve = (
+  path: FlexiPath,
+  options?: PathResolverStrategyOptions
+): ResolveOptions => {
   let parent: FlexiPath | null;
+  let result: boolean;
   const predicate = (current: FlexiPath) => {
     if (parent === undefined) {
       parent = path;
@@ -10,16 +19,32 @@ const resolve = (path: FlexiPath): ResolveOptions => {
       parent = parent && parent.parent();
     }
 
-    return (parent && flexi.resolve(parent, equals(current))) !== null;
+    result = (parent && flexi.resolve(parent, equals(current))) !== null;
+
+    return result;
+  };
+
+  const onNavigate = (current: FlexiPath) => {
+    if (options && options.onNavigate) {
+      options.onNavigate(parent, current, result);
+    }
+
+    return result
+      ? { state: NavigationState.Found }
+      : { state: NavigationState.Default };
   };
 
   return {
-    predicate
+    predicate,
+    onNavigate
   };
 };
 
-export const closestCommonParent = (path: FlexiPath) => ({
-  resolve: () => resolve(path)
+export const closestCommonParent = (
+  path: FlexiPath,
+  options?: PathResolverStrategyOptions
+) => ({
+  resolve: () => resolve(path, options)
 });
 
 export default closestCommonParent;

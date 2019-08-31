@@ -1,7 +1,8 @@
-import { join } from "path";
+import { join, sep } from "path";
 import shell from "shelljs";
 import { Stats, existsSync, lstatSync, readdirSync, Dirent } from "fs";
 import flexi, { Path, PathWithBasePath, PathType, FlexiPath } from ".";
+import { closestCommonParent } from "./resolve/strategies";
 
 export const empty = "";
 
@@ -20,7 +21,11 @@ export const parse = (path: Path): FlexiPath => {
 
   return parsed || flexi.path(path as string);
 };
-
+/**
+ *
+ * @param path The `path` to concatinate
+ * @param paths One or multiple `paths` to concatinate the `path` with
+ */
 export const concat = (path: Path, ...paths: Path[]): FlexiPath => {
   const initial = parse(path).path;
 
@@ -29,6 +34,43 @@ export const concat = (path: Path, ...paths: Path[]): FlexiPath => {
   }, initial);
 
   return flexi.path(result);
+};
+
+/**
+ * @param path The `path` to prepend
+ * @param paths One or multiple `paths` to prepend the `path` with
+ */
+export const prepend = (path: Path, ...paths: Path[]): FlexiPath => {
+  const allPaths = [...paths, path];
+
+  if (allPaths.length > 1) {
+    const [first, ...rest] = allPaths;
+    return concat(first, ...rest);
+  }
+
+  return parse(path);
+};
+
+/**
+ * @param path The first `path` to diff
+ * @param other The first `path` to diff
+ */
+export const diff = (path: Path, other: Path): [FlexiPath, FlexiPath] => {
+  let path1 = flexi.empty();
+  let path2 = flexi.empty();
+  flexi.resolve(
+    parse(path),
+    closestCommonParent(parse(other), {
+      onNavigate: (first: FlexiPath, second: FlexiPath, isMatch: boolean) => {
+        if (!isMatch) {
+          path1 = path1.prepend(second.base);
+          path2 = path2.prepend(first.base);
+        }
+      }
+    })
+  );
+
+  return [path1, path2];
 };
 
 export const isEmpty = (path: Path | null): boolean =>
@@ -51,8 +93,7 @@ export const guessType = (path: Path): PathType => {
     return PathType.Unknown;
   }
   const maybeFile =
-    // (parsed.dir.split(/\/|\\/).length > 1 ||
-    (parsed.ext !== "" || !parsed.path.match(/\/|\\$/)) &&
+    (parsed.ext !== "" || !parsed.path.endsWith(sep)) &&
     parsed.parent() !== null;
 
   return maybeFile ? PathType.File : PathType.Directory;
@@ -137,6 +178,12 @@ export const path = (currentPath: Path) => {
      * Concatinates multiple `path` objects into a new `path`
      */
     concat: (...paths: Path[]) => concat(currentPath, ...paths),
+    prepend: (...paths: Path[]) => prepend(currentPath, ...paths),
+    /**
+     * Get the diff for two paths
+     * @param path The `path` to diff against
+     */
+    diff: (other: Path) => diff(currentPath, other),
     stats: () => stats(currentPath),
     /**
      * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist

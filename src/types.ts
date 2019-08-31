@@ -94,11 +94,27 @@ export interface FlexiPath extends ParsedPath {
   files(): FlexiPath[];
 
   /**
-   * Appends a `path` to the path
+   * Prepends the `path`s to the path
+   * @param path The `path` to prepend
+   */
+  prepend(...paths: Path[]): FlexiPath;
+
+  /**
+   * Appends  `path`s to the path
    * @param path The `path` to append
    */
   append(...paths: Path[]): FlexiPath;
 
+  /**
+   * Get the diff for two paths
+   * @example
+   * const first = flexi.path("some/common/and/unique/paths");
+   * const second = flexi.path("some/common/with/other/paths");
+   * const diff = first.diff(second);
+   * //==> [ "and/unique/paths", "with/other/paths" ]
+   * @param path The `path` to diff against
+   */
+  diff(path: Path): [FlexiPath, FlexiPath];
   /**
    * Writes the current `path` to disk if possible
    */
@@ -176,6 +192,14 @@ export interface PathResolverStrategy {
    * @param current The current level of the navigated `path`
    */
   resolve(current: FlexiPath): ResolveOptions;
+}
+
+export interface PathResolverStrategyOptions {
+  onNavigate?(
+    path: FlexiPath | null,
+    current: FlexiPath,
+    isMatch: boolean
+  ): void;
 }
 
 /**
