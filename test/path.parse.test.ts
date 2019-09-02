@@ -44,5 +44,56 @@ describe("path", () => {
         parse({ basePath: flexi.path(basePath), path: flexi.path(path) }).path
       ).toBe(basePathWithPath);
     });
+
+    it("can parse when path is array of strings", () => {
+      const array = ["array", "path"];
+
+      expect(parse(array).path).toBe("array/path");
+    });
+
+    it("can parse when basePath=string and path=array", () => {
+      const first = "a/base/path";
+      const second = ["second", "path"];
+
+      expect(parse({ basePath: first, path: second }).path).toBe(
+        "a/base/path/second/path"
+      );
+    });
+
+    it("can parse when basePath=array and path=array", () => {
+      const first = ["a", "base", "path"];
+      const second = ["second", "path"];
+
+      expect(parse({ basePath: first, path: second }).path).toBe(
+        "a/base/path/second/path"
+      );
+    });
+
+    it("can parse when basePath=array and path=string", () => {
+      const first = ["a", "base", "path"];
+      const second = "second/path";
+
+      expect(parse({ basePath: first, path: second }).path).toBe(
+        "a/base/path/second/path"
+      );
+    });
+
+    it("can parse when basePath=FlexiPath and path=array", () => {
+      const first = flexi.path("a/base/path");
+      const second = ["second", "path"];
+
+      expect(parse({ basePath: first, path: second }).path).toBe(
+        "a/base/path/second/path"
+      );
+    });
+
+    it("can parse whan basePath=array and path=FlexiPath", () => {
+      const first = ["a", "base", "path"];
+      const second = flexi.path("second/path");
+
+      expect(parse({ basePath: first, path: second }).path).toBe(
+        "a/base/path/second/path"
+      );
+    });
   });
 });

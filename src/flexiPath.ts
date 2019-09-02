@@ -5,7 +5,8 @@ import {
   files,
   subDirectories,
   parent,
-  path as pathHelper
+  path as pathHelper,
+  parse as parsePath
 } from ".";
 
 /**
@@ -13,8 +14,10 @@ import {
  *
  * @param path A `string` representation of a valid file path or any arbitrary path
  */
-export const flexiPath = (path: string): FlexiPath => {
-  const normalizedPath = normalize(path);
+export const flexiPath = (path: Path): FlexiPath => {
+  const pathAsString =
+    typeof path === "string" ? (path as string) : parsePath(path).path;
+  const normalizedPath = normalize(pathAsString);
   const { root, dir, ext, base, name } = parse(normalizedPath);
   const getParent = parent(normalizedPath);
   const getSubDirectories = subDirectories(normalizedPath);

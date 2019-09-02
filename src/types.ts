@@ -227,7 +227,7 @@ export interface PathResolverStrategy {
 /**
  * A `string` or `path` representing a `path`
  */
-export type Path = string | FlexiPath | PathWithBasePath;
+export type Path = string | string[] | FlexiPath | PathWithBasePath;
 
 export interface PathWithBasePath {
   basePath: Path;

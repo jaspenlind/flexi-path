@@ -16,6 +16,10 @@ export const empty = "";
 
 export const parse = (path: Path): FlexiPath => {
   let parsed: FlexiPath | undefined;
+  if (Array.isArray(path)) {
+    return flexi.path(join(...path));
+  }
+
   if (typeof path === "object") {
     const pathWithBasePath = path as PathWithBasePath;
     if (typeof pathWithBasePath.basePath !== "undefined") {
