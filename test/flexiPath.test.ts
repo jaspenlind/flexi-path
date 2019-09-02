@@ -59,4 +59,8 @@ describe("initial state", () => {
   it("should not have files", () => {
     expect(flex.files()).toBeEmpty();
   });
+
+  it("should have depth", () => {
+    expect(flex.depth()).toBe(5);
+  });
 });

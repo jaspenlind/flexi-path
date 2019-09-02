@@ -156,6 +156,11 @@ export interface FlexiPath extends ParsedPath {
    * Writes the current `path` to disk if possible
    */
   write(): void;
+
+  /**
+   * The `depth` of this `path`
+   */
+  depth(): number;
 }
 
 /**

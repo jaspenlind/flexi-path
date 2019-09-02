@@ -48,7 +48,8 @@ export const flexiPath = (path: Path): FlexiPath => {
     flatten: () => currentPath.flatten(),
     cut: (count: number) => currentPath.cut(count),
     intersect: (...paths: Path[]) => currentPath.intersect(...paths),
-    except: (...paths: Path[]) => currentPath.except(...paths)
+    except: (...paths: Path[]) => currentPath.except(...paths),
+    depth: () => currentPath.flatten().length
   };
 
   return api;
