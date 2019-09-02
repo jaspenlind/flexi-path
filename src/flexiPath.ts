@@ -28,6 +28,7 @@ export const flexiPath = (path: string): FlexiPath => {
     name,
     path: normalizedPath,
     isRoot: () => currentPath.isRoot(),
+    hasRoot: () => currentPath.hasRoot(),
     exists: () => currentPath.exists(),
     isEmpty: () => currentPath.isEmpty(),
     isValid: () => currentPath.isValid(),
@@ -41,7 +42,10 @@ export const flexiPath = (path: string): FlexiPath => {
     diff: (other: Path) => currentPath.diff(other),
     reverse: () => currentPath.reverse(),
     write: () => currentPath.write(),
-    flatten: () => currentPath.flatten()
+    flatten: () => currentPath.flatten(),
+    cut: (count: number) => currentPath.cut(count),
+    intersect: (...paths: Path[]) => currentPath.intersect(...paths),
+    except: (...paths: Path[]) => currentPath.except(...paths)
   };
 
   return api;

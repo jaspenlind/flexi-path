@@ -12,14 +12,14 @@ describe("resolve", () => {
     expect(result).toHaveMatchingMembersOf(expected);
   });
 
-  it("should be null when predicate does not match", () => {
+  it("should be empty when predicate does not match", () => {
     const path = flexi.path("dummy");
 
     const result = flexi.resolve(path, {
       predicate: x => x.root === "invalid"
     });
 
-    expect(result).toBeNull();
+    expect(result).toBe(flexi.empty());
   });
 
   it("can resolve with navigate skip override", () => {
@@ -41,13 +41,13 @@ describe("resolve", () => {
     const path = flexi.path("/fictional/path/with/file.js");
 
     const result = flexi.resolve(path, {
-      predicate: () => true,
+      predicate: () => false,
       onNavigate: () => ({
         state: NavigationState.Abort
       })
     });
 
-    expect(result).toBeNull();
+    expect(result).toBe(flexi.empty());
   });
 
   it("can return directory with predicate", () => {

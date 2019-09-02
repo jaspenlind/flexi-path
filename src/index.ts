@@ -1,4 +1,4 @@
-import path from "./flexiPath";
+import flexiPath from "./flexiPath";
 import { isRoot, root, empty, concat, exists, isEmpty } from "./path";
 import resolve from "./resolve";
 
@@ -7,6 +7,11 @@ export * from "./subDirectories";
 export * from "./files";
 export * from "./parent";
 export * from "./path";
+export * from "./walker";
+export * from "./resolve/strategies";
+
+const emptyPath = flexiPath(empty);
+const rootPath = flexiPath(root);
 
 /**
  * flexi-path
@@ -21,11 +26,11 @@ export default {
    * const path = flexi.path("any path");
    *
    */
-  path,
+  path: flexiPath,
   /**
    * Represents an empty `path`
    */
-  empty: () => path(empty),
+  empty: () => emptyPath,
   /**
    * `boolan` value indicatinf if the `path`is empty
    */
@@ -33,7 +38,7 @@ export default {
   /**
    * A `path` representing the `root`
    */
-  root: () => path(root),
+  root: () => rootPath,
   /**
    * Indicates if the `path` is a root path
    */

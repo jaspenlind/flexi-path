@@ -62,6 +62,8 @@ export interface FlexiPath extends ParsedPath {
    */
   isRoot(): boolean;
 
+  hasRoot(): boolean;
+
   /**
    * `boolean` value representing if the `path` can be created on the disk
    */
@@ -129,6 +131,27 @@ export interface FlexiPath extends ParsedPath {
   reverse(): FlexiPath;
 
   /**
+   * Cuts a path
+   * @param count Number of levels to cut
+   * @returns The cutted `path`
+   */
+  cut(count: number): FlexiPath;
+
+  /**
+   * Intersects paths
+   * @param paths The `paths` to `intersect` with
+   * @returns The intersected part of the `path`
+   */
+  intersect(...paths: Path[]): FlexiPath;
+
+  /**
+   * Excludes `paths`from a `path`
+   * @param paths The `paths`to exclude
+   * @returns The `path` except for the `paths` that intersects
+   */
+  except(...paths: Path[]): FlexiPath;
+
+  /**
    * Writes the current `path` to disk if possible
    */
   write(): void;
@@ -175,12 +198,9 @@ export interface ResolveOptions {
   onNavigate?(current: FlexiPath, state: NavigationState): NavigationResult;
 }
 
-interface IgnoreFileExtensions {
+export interface PathExistsOptions {
   ignoreFileExtensions?: boolean;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface PathExistsOptions extends IgnoreFileExtensions {}
 
 /**
  * The result of a `ResolveOptions`.`onNavigate`
@@ -190,10 +210,6 @@ export interface NavigationResult {
    * The `NavigationState`
    */
   state: NavigationState;
-  /**
-   * A new `path` to replace `current`path with (optional)
-   */
-  replace?: FlexiPath;
 }
 
 /**
@@ -207,14 +223,6 @@ export interface PathResolverStrategy {
   resolve(current: FlexiPath): ResolveOptions;
 }
 
-export interface PathResolverStrategyOptions {
-  onNavigate?(
-    path: FlexiPath | null,
-    current: FlexiPath,
-    state: NavigationState
-  ): void;
-}
-
 /**
  * A `string` or `path` representing a `path`
  */
@@ -223,4 +231,11 @@ export type Path = string | FlexiPath | PathWithBasePath;
 export interface PathWithBasePath {
   basePath: Path;
   path: Path;
+}
+
+export type WalkUntil = (current: FlexiPath) => boolean;
+
+export interface WalkedPath {
+  path: FlexiPath;
+  diff: FlexiPath;
 }

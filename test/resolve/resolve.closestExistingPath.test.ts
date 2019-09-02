@@ -1,7 +1,7 @@
 import { join } from "path";
 import flexi from "../../src";
 
-import { closestExistingPath } from "../../src/resolve/strategies";
+import { closestExistingPath } from "../../src/resolve/strategies/closestExistingPath";
 
 import testData from "../jest/createTestData";
 
@@ -30,21 +30,21 @@ describe("resolve", () => {
     });
 
     it("should return file independent of file extension", () => {
-      const file = testData.createFile("pathExists-fileext.ts");
-
-      const expected = flexi.path(file);
+      testData.createFile("pathExists-fileext.ts");
 
       const path = flexi.path(join(testData.testDir, "pathExists-fileext"));
 
       expect(
         flexi.resolve(path, closestExistingPath({ ignoreFileExtensions: true }))
-      ).toHaveMatchingMembersOf(expected);
+      ).toHaveMatchingMembersOf(path);
     });
 
-    it("should return null when path is invalid", () => {
+    it("should be empty when path is invalid", () => {
       const nonExistingPath = flexi.path("invalid");
 
-      expect(flexi.resolve(nonExistingPath, closestExistingPath())).toBeNull();
+      expect(flexi.resolve(nonExistingPath, closestExistingPath())).toBe(
+        flexi.empty()
+      );
     });
 
     it("should return root when path does not exist", () => {

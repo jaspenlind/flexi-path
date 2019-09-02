@@ -1,20 +1,28 @@
 import flexi from "../../src";
-import { equals } from "../../src/resolve/strategies";
+import { equals } from "../../src/resolve/strategies/equals";
 
 describe("resolve", () => {
   describe("equals", () => {
-    it("should return null when path is subpath of path", () => {
+    it("should be empty when path is subpath of path", () => {
       const path = flexi.path("/a/little/path/");
       const expected = flexi.path("/a/little/");
 
-      expect(flexi.resolve(path, equals(expected))).toBeNull();
+      expect(flexi.resolve(path, equals(expected))).toBe(flexi.empty());
     });
 
-    it("should return null when paths are not equal", () => {
+    it("should be empty when paths are not equal", () => {
       const existing = flexi.path("existing");
       const nonExistingPath = flexi.path("nonExisting");
 
-      expect(flexi.resolve(existing, equals(nonExistingPath))).toBeNull();
+      expect(flexi.resolve(existing, equals(nonExistingPath))).toBe(
+        flexi.empty()
+      );
+    });
+
+    it("should return path when equal", () => {
+      const path = flexi.path("path");
+
+      expect(flexi.resolve(path, equals(path))).toHaveMatchingMembersOf(path);
     });
 
     it("should return path to file regardless of file extension", () => {

@@ -1,49 +1,26 @@
-import {
-  FlexiPath,
-  PathExistsOptions,
-  ResolveOptions,
-  NavigationState
-} from "../..";
+import { FlexiPath, PathExistsOptions } from "../..";
 
-const resolve = (
-  path: FlexiPath,
-  options?: PathExistsOptions
-): ResolveOptions => {
-  let result: FlexiPath | null;
+export const equals = (path: FlexiPath, options?: PathExistsOptions) => {
+  let areEqual: boolean;
 
   const predicate = (current: FlexiPath) => {
-    if (result === undefined) {
-      result = current.path === path.path ? current : null;
-    }
+    if (areEqual === undefined) {
+      areEqual = current.path === path.path;
 
-    return result !== null;
-  };
+      if (!areEqual && options && options.ignoreFileExtensions) {
+        const parent = current.parent();
 
-  const onNavigate = (current: FlexiPath) => {
-    let exists = predicate(current);
-
-    if (!exists && options && options.ignoreFileExtensions === true) {
-      const currentParent = current.parent();
-      const pathParent = path.parent();
-
-      if (currentParent && pathParent) {
-        exists =
-          currentParent.path === pathParent.path && current.name === path.name;
+        areEqual =
+          parent !== null && parent.append(current.name).path === path.path;
       }
     }
-    return {
-      state: exists ? NavigationState.Found : NavigationState.Default
-    };
+
+    return areEqual;
   };
 
   return {
-    predicate,
-    onNavigate
+    predicate
   };
 };
-
-export const equals = (path: FlexiPath, options?: PathExistsOptions) => ({
-  resolve: () => resolve(path, options)
-});
 
 export default equals;

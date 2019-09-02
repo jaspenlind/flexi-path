@@ -1,13 +1,15 @@
 import flexi from "../../src";
-import { closestCommonParent } from "../../src/resolve/strategies";
+import { closestCommonParent } from "../../src/resolve/strategies/closestCommonParent";
 
 describe("resolve", () => {
   describe("closestCommonParent", () => {
-    it("should return null when paths has no common parent", () => {
+    it("should be empty when paths has no common parent", () => {
       const first = flexi.path("/unknown/path");
       const second = flexi.path("/another");
 
-      expect(flexi.resolve(first, closestCommonParent(second))).toBeNull();
+      expect(flexi.resolve(first, closestCommonParent(second))).toBe(
+        flexi.empty()
+      );
     });
 
     it("should return closest parent", () => {

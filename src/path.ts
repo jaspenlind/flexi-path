@@ -6,9 +6,11 @@ import flexi, {
   PathWithBasePath,
   PathType,
   FlexiPath,
-  NavigationState
+  walker,
+  strategies
 } from ".";
-import { closestCommonParent } from "./resolve/strategies";
+
+import { diff as diffPath } from "./resolve";
 
 export const empty = "";
 
@@ -27,6 +29,54 @@ export const parse = (path: Path): FlexiPath => {
 
   return parsed || flexi.path(path as string);
 };
+
+export const cut = (path: Path, count: number): FlexiPath => {
+  return flexi.resolve(path, strategies.cut(count)) || flexi.empty();
+};
+
+const flatReduce = (
+  filter: (prev: string[], current: string[]) => string[],
+  path: Path,
+  ...paths: Path[]
+): FlexiPath => {
+  const parsedPath = parse(path);
+  const parsedPaths = (paths || []).map(x => parse(x));
+
+  if (parsedPath.isEmpty() || parsedPaths.find(x => x.isEmpty())) {
+    return flexi.empty();
+  }
+  const flattenedPath = parsedPath.flatten().map(x => x.path);
+
+  const flattenedPaths = parsedPaths.map(x => x.flatten().map(z => z.path));
+
+  const result = flattenedPaths.reduce((prev: string[], current: string[]) => {
+    return filter(prev, current);
+  }, flattenedPath);
+
+  return result.reduce<FlexiPath>(
+    (prev: FlexiPath, current: string) => prev.append(current),
+    flexi.empty()
+  );
+};
+
+export const except = (path: Path, ...paths: Path[]): FlexiPath => {
+  return flatReduce(
+    (prev: string[], current: string[]) =>
+      prev.filter(x => !current.includes(x)),
+    path,
+    ...paths
+  );
+};
+
+export const intersect = (path: Path, ...paths: Path[]): FlexiPath => {
+  return flatReduce(
+    (prev: string[], current: string[]) =>
+      prev.filter(x => current.includes(x)),
+    path,
+    ...paths
+  );
+};
+
 /**
  *
  * @param path The `path` to concatinate
@@ -62,46 +112,32 @@ export const prepend = (path: Path, ...paths: Path[]): FlexiPath => {
  * @param other The first `path` to diff
  */
 export const diff = (path: Path, other: Path): [FlexiPath, FlexiPath] => {
-  let path1 = flexi.empty();
-  let path2 = flexi.empty();
-  flexi.resolve(
-    parse(path),
-    closestCommonParent(parse(other), {
-      onNavigate: (
-        first: FlexiPath,
-        second: FlexiPath,
-        state: NavigationState
-      ) => {
-        if (state !== NavigationState.Found) {
-          path1 = path1.prepend(second.base);
-          path2 = path2.prepend(first.base);
-        }
-      }
-    })
-  );
-
-  return [path1, path2];
+  return [
+    diffPath(path, strategies.closestCommonParent(parse(other))),
+    diffPath(other, strategies.closestCommonParent(parse(path)))
+  ];
 };
+
+export const hasRoot = (path: Path) => parse(path).root === sep;
+
 /**
  * Flattens a `path`
  * @param path The `path` to `flattern`
  * @returns An array with the flatterned `path`
  */
-
 export const flatten = (path: Path): FlexiPath[] => {
   if (flexi.isEmpty(path)) {
     return [];
   }
 
-  const result: string[] = [];
-  flexi.resolve(path, {
-    onNavigate: (current: FlexiPath, state: NavigationState) => {
-      result.unshift(current.base);
-      return { state };
-    }
+  const result: FlexiPath[] = [];
+
+  walker.walk(parse(path), (current: FlexiPath) => {
+    result.unshift(flexi.path(current.isRoot() ? current.root : current.base));
+    return current.parent() === null;
   });
 
-  return result.map(x => flexi.path(x));
+  return result;
 };
 
 export const reverse = (path: Path): FlexiPath => {
@@ -209,6 +245,8 @@ export const path = (currentPath: Path) => {
      * `boolean` value indicating if the `path` is a `root` path
      */
     isRoot: () => isRoot(currentPath),
+
+    hasRoot: () => hasRoot(currentPath),
     /**
      * `boolan` value indicatinf if the `path`is empty
      */
@@ -242,7 +280,27 @@ export const path = (currentPath: Path) => {
      * Writes the current `path` to disk if possible
      */
     write: () => write(currentPath),
-    flatten: () => flatten(currentPath)
+    flatten: () => flatten(currentPath),
+    /**
+     * Cuts a path
+     * @param count Number of levels to cut
+     * @returns The cutted `path`
+     */
+    cut: (count: number) => cut(currentPath, count),
+
+    /**
+     * Intersects paths
+     * @param paths The `paths` to `intersect` with
+     * @returns The intersected part of the `path`
+     */
+    intersect: (...paths: Path[]) => intersect(currentPath, ...paths),
+
+    /**
+     * Excludes `paths`from a `path`
+     * @param paths The `paths`to exclude
+     * @returns The `path` except for the `paths` that intersects
+     */
+    except: (...paths: Path[]) => except(currentPath, ...paths)
   };
 };
 

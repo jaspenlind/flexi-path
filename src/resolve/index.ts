@@ -1,47 +1,93 @@
-import {
+import flexi, {
   FlexiPath,
   ResolveOptions,
   NavigationState,
   PathResolverStrategy,
   Path,
-  parse
+  parse,
+  walker,
+  WalkedPath
 } from "..";
 
-import getState from "./state";
-
-/**
- * Navigates the `path` until a condition is met
- */
-const resolve = (
-  path: Path,
+const parseOptions = (
   options: ResolveOptions | PathResolverStrategy
-): FlexiPath | null => {
-  const currentPath = parse(path);
-  let currentOptions: ResolveOptions;
+): ((current: FlexiPath) => ResolveOptions) => {
+  let parsed: (current: FlexiPath) => ResolveOptions;
   const pathResolver = options as PathResolverStrategy;
 
   if (pathResolver.resolve) {
-    currentOptions = pathResolver.resolve(currentPath);
+    parsed = (current: FlexiPath) => pathResolver.resolve(current);
   } else {
-    currentOptions = options as ResolveOptions;
-  }
-  const [state, replacerPath] = getState(
-    currentPath,
-    currentOptions,
-    NavigationState.Default
-  );
-
-  if (state === NavigationState.Found) {
-    return replacerPath || currentPath;
+    parsed = () => options as ResolveOptions;
   }
 
-  const parent = currentPath.parent();
+  return parsed;
+};
 
-  if (state === NavigationState.Abort || parent === null) {
-    return null;
+const walkUntil = (
+  current: FlexiPath,
+  options: (current: FlexiPath) => ResolveOptions
+): NavigationState => {
+  let state = NavigationState.Default;
+  const currentOptions = options(current);
+
+  if (currentOptions.predicate) {
+    state =
+      currentOptions.predicate(current, state) === true
+        ? NavigationState.Found
+        : state;
   }
 
-  return resolve(parent, currentOptions);
+  if (currentOptions.onNavigate) {
+    const navigationResult = currentOptions.onNavigate(current, state);
+    state = navigationResult.state;
+  }
+
+  return state;
+};
+
+export const walk = (
+  path: Path,
+  options: ResolveOptions | PathResolverStrategy
+): WalkedPath => {
+  const parsedPath = parse(path);
+  const parsedOptions = parseOptions(options);
+
+  if (parsedPath.isEmpty()) {
+    return { path: flexi.empty(), diff: flexi.empty() };
+  }
+
+  let aborted = false;
+
+  const result = walker.walk(parsedPath, (current: FlexiPath) => {
+    const state = walkUntil(current, parsedOptions);
+
+    if (state === NavigationState.Abort) {
+      aborted = true;
+    }
+
+    return state === NavigationState.Abort || state === NavigationState.Found;
+  });
+
+  if (aborted) {
+    return { path: flexi.empty(), diff: flexi.empty() };
+  }
+
+  return result;
+};
+
+export const diff = (
+  path: Path,
+  options: ResolveOptions | PathResolverStrategy
+): FlexiPath => {
+  return walk(path, options).diff;
+};
+
+export const resolve = (
+  path: Path,
+  options: ResolveOptions | PathResolverStrategy
+): FlexiPath | null => {
+  return walk(path, options).path;
 };
 
 export default resolve;
