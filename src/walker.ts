@@ -12,7 +12,7 @@ const walk = (
     return { path, diff };
   }
 
-  if (parent === null) {
+  if (parent.isEmpty()) {
     return { path: flexi.empty(), diff };
   }
 

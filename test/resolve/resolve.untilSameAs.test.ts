@@ -1,5 +1,4 @@
-import flexi from "../../src";
-import { closestCommonParent } from "../../src/resolve/strategies/closestCommonParent";
+import flexi, { strategies } from "../../src";
 
 describe("resolve", () => {
   describe("closestCommonParent", () => {
@@ -7,7 +6,7 @@ describe("resolve", () => {
       const first = flexi.path("/unknown/path");
       const second = flexi.path("/another");
 
-      expect(flexi.resolve(first, closestCommonParent(second))).toBe(
+      expect(flexi.resolve(first, strategies.untilSameAs(second))).toBe(
         flexi.empty()
       );
     });
@@ -18,7 +17,7 @@ describe("resolve", () => {
       const expected = flexi.path("/closest/parent/");
 
       expect(
-        flexi.resolve(first, closestCommonParent(second))
+        flexi.resolve(first, strategies.untilSameAs(second))
       ).toHaveMatchingMembersOf(expected);
     });
   });

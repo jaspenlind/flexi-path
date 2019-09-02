@@ -1,6 +1,6 @@
 import { FlexiPath, walker } from "../..";
 
-export const closestCommonParent = (path: FlexiPath) => {
+export const untilSameAs = (path: FlexiPath) => {
   return {
     predicate: (current: FlexiPath) => {
       const walked = walker.walk(path, (other: FlexiPath) => {
@@ -12,4 +12,4 @@ export const closestCommonParent = (path: FlexiPath) => {
   };
 };
 
-export default closestCommonParent;
+export default untilSameAs;

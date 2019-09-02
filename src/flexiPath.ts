@@ -33,7 +33,7 @@ export const flexiPath = (path: string): FlexiPath => {
     isEmpty: () => currentPath.isEmpty(),
     isValid: () => currentPath.isValid(),
     type: () => currentPath.type(),
-    parent: (numberOfLevels?: any): any => getParent(numberOfLevels),
+    parent: (query?: any): any => getParent(query),
     subDirectories: (directoryName?: any): any =>
       getSubDirectories(directoryName),
     files: () => files(normalizedPath),

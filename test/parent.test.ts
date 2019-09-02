@@ -8,16 +8,10 @@ describe("parent", () => {
     flex = flexi.path(path);
   });
 
-  it("should be null when path is invalid", () => {
+  it("should be empty when path is invalid", () => {
     const invalid = flexi.path("invalid");
 
-    expect(invalid.parent()).toBeNull();
-  });
-
-  it("should be null when path is root", () => {
-    const root = flexi.root();
-
-    expect(root.parent()).toBeNull();
+    expect(invalid.parent()).toBe(flexi.empty());
   });
 
   it("should be parent", () => {
@@ -51,23 +45,13 @@ describe("parent", () => {
       expect(received).toHaveMatchingMembersOf(expected);
     });
 
-    it("should be null when levels is greater than path", () => {
-      expect(parent(flexi.root().path)(5000)).toBeNull();
+    it("should be empty when levels is greater than path", () => {
+      expect(parent(flexi.root().path)(5000)).toBe(flexi.empty());
     });
   });
 
   const goToRoot = (current: FlexiPath): FlexiPath | null => {
-    const parentOfCurrent = parent(current.path)();
-
-    if (parentOfCurrent === null) {
-      return null;
-    }
-
-    if (parentOfCurrent.isRoot()) {
-      return parentOfCurrent;
-    }
-
-    return goToRoot(parentOfCurrent);
+    return current.isRoot() ? current : goToRoot(current.parent());
   };
 
   it("can navigate to root", () => {
@@ -78,9 +62,13 @@ describe("parent", () => {
     expect(result).toHaveMatchingMembersOf(root);
   });
 
-  it("should have null parent of root", () => {
+  it("should be empty when parent is root", () => {
     const root = flexi.root();
 
-    expect(parent(root.path)()).toBeNull();
+    expect(root.parent()).toBe(flexi.empty());
+  });
+
+  it("should return parent when condition is met", () => {
+    expect(flex.parent(x => x.name === "directory").path).toBe("/directory/");
   });
 });

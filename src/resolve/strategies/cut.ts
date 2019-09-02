@@ -5,7 +5,7 @@ export const cut = (count: number) => {
 
   const predicate = (current: FlexiPath) => {
     const done =
-      current.isEmpty() || current.parent() === null || currentCount >= count;
+      current.isEmpty() || current.parent().isEmpty() || currentCount >= count;
 
     currentCount += 1;
 

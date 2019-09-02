@@ -1,7 +1,5 @@
 import { join } from "path";
-import flexi from "../../src";
-
-import { closestExistingPath } from "../../src/resolve/strategies/closestExistingPath";
+import flexi, { strategies } from "../../src";
 
 import testData from "../jest/createTestData";
 
@@ -15,7 +13,7 @@ describe("resolve", () => {
       const expected = flexi.path(subDir);
 
       expect(
-        flexi.resolve(path, closestExistingPath())
+        flexi.resolve(path, strategies.untilExists())
       ).toHaveMatchingMembersOf(expected);
     });
 
@@ -25,7 +23,7 @@ describe("resolve", () => {
       const path = flexi.path(file);
 
       expect(
-        flexi.resolve(path, closestExistingPath())
+        flexi.resolve(path, strategies.untilExists())
       ).toHaveMatchingMembersOf(path);
     });
 
@@ -35,14 +33,17 @@ describe("resolve", () => {
       const path = flexi.path(join(testData.testDir, "pathExists-fileext"));
 
       expect(
-        flexi.resolve(path, closestExistingPath({ ignoreFileExtensions: true }))
+        flexi.resolve(
+          path,
+          strategies.untilExists({ ignoreFileExtensions: true })
+        )
       ).toHaveMatchingMembersOf(path);
     });
 
     it("should be empty when path is invalid", () => {
       const nonExistingPath = flexi.path("invalid");
 
-      expect(flexi.resolve(nonExistingPath, closestExistingPath())).toBe(
+      expect(flexi.resolve(nonExistingPath, strategies.untilExists())).toBe(
         flexi.empty()
       );
     });
@@ -51,7 +52,7 @@ describe("resolve", () => {
       const nonExistingPath = flexi.path("/non/existing/path");
 
       expect(
-        flexi.resolve(nonExistingPath, closestExistingPath())
+        flexi.resolve(nonExistingPath, strategies.untilExists())
       ).toHaveMatchingMembersOf(flexi.root());
     });
   });

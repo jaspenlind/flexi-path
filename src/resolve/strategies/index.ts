@@ -1,12 +1,14 @@
 import equals from "./equals";
-import closestExistingPath from "./closestExistingPath";
-import closestCommonParent from "./closestCommonParent";
+import untilExists from "./untilExists";
+import untilSameAs from "./untilSameAs";
+import parentUntil from "./parentUntil";
 import cut from "./cut";
 
 export const strategies = {
   equals,
-  closestExistingPath,
-  closestCommonParent,
+  untilExists,
+  untilSameAs,
+  parentUntil,
   cut
 };
 

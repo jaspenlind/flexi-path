@@ -41,12 +41,13 @@ export interface ParentQuery {
   /**
    * Returns the `parent` `numberOfLevels` levels up
    */
-  (numberOfLevels: number): FlexiPath | null;
+  (numberOfLevels: number): FlexiPath;
+  (until: (current: FlexiPath) => boolean): FlexiPath;
+
   /**
    * Returns the closest `parent` of the `path`
    */
-  (): FlexiPath | null;
-  // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath;
+  (): FlexiPath;
 }
 
 /**

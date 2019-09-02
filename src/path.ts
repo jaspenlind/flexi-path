@@ -113,8 +113,8 @@ export const prepend = (path: Path, ...paths: Path[]): FlexiPath => {
  */
 export const diff = (path: Path, other: Path): [FlexiPath, FlexiPath] => {
   return [
-    diffPath(path, strategies.closestCommonParent(parse(other))),
-    diffPath(other, strategies.closestCommonParent(parse(path)))
+    diffPath(path, strategies.untilSameAs(parse(other))),
+    diffPath(other, strategies.untilSameAs(parse(path)))
   ];
 };
 
@@ -134,7 +134,7 @@ export const flatten = (path: Path): FlexiPath[] => {
 
   walker.walk(parse(path), (current: FlexiPath) => {
     result.unshift(flexi.path(current.isRoot() ? current.root : current.base));
-    return current.parent() === null;
+    return current.parent().isEmpty();
   });
 
   return result;

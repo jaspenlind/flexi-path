@@ -86,7 +86,7 @@ export const diff = (
 export const resolve = (
   path: Path,
   options: ResolveOptions | PathResolverStrategy
-): FlexiPath | null => {
+): FlexiPath => {
   return walk(path, options).path;
 };
 
