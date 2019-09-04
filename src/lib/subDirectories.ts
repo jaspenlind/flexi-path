@@ -1,8 +1,9 @@
 import { join } from "path";
 import { SubDirectoryQuery, Path } from "..";
-import pathHelper, { parse } from "./path";
+import { parse, readDir } from "./path";
 /**
  * The sub directories of the `path` and a `path` builder
+ * @category path
  * @param path The current `path`
  */
 export const subDirectories = (path: Path): SubDirectoryQuery => (
@@ -10,8 +11,7 @@ export const subDirectories = (path: Path): SubDirectoryQuery => (
 ): any => {
   const parsed = parse(path);
   if (directoryName === undefined) {
-    return pathHelper(parsed)
-      .readDir()
+    return readDir(parsed)
       .filter(x => x.isDirectory())
       .map(x => parse(join(parsed.path, x.name)));
   }

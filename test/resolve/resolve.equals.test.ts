@@ -1,5 +1,5 @@
 import flexi from "../../src";
-import { equals } from "../../src/lib/resolve/strategies/equals";
+import { equals } from "../../src/lib/path/resolve/strategies";
 
 describe("resolve", () => {
   describe("equals", () => {

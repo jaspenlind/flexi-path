@@ -1,4 +1,4 @@
-import flexi from "./flexi";
+import flexi from "./lib/flexi";
 
 export * from "./types";
 

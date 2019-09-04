@@ -1,6 +1,6 @@
 import { join } from "path";
 import flexi from "../../src";
-import strategies from "../../src/lib/resolve/strategies";
+import { untilExists } from "../../src/lib/path/resolve/strategies";
 import testData from "../jest/createTestData";
 
 describe("resolve", () => {
@@ -12,9 +12,9 @@ describe("resolve", () => {
 
       const expected = flexi.path(subDir);
 
-      expect(
-        flexi.resolve(path, strategies.untilExists())
-      ).toHaveMatchingMembersOf(expected);
+      expect(flexi.resolve(path, untilExists())).toHaveMatchingMembersOf(
+        expected
+      );
     });
 
     it("should return file when it exists", () => {
@@ -22,9 +22,7 @@ describe("resolve", () => {
 
       const path = flexi.path(file);
 
-      expect(
-        flexi.resolve(path, strategies.untilExists())
-      ).toHaveMatchingMembersOf(path);
+      expect(flexi.resolve(path, untilExists())).toHaveMatchingMembersOf(path);
     });
 
     it("should return file independent of file extension", () => {
@@ -33,26 +31,21 @@ describe("resolve", () => {
       const path = flexi.path(join(testData.testDir, "pathExists-fileext"));
 
       expect(
-        flexi.resolve(
-          path,
-          strategies.untilExists({ ignoreFileExtensions: true })
-        )
+        flexi.resolve(path, untilExists({ ignoreFileExtensions: true }))
       ).toHaveMatchingMembersOf(path);
     });
 
     it("should be empty when path is invalid", () => {
       const nonExistingPath = flexi.path("invalid");
 
-      expect(flexi.resolve(nonExistingPath, strategies.untilExists())).toBe(
-        flexi.empty()
-      );
+      expect(flexi.resolve(nonExistingPath, untilExists())).toBe(flexi.empty());
     });
 
     it("should return root when path does not exist", () => {
       const nonExistingPath = flexi.path("/non/existing/path");
 
       expect(
-        flexi.resolve(nonExistingPath, strategies.untilExists())
+        flexi.resolve(nonExistingPath, untilExists())
       ).toHaveMatchingMembersOf(flexi.root());
     });
   });

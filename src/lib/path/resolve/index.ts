@@ -4,16 +4,22 @@ import flexi, {
   NavigationState,
   Path,
   WalkedPath
-} from "../..";
-import { parse } from "../path";
-import walker from "../walker";
+} from "../../..";
+import { parse } from "..";
+import walker from "../../walker";
 
+/**
+ * @ignore
+ */
 const parseOptions = (
   options: ResolveOptions
 ): ((current: FlexiPath) => ResolveOptions) => {
   return () => options;
 };
 
+/**
+ * @ignore
+ */
 const walkUntil = (
   current: FlexiPath,
   options: (current: FlexiPath) => ResolveOptions
@@ -36,6 +42,9 @@ const walkUntil = (
   return state;
 };
 
+/**
+ * @ignore
+ */
 const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   const parsedPath = parse(path);
   const parsedOptions = parseOptions(options);
@@ -63,12 +72,20 @@ const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   return result;
 };
 
+/**
+ * @category resolver
+ * @category walker
+ */
 export const diff = (path: Path, options: ResolveOptions): FlexiPath => {
   return walk(path, options).diff;
 };
 
+/**
+ * @category resolver
+ * @category walker
+ */
 export const resolve = (path: Path, options: ResolveOptions): FlexiPath => {
   return walk(path, options).path;
 };
 
-export default resolve;
+export default { resolve, diff };

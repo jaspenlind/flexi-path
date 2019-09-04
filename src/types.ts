@@ -3,6 +3,7 @@ import { ParsedPath } from "path";
 /**
  * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
  * on disk is `Unknown`
+ * @category path
  */
 export enum PathType {
   /**
@@ -21,6 +22,7 @@ export enum PathType {
 
 /**
  * Fetch or append `directory` to the current `path`
+ * @category path
  */
 export interface SubDirectoryQuery {
   /**
@@ -36,10 +38,12 @@ export interface SubDirectoryQuery {
 
 /**
  * Returns the `parent` of the current `path` or `null` when the `path` is `root`
+ * @category path
  */
 export interface ParentQuery {
   /**
    * Returns the `parent` `numberOfLevels` levels up
+   * @category path
    */
   (numberOfLevels: number): FlexiPath;
   (until: (current: FlexiPath) => boolean): FlexiPath;
@@ -50,19 +54,56 @@ export interface ParentQuery {
   (): FlexiPath;
 }
 
+/**
+ * @category path
+ */
 export interface Flexi {
+  /**
+   * creates a new `path`
+   * @param path A path to a file, directory or any arbitrary `path`
+   * @returns The parsed `FlexiPath`
+   *
+   * @example
+   * ```typescript
+   * import flexi from "flexi";
+   *
+   * const path = flexi.path("any path");
+   *```
+   */
   path: (path: Path) => FlexiPath;
+  /**
+   * Navigates the `path` until a condition is met
+   */
   resolve: (path: Path, options: ResolveOptions) => FlexiPath;
+  /**
+   * Concatinates multiple `paths` into a new `path`
+   */
   concat: (path: Path, ...paths: Path[]) => FlexiPath;
+  /**
+   * `boolean` value indicating if the `path` exists or not
+   */
   exists: (path: Path) => boolean;
+  /**
+   * Represents an empty `path`
+   */
   empty: () => FlexiPath;
+  /**
+   * A `path` representing the `root path`
+   */
   root: () => FlexiPath;
+  /**
+   * `boolean` value indicating if the `path` is [[empty]] or not
+   */
   isEmpty: (path: Path) => boolean;
+  /**
+   * Indicates if the `path` is [[root]] or not
+   */
   isRoot: (path: Path) => boolean;
 }
 
 /**
  * A flexible `path` builder and walker
+ * @category path
  */
 export interface FlexiPath extends ParsedPath {
   /**
@@ -70,7 +111,7 @@ export interface FlexiPath extends ParsedPath {
    * */
   path: string;
   /**
-   * `boolean` value indicating if the `path` is a `root` path
+   * `boolean` value indicating if the `path` is [[root]] path
    */
   isRoot(): boolean;
 
@@ -86,12 +127,11 @@ export interface FlexiPath extends ParsedPath {
    */
   exists(): boolean;
   /**
-   * `boolan` value indicatinf if the `path`is empty
+   * `boolean` value indicating if the `path`is [[empty]]
    */
   isEmpty(): boolean;
   /**
-   * `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
-   * on disk is `Unknown`
+   * [[PathType]] enum. Possible values: [[Directory]] | [[File]] | [[Unknown]].
    */
   type(): PathType;
   /**
@@ -122,10 +162,12 @@ export interface FlexiPath extends ParsedPath {
   /**
    * Get the diff for two paths
    * @example
+   * ```typescript
    * const first = flexi.path("some/common/and/unique/paths");
    * const second = flexi.path("some/common/with/other/paths");
    * const diff = first.diff(second);
    * //==> [ "and/unique/paths", "with/other/paths" ]
+   * ```
    * @param path The `path` to diff against
    */
   diff(path: Path): [FlexiPath, FlexiPath];
@@ -138,7 +180,7 @@ export interface FlexiPath extends ParsedPath {
   flatten(): FlexiPath[];
 
   /**
-   * Reverses the `path`
+   * Reverses a `path`
    */
   reverse(): FlexiPath;
 
@@ -176,10 +218,12 @@ export interface FlexiPath extends ParsedPath {
 
 /**
  * Represents the current state when navigating a `path`
+ * @category resolver
  */
 export enum NavigationState {
   /**
    * Default state
+   * @category walker
    */
   Default = 0,
   /**
@@ -202,6 +246,7 @@ export enum NavigationState {
 
 /**
  * Options representing how a path should be resolved
+ * @category resolver
  */
 export interface ResolveOptions {
   /**
@@ -215,12 +260,16 @@ export interface ResolveOptions {
   onNavigate?(current: FlexiPath, state: NavigationState): NavigationResult;
 }
 
+/**
+ * @category resolver
+ */
 export interface PathExistsOptions {
   ignoreFileExtensions?: boolean;
 }
 
 /**
  * The result of a `ResolveOptions`.`onNavigate`
+ * @category resolver
  */
 export interface NavigationResult {
   /**
@@ -230,18 +279,39 @@ export interface NavigationResult {
 }
 
 /**
- * A `string` or `path` representing a `path`
+ * a `string`, `string[]` or a `FlexiPath` with or without a `baseBath` representing a file path or any arbitrary path
+ * @category path
  */
 export type Path = string | string[] | FlexiPath | PathWithBasePath;
 
+/**
+ * A `path` with a `basePath`
+ * @category path
+ */
 export interface PathWithBasePath {
   basePath: Path;
   path: Path;
 }
 
+/**
+ * `Walker` predicate
+ * @category walker
+ * @param current The current `walked` `path`
+ * @returns `boolean` value indicating if walking should continue or not
+ */
 export type WalkUntil = (current: FlexiPath) => boolean;
 
+/**
+ * A `Walker` walked `path`
+ * @category walker
+ */
 export interface WalkedPath {
+  /**
+   * The `path` the `Walker` walked
+   */
   path: FlexiPath;
+  /**
+   * Then `diff` or `remainder` of the `path` that wasn't `walked`
+   */
   diff: FlexiPath;
 }

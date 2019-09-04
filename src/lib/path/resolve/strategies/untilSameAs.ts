@@ -1,7 +1,12 @@
-import { FlexiPath, ResolveOptions } from "../../..";
-import walker from "../../walker";
+import { FlexiPath, ResolveOptions } from "../../../..";
+import walker from "../../../walker";
 
-export const untilSameAs = (path: FlexiPath): ResolveOptions => {
+/**
+ * Walks two `paths` until they are same
+ * @category resolver
+ * @param path The `path` to compare with
+ */
+const untilSameAs = (path: FlexiPath): ResolveOptions => {
   return {
     predicate: (current: FlexiPath) => {
       const walked = walker.walk(path, (other: FlexiPath) => {

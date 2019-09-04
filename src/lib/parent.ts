@@ -1,9 +1,15 @@
 import { join } from "path";
 import flexi, { FlexiPath, ParentQuery, Path } from "..";
-import strategies from "./resolve/strategies";
+import { parentUntil } from "./path/resolve/strategies";
 import { parse } from "./path";
 
+/**
+ * @ignore
+ */
 export const up = "../";
+/**
+ * @ignore
+ */
 export const parentPath = (path: Path): Path => {
   const pathAsString = parse(path).path;
   const joinedPath = join(pathAsString, up);
@@ -13,6 +19,7 @@ export const parentPath = (path: Path): Path => {
 
 /**
  * The `parent` directory of the `path`
+ * @category path
  */
 export const parent = (path: Path): ParentQuery => (query?: any): FlexiPath => {
   const parsed = parse(path);
@@ -23,7 +30,7 @@ export const parent = (path: Path): ParentQuery => (query?: any): FlexiPath => {
   if (typeof query === "function") {
     const until = query as (current: FlexiPath) => boolean;
 
-    return flexi.resolve(parsed, strategies.parentUntil(until));
+    return flexi.resolve(parsed, parentUntil(until));
   }
 
   const levelsToNavigate = ((query as number) || 1) - 1;

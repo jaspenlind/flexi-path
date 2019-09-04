@@ -1,6 +1,12 @@
-import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
+import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../../..";
 
-export const equals = (
+/**
+ * Compares two `paths`
+ * @category resolver
+ * @param path The `path` to compare with
+ * @param options Resolver options
+ */
+const equals = (
   path: FlexiPath,
   options?: PathExistsOptions
 ): ResolveOptions => {

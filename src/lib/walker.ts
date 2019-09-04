@@ -1,5 +1,8 @@
 import flexi, { FlexiPath, WalkUntil, WalkedPath } from "..";
 
+/**
+ * @category walker
+ */
 const walk = (
   path: FlexiPath,
   until: WalkUntil,
@@ -19,6 +22,9 @@ const walk = (
   return walk(parent, until, diff.prepend(path.base));
 };
 
+/**
+ * @category walker
+ */
 export const walker = {
   walk: (path: FlexiPath, until: WalkUntil) => walk(path, until)
 };

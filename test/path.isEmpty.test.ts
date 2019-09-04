@@ -1,5 +1,5 @@
 import flexi from "../src";
-import { isEmpty, empty } from "../src/lib/path";
+import { isEmpty, constants } from "../src/lib/path";
 
 describe("path", () => {
   describe("isEmpty", () => {
@@ -44,7 +44,7 @@ describe("path", () => {
     });
 
     it("should be true when path is empty()", () => {
-      expect(isEmpty(empty)).toBeTrue();
+      expect(isEmpty(constants.empty)).toBeTrue();
     });
 
     it("should be false when path is not empty", () => {

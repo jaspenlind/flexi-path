@@ -1,6 +1,11 @@
-import { FlexiPath, ResolveOptions } from "../../..";
+import { FlexiPath, ResolveOptions } from "../../../..";
 
-export const cut = (count: number): ResolveOptions => {
+/**
+ * Cuts a `path`
+ * @category resolver
+ * @param count Number of levels to cut from a `path`
+ */
+const cut = (count: number): ResolveOptions => {
   let currentCount = 0;
 
   const predicate = (current: FlexiPath): boolean => {

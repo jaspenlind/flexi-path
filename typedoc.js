@@ -3,9 +3,10 @@ module.exports = {
   readme: "none",
   name: "flexi-path",
   theme: "default",
-  exclude: ["test/**/*", "src/lib/*"],
+  exclude: ["test/**/*"], // , "src/lib/*"
   mode: "file",
-  // excludeExternals: true,
+  // entryPoint: "Flexi",
+  excludeExternals: true,
   // excludeNotExported: true,
   // excludePrivate: true,
   "external-aliases": ["external", "internalapi"]

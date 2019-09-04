@@ -1,6 +1,11 @@
-import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
+import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../../..";
 
-export const untilExists = (options?: PathExistsOptions): ResolveOptions => {
+/**
+ * Walks a `path` until it [[exists]]
+ * @category resolver
+ * @param options Resolver options
+ */
+const untilExists = (options?: PathExistsOptions): ResolveOptions => {
   const predicate = (current: FlexiPath) => {
     let exists = current.exists();
 
