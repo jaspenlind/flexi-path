@@ -1,4 +1,5 @@
-import flexi, { path } from "../src";
+import flexi from "../src";
+import path from "../src/lib/path";
 
 describe("path", () => {
   describe("isRoot", () => {

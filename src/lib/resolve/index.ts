@@ -2,26 +2,16 @@ import flexi, {
   FlexiPath,
   ResolveOptions,
   NavigationState,
-  PathResolverStrategy,
   Path,
-  parse,
-  walker,
   WalkedPath
-} from "..";
+} from "../..";
+import { parse } from "../path";
+import walker from "../walker";
 
 const parseOptions = (
-  options: ResolveOptions | PathResolverStrategy
+  options: ResolveOptions
 ): ((current: FlexiPath) => ResolveOptions) => {
-  let parsed: (current: FlexiPath) => ResolveOptions;
-  const pathResolver = options as PathResolverStrategy;
-
-  if (pathResolver.resolve) {
-    parsed = (current: FlexiPath) => pathResolver.resolve(current);
-  } else {
-    parsed = () => options as ResolveOptions;
-  }
-
-  return parsed;
+  return () => options;
 };
 
 const walkUntil = (
@@ -46,10 +36,7 @@ const walkUntil = (
   return state;
 };
 
-export const walk = (
-  path: Path,
-  options: ResolveOptions | PathResolverStrategy
-): WalkedPath => {
+const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   const parsedPath = parse(path);
   const parsedOptions = parseOptions(options);
 
@@ -76,17 +63,11 @@ export const walk = (
   return result;
 };
 
-export const diff = (
-  path: Path,
-  options: ResolveOptions | PathResolverStrategy
-): FlexiPath => {
+export const diff = (path: Path, options: ResolveOptions): FlexiPath => {
   return walk(path, options).diff;
 };
 
-export const resolve = (
-  path: Path,
-  options: ResolveOptions | PathResolverStrategy
-): FlexiPath => {
+export const resolve = (path: Path, options: ResolveOptions): FlexiPath => {
   return walk(path, options).path;
 };
 

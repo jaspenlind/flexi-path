@@ -1,6 +1,8 @@
 # flexi-path
 
-## Work with paths in a more flexible way
+=======================
+
+## Flexible path builder and walker
 
 [![Build Status](https://travis-ci.com/jaspenlind/flexi-path.svg?branch=master)](https://travis-ci.com/jaspenlind/flexi-path)
 ![GitHub top language](https://img.shields.io/github/languages/top/jaspenlind/flexi-path)
@@ -9,53 +11,21 @@
 ![David](https://img.shields.io/david/dev/jaspenlind/flexi-path)
 ![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
 
-### Api
+## Installation
 
-<a name="flexi"></a>
+`npm install "flexi-path"`
 
-* [flexi](#flexi)
-    * [.path()](#flexi.path)
-    * [.isRoot()](#flexi.isRoot)
-    * [.resolve()](#flexi.resolve)
-    * [.root()](#flexi.root)
+## Test
 
-<a name="flexi.path"></a>
-
-### flexi.path()
-creates a new path
-
-**Kind**: static property of [<code>flexi</code>](#flexi)  
-**Example**  
-```js
-import flexi from "flexi";
-
-const path = flexi.path("any path");
-```
-<a name="flexi.isRoot"></a>
-
-### flexi.isRoot()
-Indicates if the `path` is a root path
-
-**Kind**: static property of [<code>flexi</code>](#flexi)  
-<a name="flexi.resolve"></a>
-
-### flexi.resolve()
-Navigates the `path` until a condition is met
-
-**Kind**: static property of [<code>flexi</code>](#flexi)  
-<a name="flexi.root"></a>
-
-### flexi.root()
-A `path` representing the `root`
-
-**Kind**: static method of [<code>flexi</code>](#flexi)
-
-### Examples
+`npm test`
 
 
-#### Get files in currect directory
+## Example
+
+### Get files in currect directory
+
 ```ts
-import flexi from "flexi";
+import flexi from "flexi-path";
 
 const currentPath = flexi.path(__dirname);
 
@@ -64,38 +34,44 @@ const files = currentPath.files();
 //==> [...]
 ```
 
-#### Build dynamic path
+### Append paths to an existing path
+
 ```ts
-import flexi from "flexi";
+import flexi from "flexi-path";
 
 const path = flexi.path("root");
 
-const deeperPath = path.subDirectories("deeper").subDirectories("path");
+const otherPath = flexi.path("other");
+
+const deeperPath = path
+  .append(otherPath)
+  .append("deeper")
+  .append("path");
 
 //=> root/deeper/path
-
 ```
 
-#### Get directory with conditions
+#### Navigate with predicate
+
 ```ts
-import flexi from "flexi";
+import flexi from "flexi-path";
 
-const path = flexi.path("/Rootdir/Level1/Level2");
+const path = flexi
+  .path("/Rootdir/Level1/Level2")
+  .prepend("/another")
+  .parent(x => x.name === "Level1");
 
-const root = path.parent().parent();
-
-const index = root.files.find(x => x.base === "index.js");
-
-//==> /Rootdir/index.js
+//==> /another/Rootdir/Level1
 ```
 
 #### Find first valid path
+
 ```ts
-import flexi, { pathExists } from "flexi";
+import flexi, { pathExists } from "flexi-path";
 
 const invalidPath = flexi,path("/Rootdir/Level1/file/some/invalid/path/segments")
 
-const validPath = flexi.resolve(invalidPath, pathExists());
+const validPath = flexi.resolve(invalidPath, unitilExists());
 
 //==> /Rootdir/Level1/file
 

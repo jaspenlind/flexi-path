@@ -1,6 +1,6 @@
 import { join } from "path";
-import { FlexiPath, path as pathHelper, parse, Path } from ".";
-
+import { FlexiPath, Path } from "..";
+import pathHelper, { parse } from "./path";
 /**
  * The files in the current `path`
  */

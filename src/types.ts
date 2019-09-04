@@ -50,6 +50,17 @@ export interface ParentQuery {
   (): FlexiPath;
 }
 
+export interface Flexi {
+  path: (path: Path) => FlexiPath;
+  resolve: (path: Path, options: ResolveOptions) => FlexiPath;
+  concat: (path: Path, ...paths: Path[]) => FlexiPath;
+  exists: (path: Path) => boolean;
+  empty: () => FlexiPath;
+  root: () => FlexiPath;
+  isEmpty: (path: Path) => boolean;
+  isRoot: (path: Path) => boolean;
+}
+
 /**
  * A flexible `path` builder and walker
  */
@@ -216,17 +227,6 @@ export interface NavigationResult {
    * The `NavigationState`
    */
   state: NavigationState;
-}
-
-/**
- * Contract for how to `resolve` a `path`
- */
-export interface PathResolverStrategy {
-  /**
-   * Path resolving `options`
-   * @param current The current level of the navigated `path`
-   */
-  resolve(current: FlexiPath): ResolveOptions;
 }
 
 /**

@@ -1,4 +1,5 @@
-import { PathType, path } from "../src";
+import { PathType } from "../src";
+import path from "../src/lib/path";
 import testData from "./jest/createTestData";
 
 describe("path", () => {

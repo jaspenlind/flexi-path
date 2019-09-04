@@ -1,4 +1,5 @@
-import flexi, { parse } from "../src";
+import flexi from "../src";
+import { parse } from "../src/lib/path";
 
 describe("path", () => {
   describe("parse", () => {

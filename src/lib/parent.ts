@@ -1,5 +1,7 @@
 import { join } from "path";
-import flexi, { FlexiPath, ParentQuery, Path, parse, strategies } from ".";
+import flexi, { FlexiPath, ParentQuery, Path } from "..";
+import strategies from "./resolve/strategies";
+import { parse } from "./path";
 
 export const up = "../";
 export const parentPath = (path: Path): Path => {

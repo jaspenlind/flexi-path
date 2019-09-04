@@ -1,4 +1,5 @@
-import flexi, { strategies } from "../../src";
+import flexi from "../../src";
+import strategies from "../../src/lib/resolve/strategies";
 
 describe("resolve", () => {
   describe("closestCommonParent", () => {

@@ -1,6 +1,6 @@
 import { join } from "path";
-import flexi, { strategies } from "../../src";
-
+import flexi from "../../src";
+import strategies from "../../src/lib/resolve/strategies";
 import testData from "../jest/createTestData";
 
 describe("resolve", () => {

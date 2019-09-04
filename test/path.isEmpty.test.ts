@@ -1,4 +1,5 @@
-import flexi, { isEmpty, empty } from "../src";
+import flexi from "../src";
+import { isEmpty, empty } from "../src/lib/path";
 
 describe("path", () => {
   describe("isEmpty", () => {

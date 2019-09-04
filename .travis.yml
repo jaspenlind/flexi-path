@@ -1,4 +1,23 @@
 language: node_js
 node_js:
   - "10"
-after_success: "npm run coveralls"
+before_script:
+  - npm run format
+  - npm run lint
+  - npm run build
+after_success:
+  - npm run coveralls
+  - npm run docs
+before_deploy:
+  - tar -zcf dist.tar.gz dist
+  - tar -zcf docs.tar.gz docs
+  - tar -zcf coverage.tar.gz coverage
+deploy:
+  api_key: $DEPLOYMENT_KEY
+  provider: releases
+  file_glob: true
+  file: /*.tar.gz
+  skip_cleanup: true
+  draft: true
+  on:
+    tags: true

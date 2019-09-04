@@ -1,6 +1,6 @@
-import { FlexiPath, PathExistsOptions } from "../..";
+import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
 
-export const untilExists = (options?: PathExistsOptions) => {
+export const untilExists = (options?: PathExistsOptions): ResolveOptions => {
   const predicate = (current: FlexiPath) => {
     let exists = current.exists();
 

@@ -1,4 +1,4 @@
-import flexi, { FlexiPath, WalkUntil, WalkedPath } from ".";
+import flexi, { FlexiPath, WalkUntil, WalkedPath } from "..";
 
 const walk = (
   path: FlexiPath,

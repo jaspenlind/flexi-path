@@ -1,4 +1,5 @@
-import flexi, { FlexiPath, parent } from "../src";
+import flexi, { FlexiPath } from "../src";
+import parent from "../src/lib/parent";
 
 describe("parent", () => {
   const path = "/directory/containing/a/file.js";

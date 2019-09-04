@@ -1,6 +1,6 @@
 import { join } from "path";
-import { SubDirectoryQuery, path as pathHelper, parse, Path } from ".";
-
+import { SubDirectoryQuery, Path } from "..";
+import pathHelper, { parse } from "./path";
 /**
  * The sub directories of the `path` and a `path` builder
  * @param path The current `path`

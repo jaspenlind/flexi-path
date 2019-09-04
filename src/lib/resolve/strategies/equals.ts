@@ -1,6 +1,9 @@
-import { FlexiPath, PathExistsOptions } from "../..";
+import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
 
-export const equals = (path: FlexiPath, options?: PathExistsOptions) => {
+export const equals = (
+  path: FlexiPath,
+  options?: PathExistsOptions
+): ResolveOptions => {
   let areEqual: boolean;
 
   const predicate = (current: FlexiPath) => {

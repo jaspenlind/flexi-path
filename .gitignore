@@ -1,5 +1,6 @@
 test/jest/flex-test-data
 dist
+docs
 # Logs
 logs
 *.log
