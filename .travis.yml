@@ -15,9 +15,10 @@ deploy:
   - provider: releases
     api_key: $DEPLOYMENT_KEY
     file_glob: true
-    file: /*.tgz
+    file:
+      - "**/*.tgz"
     skip_cleanup: true
-    draft: true
+    draft: branch =~ /\d+-alpha\.\d/
     name: $TRAVIS_BRANCH
     body: $TRAVIS_COMMIT_MESSAGE
     on:

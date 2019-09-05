@@ -42,7 +42,11 @@
     "debug": "node --nolazy --inspect-brk=9229 node_modules/jest/bin/jest.js -i",
     "commit": "npm-run-all format test",
     "push": "npm-run-all test check-format",
-    "bump": "npm version prerelease --preid alpha"
+    "bump": "npm version prerelease --preid alpha",
+    "beta": "npm version prerelease --preid beta",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
