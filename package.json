@@ -37,7 +37,8 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "predocs": "npm run clean:docs",
     "clean:docs": "rimraf docs",
-    "docs": "typedoc",
+    "docs": "typedoc --tsconfig ./tsconfig.json src",
+    "postdocs": "shx cp .nojekyll docs/.nojekyll",
     "debug": "node --nolazy --inspect-brk=9229 node_modules/jest/bin/jest.js -i",
     "commit": "npm-run-all format test",
     "push": "npm-run-all test check-format",
@@ -69,10 +70,10 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
+    "shx": "^0.3.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typedoc": "^0.15.0",
-    "typedoc-plugin-internal-external": "^2.0.2",
     "typescript": "^3.5.3"
   },
   "husky": {

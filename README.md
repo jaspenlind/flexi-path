@@ -1,7 +1,5 @@
 # flexi-path
 
-=======================
-
 ## Flexible path builder and walker
 
 [![Build Status](https://travis-ci.com/jaspenlind/flexi-path.svg?branch=master)](https://travis-ci.com/jaspenlind/flexi-path)
@@ -18,7 +16,6 @@
 ## Test
 
 `npm test`
-
 
 ## Example
 
@@ -51,7 +48,7 @@ const deeperPath = path
 //=> root/deeper/path
 ```
 
-#### Navigate with predicate
+### Navigate with predicate
 
 ```ts
 import flexi from "flexi-path";
@@ -64,7 +61,7 @@ const path = flexi
 //==> /another/Rootdir/Level1
 ```
 
-#### Find first valid path
+### Find first valid path
 
 ```ts
 import flexi, { pathExists } from "flexi-path";

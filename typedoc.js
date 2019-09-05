@@ -1,13 +1,9 @@
 module.exports = {
   out: "./docs",
-  readme: "none",
+  // readme: "none",
   name: "flexi-path",
   theme: "default",
-  exclude: ["test/**/*"], // , "src/lib/*"
+  exclude: ["test/**/*"],
   mode: "file",
-  // entryPoint: "Flexi",
-  excludeExternals: true,
-  // excludeNotExported: true,
-  // excludePrivate: true,
-  "external-aliases": ["external", "internalapi"]
+  excludeExternals: true
 };

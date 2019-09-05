@@ -72,7 +72,7 @@ export interface Flexi {
    */
   path: (path: Path) => FlexiPath;
   /**
-   * Navigates the `path` until a condition is met
+   * Walks the `path` until a [[predicate|condition]] is met
    */
   resolve: (path: Path, options: ResolveOptions) => FlexiPath;
   /**
@@ -251,11 +251,12 @@ export enum NavigationState {
 export interface ResolveOptions {
   /**
    * Condition that has to be met to indicate the `path` is a match
+   * @param current The current level of the walked `path`
    */
   predicate?: (current: FlexiPath, state: NavigationState) => boolean;
   /**
-   * Callback function for each level navigated in the `path`
-   * @param current The current level of the navigated `path`
+   * Called on each level walking a `path`
+   * @param current The current level of the walked `path`
    */
   onNavigate?(current: FlexiPath, state: NavigationState): NavigationResult;
 }

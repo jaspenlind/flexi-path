@@ -2,7 +2,7 @@ import { join } from "path";
 import flexi, { Path, FlexiPath } from "../..";
 import { parse } from ".";
 /**
- * Concatinates a `path` with other `pats`
+ * Concatinates a `path` with other `paths`
  * @category path
  * @param path The `path` to concatinate
  * @param paths One or multiple `paths` to concatinate the `path` with
