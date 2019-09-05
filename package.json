@@ -20,8 +20,7 @@
   "scripts": {
     "prepare": "npm run build",
     "prepublishOnly": "npm-run-all test lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
+    "version": "git add -A src",
     "postversion": "git push && git push --tags && npm run clean",
     "format": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts}\" -c",
     "lint": "eslint --ext .ts,.js ./",
