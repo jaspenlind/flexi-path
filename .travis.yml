@@ -11,14 +11,14 @@ after_success:
 before_deploy:
   - tar -zcf docs.tar.tgz docs
   - tar -zcf coverage.tar.tgz coverage
+  - ls
 deploy:
   - provider: releases
     api_key: $DEPLOYMENT_KEY
     file_glob: true
-    file:
-      - "**/*.tgz"
+    file: "**/*.tgz"
     skip_cleanup: true
-    draft: branch =~ /\d+-alpha\.\d/
+    draft: true
     name: $TRAVIS_BRANCH
     body: $TRAVIS_COMMIT_MESSAGE
     on:
