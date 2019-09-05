@@ -1,6 +1,6 @@
 import { join } from "path";
-import flexi, { Path, FlexiPath } from "../..";
-import { parse } from ".";
+import flexi, { Path, FlexiPath } from "..";
+import { parse } from "./path";
 /**
  * Concatinates a `path` with other `paths`
  * @category path

@@ -1,4 +1,4 @@
-import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../../..";
+import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
 
 /**
  * Walks a `path` until it [[exists]]

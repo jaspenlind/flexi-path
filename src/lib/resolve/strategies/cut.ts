@@ -1,4 +1,4 @@
-import { FlexiPath, ResolveOptions } from "../../../..";
+import { FlexiPath, ResolveOptions } from "../../..";
 
 /**
  * Cuts a `path`

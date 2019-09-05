@@ -4,9 +4,9 @@ import flexi, {
   NavigationState,
   Path,
   WalkedPath
-} from "../../..";
-import { parse } from "..";
-import walker from "../../walker";
+} from "../..";
+import { parse } from "../path";
+import walker from "../walker";
 
 /**
  * @ignore

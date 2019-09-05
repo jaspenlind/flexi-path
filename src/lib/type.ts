@@ -1,5 +1,5 @@
-import { Path, PathType } from "../..";
-import { parse, exists, isValid, stats, constants } from ".";
+import { Path, PathType } from "..";
+import { parse, exists, isValid, stats, constants } from "./path";
 
 /**
  * @ignore

@@ -1,5 +1,5 @@
-import { Path, FlexiPath } from "../..";
-import { parse, concat } from ".";
+import { Path, FlexiPath } from "..";
+import { parse, concat } from "./path";
 /**
  * Prepend `paths` to the `path`
  * @category path

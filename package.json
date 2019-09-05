@@ -10,7 +10,7 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
-    "dist/**/*"
+    "dist/src/*"
   ],
   "repository": "github:jaspenlind/flexi-path",
   "readme": "https://github.com/jaspenlind/flexi-path#readme",

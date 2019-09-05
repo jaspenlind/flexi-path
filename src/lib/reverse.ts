@@ -1,5 +1,5 @@
-import { Path, FlexiPath } from "../..";
-import { flatten, parse } from ".";
+import { Path, FlexiPath } from "..";
+import { flatten, parse } from "./path";
 
 /**
  * Reverses the `path`

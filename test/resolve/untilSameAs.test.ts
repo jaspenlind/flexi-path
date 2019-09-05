@@ -1,5 +1,5 @@
 import flexi from "../../src";
-import { untilSameAs } from "../../src/lib/path/resolve/strategies";
+import { untilSameAs } from "../../src/lib/resolve/strategies";
 
 describe("resolve", () => {
   describe("closestCommonParent", () => {

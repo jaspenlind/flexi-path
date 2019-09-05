@@ -1,4 +1,4 @@
-import flexi, { Path, FlexiPath } from "../..";
+import flexi, { Path, FlexiPath } from "..";
 import { cut as cutStrategy } from "./resolve/strategies";
 
 /**

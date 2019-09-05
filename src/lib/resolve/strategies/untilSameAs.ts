@@ -1,5 +1,5 @@
-import { FlexiPath, ResolveOptions } from "../../../..";
-import walker from "../../../walker";
+import { FlexiPath, ResolveOptions } from "../../..";
+import walker from "../../walker";
 
 /**
  * Walks two `paths` until they are same

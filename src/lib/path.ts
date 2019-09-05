@@ -1,9 +1,9 @@
 import nodePath from "path";
 import { existsSync, readdirSync, Dirent, Stats, lstatSync } from "fs";
-import flexi, { FlexiPath, Path, PathType } from "../..";
-import files from "../files";
-import subDirectories from "../subDirectories";
-import parent from "../parent";
+import flexi, { FlexiPath, Path, PathType } from "..";
+import files from "./files";
+import subDirectories from "./subDirectories";
+import parent from "./parent";
 import parse from "./parse";
 import diff from "./diff";
 import write from "./write";

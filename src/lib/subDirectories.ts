@@ -6,7 +6,7 @@ import { parse, readDir } from "./path";
  * @category path
  * @param path The current `path`
  */
-export const subDirectories = (path: Path): SubDirectoryQuery => (
+const subDirectories = (path: Path): SubDirectoryQuery => (
   directoryName?: any
 ): any => {
   const parsed = parse(path);

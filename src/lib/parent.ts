@@ -1,6 +1,6 @@
 import { join } from "path";
 import flexi, { FlexiPath, ParentQuery, Path } from "..";
-import { parentUntil } from "./path/resolve/strategies";
+import { parentUntil } from "./resolve/strategies";
 import { parse } from "./path";
 
 /**
@@ -21,7 +21,7 @@ export const parentPath = (path: Path): Path => {
  * The `parent` directory of the `path`
  * @category path
  */
-export const parent = (path: Path): ParentQuery => (query?: any): FlexiPath => {
+const parent = (path: Path): ParentQuery => (query?: any): FlexiPath => {
   const parsed = parse(path);
   if (parsed.isEmpty() || parsed.isRoot()) {
     return flexi.empty();

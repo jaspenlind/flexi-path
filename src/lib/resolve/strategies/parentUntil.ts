@@ -1,4 +1,4 @@
-import { FlexiPath, ResolveOptions } from "../../../..";
+import { FlexiPath, ResolveOptions } from "../../..";
 
 /**
  * Navigates up a `path` until then `condition` is met

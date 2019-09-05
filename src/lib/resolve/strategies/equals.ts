@@ -1,4 +1,4 @@
-import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../../..";
+import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
 
 /**
  * Compares two `paths`

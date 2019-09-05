@@ -1,6 +1,6 @@
-import flexi, { Path, FlexiPath } from "../..";
-import { parse } from ".";
-import walker from "../walker";
+import flexi, { Path, FlexiPath } from "..";
+import { parse } from "./path";
+import walker from "./walker";
 /**
  * Flattens a `path`
  * @category path

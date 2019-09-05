@@ -25,7 +25,7 @@ const walk = (
 /**
  * @category walker
  */
-export const walker = {
+const walker = {
   walk: (path: FlexiPath, until: WalkUntil) => walk(path, until)
 };
 

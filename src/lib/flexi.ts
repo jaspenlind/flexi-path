@@ -20,7 +20,7 @@ let rootPath: FlexiPath;
 /**
  * @category api
  */
-export const flexi: Flexi = {
+const flexi: Flexi = {
   path,
   empty: () => {
     if (emptyPath === undefined) {

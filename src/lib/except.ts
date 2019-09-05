@@ -1,4 +1,4 @@
-import { Path, FlexiPath } from "../..";
+import { Path, FlexiPath } from "..";
 import { flatReduce } from "./flatten";
 
 /**

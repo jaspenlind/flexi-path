@@ -1,5 +1,5 @@
 import flexi from "../../src";
-import { parentUntil } from "../../src/lib/path/resolve/strategies";
+import { parentUntil } from "../../src/lib/resolve/strategies";
 
 describe("resolve", () => {
   describe("parentUntil", () => {
