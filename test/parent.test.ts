@@ -1,3 +1,4 @@
+import { normalize } from "path";
 import flexi, { FlexiPath } from "../src";
 import parent from "../src/lib/parent";
 
@@ -70,6 +71,8 @@ describe("parent", () => {
   });
 
   it("should return parent when condition is met", () => {
-    expect(flex.parent(x => x.name === "directory").path).toBe("/directory/");
+    expect(flex.parent(x => x.name === "directory").path).toBe(
+      normalize("/directory/")
+    );
   });
 });

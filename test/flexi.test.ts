@@ -1,3 +1,4 @@
+import { normalize } from "path";
 import flexi from "../src";
 
 describe("flexi", () => {
@@ -5,7 +6,7 @@ describe("flexi", () => {
     it("can concatinate paths", () => {
       const result = flexi.concat("first", flexi.path("second"));
 
-      expect(result.path).toBe("first/second");
+      expect(result.path).toBe(normalize("first/second"));
     });
   });
 });

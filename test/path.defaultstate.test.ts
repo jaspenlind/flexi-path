@@ -1,3 +1,4 @@
+import { normalize } from "path";
 import flexi, { FlexiPath, PathType } from "../src";
 
 describe("path", () => {
@@ -10,15 +11,15 @@ describe("path", () => {
     });
 
     it("should have path", () => {
-      expect(flex.path).toBe(path);
+      expect(flex.path).toBe(normalize(path));
     });
 
     it("should have root", () => {
-      expect(flex.root).toBe("/");
+      expect(flex.root).toBe(normalize("/"));
     });
 
     it("should have dir", () => {
-      expect(flex.dir).toBe("/directory/containing/a");
+      expect(flex.dir).toBe(normalize("/directory/containing/a"));
     });
 
     it("should have base", () => {

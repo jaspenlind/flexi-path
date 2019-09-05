@@ -14,7 +14,9 @@ export const parentPath = (path: Path): Path => {
   const pathAsString = parse(path).path;
   const joinedPath = join(pathAsString, up);
 
-  return joinedPath === "./" ? flexi.empty() : parse(joinedPath);
+  return joinedPath === "./" || joinedPath === ".\\"
+    ? flexi.empty()
+    : parse(joinedPath);
 };
 
 /**

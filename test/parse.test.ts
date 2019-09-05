@@ -1,3 +1,4 @@
+import { normalize } from "path";
 import flexi from "../src";
 import { parse } from "../src/lib/path";
 
@@ -23,7 +24,7 @@ describe("path", () => {
     });
 
     it("can parse when basePath=string and path=string", () => {
-      expect(parse({ basePath, path }).path).toBe(basePathWithPath);
+      expect(parse({ basePath, path }).path).toBe(normalize(basePathWithPath));
     });
 
     it("can parse when basePath=string and path=FlexiPath", () => {
@@ -36,20 +37,20 @@ describe("path", () => {
 
     it("can parse when basePath=FlexiPath and path=string", () => {
       expect(parse({ basePath: flexi.path(basePath), path }).path).toBe(
-        basePathWithPath
+        normalize(basePathWithPath)
       );
     });
 
     it("can parse when basePath=FlexiPath and path=FlexiPath", () => {
       expect(
         parse({ basePath: flexi.path(basePath), path: flexi.path(path) }).path
-      ).toBe(basePathWithPath);
+      ).toBe(normalize(basePathWithPath));
     });
 
     it("can parse when path is array of strings", () => {
       const array = ["array", "path"];
 
-      expect(parse(array).path).toBe("array/path");
+      expect(parse(array).path).toBe(normalize("array/path"));
     });
 
     it("can parse when basePath=string and path=array", () => {
@@ -57,7 +58,7 @@ describe("path", () => {
       const second = ["second", "path"];
 
       expect(parse({ basePath: first, path: second }).path).toBe(
-        "a/base/path/second/path"
+        normalize("a/base/path/second/path")
       );
     });
 
@@ -66,7 +67,7 @@ describe("path", () => {
       const second = ["second", "path"];
 
       expect(parse({ basePath: first, path: second }).path).toBe(
-        "a/base/path/second/path"
+        normalize("a/base/path/second/path")
       );
     });
 
@@ -75,7 +76,7 @@ describe("path", () => {
       const second = "second/path";
 
       expect(parse({ basePath: first, path: second }).path).toBe(
-        "a/base/path/second/path"
+        normalize("a/base/path/second/path")
       );
     });
 
@@ -84,7 +85,7 @@ describe("path", () => {
       const second = ["second", "path"];
 
       expect(parse({ basePath: first, path: second }).path).toBe(
-        "a/base/path/second/path"
+        normalize("a/base/path/second/path")
       );
     });
 
@@ -93,7 +94,7 @@ describe("path", () => {
       const second = flexi.path("second/path");
 
       expect(parse({ basePath: first, path: second }).path).toBe(
-        "a/base/path/second/path"
+        normalize("a/base/path/second/path")
       );
     });
   });

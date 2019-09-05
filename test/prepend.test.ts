@@ -1,3 +1,4 @@
+import { normalize } from "path";
 import flexi from "../src";
 
 describe("path", () => {
@@ -25,7 +26,7 @@ describe("path", () => {
         .prepend("reverse")
         .prepend(flexi.path("path"));
 
-      expect(path.path).toBe("path/reverse/some");
+      expect(path.path).toBe(normalize("path/reverse/some"));
     });
   });
 });
