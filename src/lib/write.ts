@@ -1,5 +1,4 @@
 import shell from "shelljs";
-
 import { Path, PathType } from "..";
 import { parse, type, exists } from "./path";
 
