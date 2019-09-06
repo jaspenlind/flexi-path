@@ -1,4 +1,4 @@
-import { Path, FlexiPath } from "..";
+import { FlexiPath, Path } from "..";
 import { flatten, parse } from "./path";
 
 /**

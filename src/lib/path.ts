@@ -1,20 +1,21 @@
+import { Dirent, existsSync, lstatSync, readdirSync, Stats } from "fs";
 import nodePath from "path";
-import { existsSync, readdirSync, Dirent, Stats, lstatSync } from "fs";
+
 import flexi, { FlexiPath, Path, PathType } from "..";
+import concat from "./concat";
+import cut from "./cut";
+import diff from "./diff";
+import except from "./except";
 import files from "./files";
-import subDirectories from "./subDirectories";
+import flatten from "./flatten";
+import intersect from "./intersect";
 import parent from "./parent";
 import parse from "./parse";
-import diff from "./diff";
-import write from "./write";
-import type from "./type";
-import concat from "./concat";
 import prepend from "./prepend";
-import flatten from "./flatten";
 import reverse from "./reverse";
-import intersect from "./intersect";
-import except from "./except";
-import cut from "./cut";
+import subDirectories from "./subDirectories";
+import type from "./type";
+import write from "./write";
 
 export { default as parse } from "./parse";
 export { default as resolver } from "./resolve";
@@ -57,9 +58,9 @@ export const isEmpty = (path: Path | null): boolean =>
  * @ignore
  */
 export const constants = {
-  sep: nodePath.sep,
+  empty: "",
   root: nodePath.sep,
-  empty: ""
+  sep: nodePath.sep
 };
 
 /**
@@ -93,32 +94,32 @@ export const path = (current: Path): FlexiPath => {
   const getSubDirectories = subDirectories(normalizedPath);
 
   const api: FlexiPath = {
-    root,
-    dir,
-    ext,
+    append: (...paths: Path[]) => concat(normalizedPath, ...paths),
     base,
-    name,
-    path: normalizedPath,
-    isRoot: () => isRoot(normalizedPath),
-    hasRoot: () => hasRoot(normalizedPath),
+    cut: (count: number) => cut(normalizedPath, count),
+    depth: () => flatten(normalizedPath).length,
+    diff: (other: Path) => diff(normalizedPath, other),
+    dir,
+    except: (...paths: Path[]) => except(normalizedPath, ...paths),
     exists: () => exists(normalizedPath),
+    ext,
+    files: () => files(normalizedPath),
+    flatten: () => flatten(normalizedPath),
+    hasRoot: () => hasRoot(normalizedPath),
+    intersect: (...paths: Path[]) => intersect(normalizedPath, ...paths),
     isEmpty: () => isEmpty(normalizedPath),
+    isRoot: () => isRoot(normalizedPath),
     isValid: () => isValid(normalizedPath),
-    type: () => type(normalizedPath),
+    name,
     parent: (query?: any): any => getParent(query),
+    path: normalizedPath,
+    prepend: (...paths: Path[]) => prepend(normalizedPath, ...paths),
+    reverse: () => reverse(normalizedPath),
+    root,
     subDirectories: (directoryName?: any): any =>
       getSubDirectories(directoryName),
-    files: () => files(normalizedPath),
-    append: (...paths: Path[]) => concat(normalizedPath, ...paths),
-    prepend: (...paths: Path[]) => prepend(normalizedPath, ...paths),
-    diff: (other: Path) => diff(normalizedPath, other),
-    reverse: () => reverse(normalizedPath),
-    write: () => write(normalizedPath),
-    flatten: () => flatten(normalizedPath),
-    cut: (count: number) => cut(normalizedPath, count),
-    intersect: (...paths: Path[]) => intersect(normalizedPath, ...paths),
-    except: (...paths: Path[]) => except(normalizedPath, ...paths),
-    depth: () => flatten(normalizedPath).length
+    type: () => type(normalizedPath),
+    write: () => write(normalizedPath)
   };
 
   return api;

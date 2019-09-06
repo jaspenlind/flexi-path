@@ -1,6 +1,5 @@
-import { Path, FlexiPath } from "..";
+import { FlexiPath, Path } from "..";
 import { parse, resolver } from "./path";
-
 import { untilSameAs } from "./resolve/strategies";
 /**
  * Get the diff for two paths

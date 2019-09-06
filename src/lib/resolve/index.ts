@@ -1,8 +1,8 @@
 import flexi, {
   FlexiPath,
-  ResolveOptions,
   NavigationState,
   Path,
+  ResolveOptions,
   WalkedPath
 } from "../..";
 import { parse } from "../path";
@@ -50,7 +50,7 @@ const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   const parsedOptions = parseOptions(options);
 
   if (parsedPath.isEmpty()) {
-    return { path: flexi.empty(), diff: flexi.empty() };
+    return { diff: flexi.empty(), path: flexi.empty() };
   }
 
   let aborted = false;
@@ -66,7 +66,7 @@ const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   });
 
   if (aborted) {
-    return { path: flexi.empty(), diff: flexi.empty() };
+    return { diff: flexi.empty(), path: flexi.empty() };
   }
 
   return result;
@@ -88,4 +88,4 @@ export const resolve = (path: Path, options: ResolveOptions): FlexiPath => {
   return walk(path, options).path;
 };
 
-export default { resolve, diff };
+export default { diff, resolve };

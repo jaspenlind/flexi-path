@@ -1,4 +1,5 @@
 import { normalize } from "path";
+
 import flexi, { FlexiPath, PathType } from "../src";
 
 describe("path", () => {

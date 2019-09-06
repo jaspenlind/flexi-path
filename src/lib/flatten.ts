@@ -1,4 +1,4 @@
-import flexi, { Path, FlexiPath } from "..";
+import flexi, { FlexiPath, Path } from "..";
 import { parse } from "./path";
 import walker from "./walker";
 /**

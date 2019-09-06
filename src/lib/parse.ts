@@ -1,5 +1,6 @@
 import { join } from "path";
-import { FlexiPath, PathWithBasePath, Path } from "..";
+
+import { FlexiPath, Path, PathWithBasePath } from "..";
 import path from "./path";
 /**
  * Used for parsing a `Path` into a `FlexiPath`

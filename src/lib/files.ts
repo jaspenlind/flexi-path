@@ -1,4 +1,5 @@
 import { join } from "path";
+
 import { FlexiPath, Path } from "..";
 import { parse, readDir } from "./path";
 

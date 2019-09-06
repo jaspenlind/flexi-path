@@ -1,5 +1,5 @@
-import shell from "shelljs";
 import { join } from "path";
+import shell from "shelljs";
 
 export const testDir = join(__dirname, "flex-test-data");
 
@@ -27,7 +27,7 @@ export const createDirectory = (relativePath: string): string => {
 };
 
 export default {
-  testDir,
+  createDirectory,
   createFile,
-  createDirectory
+  testDir
 };

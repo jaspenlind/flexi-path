@@ -1,4 +1,5 @@
 import { SyncExpectationResult } from "expect/build/types";
+
 import matcher from "./toHaveMatchingMembersOf";
 
 describe("toHaveMatchingMembersOf", () => {
@@ -20,7 +21,7 @@ describe("toHaveMatchingMembersOf", () => {
     });
 
     it("should pass for objects with functions", () => {
-      const obj = (name: string) => ({ name, getName: () => name });
+      const obj = (name: string) => ({ getName: () => name, name });
 
       expect(invoke(obj("1"), obj("1")).pass).toBe(true);
     });
@@ -38,7 +39,7 @@ describe("toHaveMatchingMembersOf", () => {
     });
 
     it("should fail for objects with functions", () => {
-      const obj = (name: string) => ({ name, getName: () => name });
+      const obj = (name: string) => ({ getName: () => name, name });
 
       expect(invoke(obj("1"), obj("2")).pass).toBe(false);
     });

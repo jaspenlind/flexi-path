@@ -1,4 +1,5 @@
 import { join } from "path";
+
 import flexi from "../../src";
 import { untilExists } from "../../src/lib/resolve/strategies";
 import testData from "../jest/createTestData";

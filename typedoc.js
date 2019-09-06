@@ -1,9 +1,9 @@
 module.exports = {
-  out: "./docs",
-  // readme: "none",
-  name: "flexi-path",
-  theme: "default",
   exclude: ["test/**/*"],
+  excludeExternals: true,
   mode: "file",
-  excludeExternals: true
+  name: "flexi-path",
+  out: "./docs",
+  theme: "default"
+  // readme: "none",
 };

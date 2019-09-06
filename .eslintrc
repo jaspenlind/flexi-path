@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "simple-import-sort", "sorting"],
   "extends": [
     "airbnb-base",
     "plugin:@typescript-eslint/recommended",
@@ -37,7 +37,17 @@
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "off",
     "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
+    "jest/valid-expect": "error",
+    "simple-import-sort/sort": "warn",
+    "sorting/sort-object-props": [
+      //TODO: toHaveMatchingMembersOf line #13 fails with "Cannot read property 'type' of undefined". Linting bug?
+      0,
+      {
+        "ignoreCase": true,
+        "ignoreMethods": false,
+        "ignoreMethodSiblings": false
+      }
+    ]
   },
   "settings": {
     "import/resolver": {

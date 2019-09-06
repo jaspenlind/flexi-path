@@ -1,4 +1,5 @@
-import { ParsedPath, join } from "path";
+import { join, ParsedPath } from "path";
+
 import flexi, { NavigationState, ResolveOptions } from "../../src";
 import testData from "../jest/createTestData";
 
@@ -32,7 +33,7 @@ describe("resolve", () => {
         x.name === "fictional" ? NavigationState.Found : NavigationState.Skip
     });
 
-    const result = flexi.resolve(path, { predicate, onNavigate });
+    const result = flexi.resolve(path, { onNavigate, predicate });
 
     expect(result).toHaveMatchingMembersOf(expected);
   });
@@ -41,10 +42,10 @@ describe("resolve", () => {
     const path = flexi.path("/fictional/path/with/file.js");
 
     const result = flexi.resolve(path, {
-      predicate: () => false,
       onNavigate: () => ({
         state: NavigationState.Abort
-      })
+      }),
+      predicate: () => false
     });
 
     expect(result).toBe(flexi.empty());
@@ -80,8 +81,8 @@ describe("resolve", () => {
     }));
 
     flexi.resolve(path, {
-      predicate: () => false,
-      onNavigate
+      onNavigate,
+      predicate: () => false
     });
 
     expect(onNavigate.mock.calls).toHaveLength(3);

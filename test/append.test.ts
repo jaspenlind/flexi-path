@@ -1,4 +1,5 @@
 import { normalize } from "path";
+
 import flexi from "../src";
 import testData from "./jest/createTestData";
 

@@ -1,11 +1,11 @@
-import { Path, Flexi, FlexiPath, ResolveOptions } from "../types";
+import { Flexi, FlexiPath, Path, ResolveOptions } from "../types";
 import path, {
-  isRoot,
   concat,
+  constants,
   exists,
   isEmpty,
-  resolver,
-  constants
+  isRoot,
+  resolver
 } from "./path";
 
 /**
@@ -21,7 +21,7 @@ let rootPath: FlexiPath;
  * @category api
  */
 const flexi: Flexi = {
-  path,
+  concat,
   empty: () => {
     if (emptyPath === undefined) {
       emptyPath = path(constants.empty);
@@ -29,19 +29,19 @@ const flexi: Flexi = {
 
     return emptyPath;
   },
+  exists,
   isEmpty,
+  isRoot,
+  path,
+  resolve: (current: Path, options: ResolveOptions) =>
+    resolver.resolve(current, options),
   root: () => {
     if (rootPath === undefined) {
       rootPath = path(constants.root);
     }
 
     return rootPath;
-  },
-  isRoot,
-  resolve: (current: Path, options: ResolveOptions) =>
-    resolver.resolve(current, options),
-  concat,
-  exists
+  }
 };
 
 export default flexi;

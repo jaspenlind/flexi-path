@@ -1,6 +1,6 @@
 import flexi from "../src";
-import testData from "./jest/createTestData";
 import subDirectories from "../src/lib/subDirectories";
+import testData from "./jest/createTestData";
 
 describe("subDirectories", () => {
   it("should contain subdirectory", () => {

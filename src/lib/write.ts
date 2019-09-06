@@ -1,6 +1,7 @@
 import shell from "shelljs";
+
 import { Path, PathType } from "..";
-import { parse, type, exists } from "./path";
+import { exists, parse, type } from "./path";
 
 /**
  * Writes the current `path` to disk if possible

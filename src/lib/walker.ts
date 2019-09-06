@@ -1,4 +1,4 @@
-import flexi, { FlexiPath, WalkUntil, WalkedPath } from "..";
+import flexi, { FlexiPath, WalkedPath, WalkUntil } from "..";
 
 /**
  * @category walker
@@ -12,11 +12,11 @@ const walk = (
   const diff = acc || flexi.empty();
 
   if (until(path)) {
-    return { path, diff };
+    return { diff, path };
   }
 
   if (parent.isEmpty()) {
-    return { path: flexi.empty(), diff };
+    return { diff, path: flexi.empty() };
   }
 
   return walk(parent, until, diff.prepend(path.base));

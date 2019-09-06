@@ -1,7 +1,8 @@
 import { join } from "path";
+
 import flexi, { FlexiPath, ParentQuery, Path } from "..";
-import { parentUntil } from "./resolve/strategies";
 import { parse } from "./path";
+import { parentUntil } from "./resolve/strategies";
 
 /**
  * @ignore

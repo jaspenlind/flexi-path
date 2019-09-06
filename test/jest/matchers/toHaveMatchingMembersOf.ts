@@ -1,6 +1,6 @@
-import { matcherHint, printReceived } from "jest-matcher-utils";
-import { SyncExpectationResult } from "expect/build/types";
 import matchers from "expect/build/matchers";
+import { SyncExpectationResult } from "expect/build/types";
+import { matcherHint, printReceived } from "jest-matcher-utils";
 
 const failMessage = (received: any) => (): string =>
   `${matcherHint(
@@ -20,8 +20,8 @@ const matchable = <T extends Record<string, any>>(obj: T, mock: any): T => {
 const toHaveMatchingMembersOf = (received: any, expected: any) => {
   if (typeof received !== "object" || typeof expected !== "object") {
     const result: SyncExpectationResult = {
-      pass: false,
-      message: failMessage(received)
+      message: failMessage(received),
+      pass: false
     };
 
     return result;

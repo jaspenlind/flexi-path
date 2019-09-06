@@ -1,4 +1,5 @@
 import { normalize } from "path";
+
 import flexi, { FlexiPath } from "../src";
 import parent from "../src/lib/parent";
 

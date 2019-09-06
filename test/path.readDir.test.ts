@@ -1,4 +1,5 @@
 import { parse } from "path";
+
 import { readDir } from "../src/lib/path";
 import testData from "./jest/createTestData";
 
