@@ -21,38 +21,47 @@ export enum PathType {
 }
 
 /**
- * Fetch or append `directory` to the current `path`
- * @category path
+ * Generic query interface
  */
-export interface SubDirectoryQuery {
+export interface Query<T, TResult> {
   /**
-   * Appends a new `path` to the current `path` and returns it
-   *  */
-  (name: string): FlexiPath;
-  /**
-   * Returns the `sub directories` of the current `path` if it `exists`
+   * Returns elements satisfying a `condition`
+   * @param condition The `condition`to be met
+   * @param options options
    */
-  (): FlexiPath[];
-  // TODO (predicate: (flex: FlexiPath) => boolean): FlexiPath[];
+  (
+    condition: (current: T) => boolean,
+    options?: { recursive: boolean }
+  ): TResult;
+
+  /**
+   * Returns all elements
+   */
+  (): TResult;
 }
 
 /**
- * Returns the `parent` of the current `path` or `null` when the `path` is `root`
+ * Returns the `parent` of a given `path` or `[[empty]]` when the `path` is `root`
  * @category path
  */
-export interface ParentQuery {
-  /**
-   * Returns the `parent` `numberOfLevels` levels up
-   * @category path
-   */
-  (numberOfLevels: number): FlexiPath;
-  (until: (current: FlexiPath) => boolean): FlexiPath;
+export type ParentQuery = Query<FlexiPath, FlexiPath>;
 
-  /**
-   * Returns the closest `parent` of the `path`
-   */
-  (): FlexiPath;
-}
+/**
+ * Returns the children of a given `path`
+ * @category path
+ */
+export type ChildQuery = Query<FlexiPath, FlexiPath[]>;
+
+/**
+ * Fetches subdirectories of a given `path`
+ * @category path
+ */
+export type SubDirectoryQuery = ChildQuery;
+
+/**
+ * Fetches files of a given `path`
+ */
+export type FileQuery = ChildQuery;
 
 /**
  * @category path
@@ -138,14 +147,20 @@ export interface FlexiPath extends ParsedPath {
    * The `parent` directory of the `path`
    */
   parent: ParentQuery;
+
   /**
-   * The sub directories of the `path` and a `path` builder
+   * The [[subDrirectories]] and [[files]] for a given `path`
+   */
+  children: ChildQuery;
+
+  /**
+   * The subdirectories of the `path` and a `path` builder
    */
   subDirectories: SubDirectoryQuery;
   /**
    * The files in the current `path`
    */
-  files(): FlexiPath[];
+  files: FileQuery;
 
   /**
    * Prepends the `path`s to the path
@@ -208,12 +223,12 @@ export interface FlexiPath extends ParsedPath {
   /**
    * Writes the current `path` to disk if possible
    */
-  write(): void;
+  write(): FlexiPath;
 
   /**
    * The `depth` of this `path`
    */
-  depth(): number;
+  depth: number;
 }
 
 /**

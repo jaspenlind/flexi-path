@@ -1,4 +1,4 @@
-import { PathType } from "../src";
+import flexi, { PathType } from "../src";
 import path from "../src/lib/path";
 import testData from "./jest/createTestData";
 
@@ -9,9 +9,12 @@ describe("path", () => {
     });
 
     it("should be file when path is a file", () => {
-      const testFile = testData.createFile("path.type.test");
+      const file = flexi
+        .path(testData.testDir)
+        .append("should_be_file_when_path_is_a_file.js")
+        .write();
 
-      expect(path(testFile).type()).toBe(PathType.File);
+      expect(file.type()).toBe(PathType.File);
     });
 
     it("should be unknown when path is invalid", () => {

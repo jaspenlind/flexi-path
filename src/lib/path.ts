@@ -2,6 +2,7 @@ import { Dirent, existsSync, lstatSync, readdirSync, Stats } from "fs";
 import nodePath from "path";
 
 import flexi, { FlexiPath, Path, PathType } from "..";
+import children from "./children";
 import concat from "./concat";
 import cut from "./cut";
 import diff from "./diff";
@@ -91,19 +92,21 @@ export const path = (current: Path): FlexiPath => {
   const normalizedPath = nodePath.normalize(pathAsString);
   const { root, dir, ext, base, name } = nodePath.parse(normalizedPath);
   const getParent = parent(normalizedPath);
-  const getSubDirectories = subDirectories(normalizedPath);
+  // const getSubDirectories = subDirectories(normalizedPath);
+  const getDepth = normalizedPath.split(constants.sep).length - 1;
 
   const api: FlexiPath = {
     append: (...paths: Path[]) => concat(normalizedPath, ...paths),
     base,
+    children: children(normalizedPath),
     cut: (count: number) => cut(normalizedPath, count),
-    depth: () => flatten(normalizedPath).length,
+    depth: getDepth,
     diff: (other: Path) => diff(normalizedPath, other),
     dir,
     except: (...paths: Path[]) => except(normalizedPath, ...paths),
     exists: () => exists(normalizedPath),
     ext,
-    files: () => files(normalizedPath),
+    files: files(normalizedPath),
     flatten: () => flatten(normalizedPath),
     hasRoot: () => hasRoot(normalizedPath),
     intersect: (...paths: Path[]) => intersect(normalizedPath, ...paths),
@@ -116,8 +119,7 @@ export const path = (current: Path): FlexiPath => {
     prepend: (...paths: Path[]) => prepend(normalizedPath, ...paths),
     reverse: () => reverse(normalizedPath),
     root,
-    subDirectories: (directoryName?: any): any =>
-      getSubDirectories(directoryName),
+    subDirectories: subDirectories(normalizedPath),
     type: () => type(normalizedPath),
     write: () => write(normalizedPath)
   };

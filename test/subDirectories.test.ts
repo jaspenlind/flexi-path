@@ -24,12 +24,15 @@ describe("subDirectories", () => {
     expect(subDirectories("invalid")()).toBeEmpty();
   });
 
-  describe("when passing name", () => {
-    it("should have subdirectory with parent", () => {
-      const parent = flexi.path("/root/");
-      const sub = parent.subDirectories("sub");
+  it("should not contain files", () => {
+    const dir = flexi
+      .path(testData.testDir)
+      .append("subdirectories_should_not_contain_files/")
+      .write();
 
-      expect(sub.parent()).toHaveMatchingMembersOf(parent);
-    });
+    dir.append("file.txt").write();
+
+    expect(dir.subDirectories()).toBeEmpty();
+    expect(dir.subDirectories(x => true)).toBeEmpty();
   });
 });

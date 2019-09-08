@@ -64,7 +64,7 @@ describe("path", () => {
     });
 
     it("should have depth", () => {
-      expect(flex.depth()).toBe(5);
+      expect(flex.depth).toBe(4);
     });
   });
 });

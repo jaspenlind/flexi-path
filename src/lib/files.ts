@@ -1,15 +1,14 @@
-import { join } from "path";
-
-import { FlexiPath, Path } from "..";
-import { parse, readDir } from "./path";
+import { FileQuery, FlexiPath, Path, PathType } from "..";
+import children from "./children";
 
 /**
  * The files in the current `path`
  * @category path
  */
-const files = (path: Path): FlexiPath[] =>
-  readDir(path)
-    .filter(x => x.isFile())
-    .map(x => parse(join(parse(path).path, x.name)));
+const files = (path: Path): FileQuery => (
+  condition?: any,
+  options?: any
+): FlexiPath[] =>
+  children(path)(condition, options).filter(x => x.type() === PathType.File);
 
 export default files;

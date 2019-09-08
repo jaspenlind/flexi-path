@@ -4,10 +4,12 @@ import shell from "shelljs";
 export const testDir = join(__dirname, "flex-test-data");
 
 beforeAll(() => {
-  if (shell.test("-d", testDir)) {
+  try {
     shell.rm("-rf", testDir);
+    shell.mkdir(testDir);
+  } catch {
+    // do nothing
   }
-  shell.mkdir(testDir);
 });
 
 export const createFile = (fileName: string, relativePath = ""): string => {

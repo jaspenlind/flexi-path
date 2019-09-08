@@ -1,23 +1,17 @@
-import { join } from "path";
+import { FlexiPath, Path, PathType, SubDirectoryQuery } from "..";
+import children from "./children";
 
-import { Path, SubDirectoryQuery } from "..";
-import { parse, readDir } from "./path";
 /**
  * The sub directories of the `path` and a `path` builder
  * @category path
  * @param path The current `path`
  */
 const subDirectories = (path: Path): SubDirectoryQuery => (
-  directoryName?: any
-): any => {
-  const parsed = parse(path);
-  if (directoryName === undefined) {
-    return readDir(parsed)
-      .filter(x => x.isDirectory())
-      .map(x => parse(join(parsed.path, x.name)));
-  }
-
-  return parse(join(parsed.path, directoryName));
-};
+  condition?: any,
+  options?: any
+): FlexiPath[] =>
+  children(path)(condition, options).filter(
+    x => x.type() === PathType.Directory
+  );
 
 export default subDirectories;

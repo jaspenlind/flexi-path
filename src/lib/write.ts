@@ -1,13 +1,13 @@
 import shell from "shelljs";
 
-import { Path, PathType } from "..";
+import flexi, { FlexiPath, Path, PathType } from "..";
 import { exists, parse, type } from "./path";
 
 /**
  * Writes the current `path` to disk if possible
  * @category path
  */
-const write = (path: Path): void => {
+const write = (path: Path): FlexiPath => {
   const parsed = parse(path);
   const parsedType = type(parsed);
 
@@ -30,6 +30,8 @@ const write = (path: Path): void => {
       shell.touch(parsed.path);
     }
   }
+
+  return flexi.path(parsed);
 };
 
 export default write;

@@ -21,4 +21,16 @@ describe("files", () => {
         .map(x => x.path)
     ).toContain(testFile);
   });
+
+  it("should not contain subdirectories", () => {
+    const dir = flexi
+      .path(flexData.testDir)
+      .append("files_should_not_contain_subdirectories/")
+      .write();
+
+    dir.append("subDir/").write();
+
+    expect(dir.files()).toBeEmpty();
+    expect(dir.files(x => true)).toBeEmpty();
+  });
 });

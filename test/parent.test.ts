@@ -43,13 +43,16 @@ describe("parent", () => {
 
       const expected = flexi.path("/deep/directory/");
 
-      const received = parent(longPath)(5);
+      const received = parent(longPath)(x => x.depth === 3);
+      // const received = parent(longPath)(5);
 
       expect(received).toHaveMatchingMembersOf(expected);
     });
 
     it("should be empty when levels is greater than path", () => {
-      expect(parent(flexi.root().path)(5000)).toBe(flexi.empty());
+      expect(parent(flexi.root().path)(x => x.depth === 5000)).toBe(
+        flexi.empty()
+      );
     });
   });
 

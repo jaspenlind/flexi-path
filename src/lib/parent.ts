@@ -30,21 +30,12 @@ const parent = (path: Path): ParentQuery => (query?: any): FlexiPath => {
     return flexi.empty();
   }
 
-  if (typeof query === "function") {
-    const until = query as (current: FlexiPath) => boolean;
+  const condition = query as (current: FlexiPath) => boolean;
 
-    return flexi.resolve(parsed, parentUntil(until));
-  }
-
-  const levelsToNavigate = ((query as number) || 1) - 1;
-
-  let next = parentPath(parsed);
-
-  if (levelsToNavigate > 0 && next !== flexi.empty()) {
-    next = parent(next)(levelsToNavigate);
-  }
-
-  return (next && parse(next)) || flexi.empty();
+  return (
+    (condition && flexi.resolve(parsed, parentUntil(condition))) ||
+    parse(parentPath(parsed))
+  );
 };
 
 export default parent;
