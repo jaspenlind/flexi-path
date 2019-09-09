@@ -84,19 +84,18 @@ describe("children", () => {
   });
 
   it("can walk until found", () => {
-    test.todo("implement walking functionallity");
-    // const dir = flexi
-    //   .path(testData.testDir)
-    //   .append("walk_until_found/")
-    //   .write();
+    const dir = flexi
+      .path(testData.testDir)
+      .append("walk_until_found/")
+      .write();
 
-    // dir.append("deep", "path", "below/").write();
+    dir.append("deep", "path", "below/").write();
 
-    // const result = dir.children(x => x.name === "below", { recursive: true });
+    const result = dir.children(x => x.name === "below", { recursive: true });
 
-    // expect(result).toHaveLength(1);
+    expect(result).toHaveLength(1);
 
-    // expect(result[0].name).toBe("below");
+    expect(result[0].name).toBe("below");
   });
 
   it("should be empty when walked and not found", () => {

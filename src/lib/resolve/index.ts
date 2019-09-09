@@ -50,12 +50,12 @@ const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   const parsedOptions = parseOptions(options);
 
   if (parsedPath.isEmpty()) {
-    return { diff: flexi.empty(), path: flexi.empty() };
+    return { diff: flexi.empty(), result: flexi.empty() };
   }
 
   let aborted = false;
 
-  const result = walker.walk(parsedPath, (current: FlexiPath) => {
+  const result = walker.walkBack(parsedPath, (current: FlexiPath) => {
     const state = walkUntil(current, parsedOptions);
 
     if (state === NavigationState.Abort) {
@@ -66,7 +66,7 @@ const walk = (path: Path, options: ResolveOptions): WalkedPath => {
   });
 
   if (aborted) {
-    return { diff: flexi.empty(), path: flexi.empty() };
+    return { diff: flexi.empty(), result: flexi.empty() };
   }
 
   return result;
@@ -85,7 +85,7 @@ export const diff = (path: Path, options: ResolveOptions): FlexiPath => {
  * @category walker
  */
 export const resolve = (path: Path, options: ResolveOptions): FlexiPath => {
-  return walk(path, options).path;
+  return walk(path, options).result;
 };
 
 export default { diff, resolve };

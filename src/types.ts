@@ -325,7 +325,7 @@ export interface WalkedPath {
   /**
    * The `path` the `Walker` walked
    */
-  path: FlexiPath;
+  result: FlexiPath;
   /**
    * Then `diff` or `remainder` of the `path` that wasn't `walked`
    */

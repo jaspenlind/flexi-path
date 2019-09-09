@@ -44,7 +44,6 @@ describe("parent", () => {
       const expected = flexi.path("/deep/directory/");
 
       const received = parent(longPath)(x => x.depth === 3);
-      // const received = parent(longPath)(5);
 
       expect(received).toHaveMatchingMembersOf(expected);
     });
@@ -78,5 +77,28 @@ describe("parent", () => {
     expect(flex.parent(x => x.name === "directory").path).toBe(
       normalize("/directory/")
     );
+  });
+
+  it("should return parent matching condition", () => {
+    expect(
+      flexi.path("some/arbitrary/path").parent(x => x.name === "arbitrary").path
+    ).toBe(normalize("some/arbitrary/"));
+  });
+
+  it("should be empty when empty", () => {
+    const empty = flexi.empty();
+    expect(empty.parent(x => x.path === "notempty")).toBe(empty);
+  });
+
+  it("should be root when condition is root", () => {
+    expect(
+      flexi.path("/some/path").parent(x => x.isRoot())
+    ).toHaveMatchingMembersOf(flexi.root());
+  });
+
+  it("should be empty when nothing matches and path has no root", () => {
+    expect(
+      flexi.path("path/without/root").parent(x => x.name === "nothing")
+    ).toBe(flexi.empty());
   });
 });

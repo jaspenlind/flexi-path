@@ -14,7 +14,7 @@ const flatten = (path: Path): FlexiPath[] => {
 
   const result: FlexiPath[] = [];
 
-  walker.walk(parse(path), (current: FlexiPath) => {
+  walker.walkBack(parse(path), (current: FlexiPath) => {
     result.unshift(flexi.path(current.isRoot() ? current.root : current.base));
     return current.parent().isEmpty();
   });

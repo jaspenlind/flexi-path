@@ -2,7 +2,7 @@ import { join } from "path";
 
 import flexi, { FlexiPath, ParentQuery, Path } from "..";
 import { parse } from "./path";
-import { parentUntil } from "./resolve/strategies";
+import walker from "./walker";
 
 /**
  * @ignore
@@ -24,18 +24,17 @@ export const parentPath = (path: Path): Path => {
  * The `parent` directory of the `path`
  * @category path
  */
-const parent = (path: Path): ParentQuery => (query?: any): FlexiPath => {
+const parent = (path: Path): ParentQuery => (condition?: any): FlexiPath => {
   const parsed = parse(path);
   if (parsed.isEmpty() || parsed.isRoot()) {
     return flexi.empty();
   }
 
-  const condition = query as (current: FlexiPath) => boolean;
+  const typedCondition = condition as (current: FlexiPath) => boolean;
 
-  return (
-    (condition && flexi.resolve(parsed, parentUntil(condition))) ||
-    parse(parentPath(parsed))
-  );
+  return typedCondition
+    ? walker.walkBack(parsed, typedCondition).result
+    : parse(parentPath(path));
 };
 
 export default parent;

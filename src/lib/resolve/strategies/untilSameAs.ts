@@ -9,11 +9,11 @@ import walker from "../../walker";
 const untilSameAs = (path: FlexiPath): ResolveOptions => {
   return {
     predicate: (current: FlexiPath) => {
-      const walked = walker.walk(path, (other: FlexiPath) => {
+      const walked = walker.walkBack(path, (other: FlexiPath) => {
         return current.path === other.path;
       });
 
-      return !walked.path.isEmpty() && !walked.path.isRoot();
+      return !walked.result.isEmpty() && !walked.result.isRoot();
     }
   };
 };
