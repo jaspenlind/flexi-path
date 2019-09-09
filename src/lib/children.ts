@@ -1,4 +1,4 @@
-import { ChildQuery, FlexiPath, Path } from "..";
+import { ChildQuery, FlexiPath, Path, PathMeta } from "..";
 import { parse, readDir } from "./path";
 import walker from "./walker";
 
@@ -31,7 +31,7 @@ const children = (path: Path): ChildQuery => (
 ): FlexiPath[] => {
   const parsed = parse(path);
 
-  const typedCondition = condition as (current: FlexiPath) => boolean;
+  const typedCondition = condition as (current: PathMeta) => boolean;
   const recursive = (options && options.recursive) || false;
 
   return recursive

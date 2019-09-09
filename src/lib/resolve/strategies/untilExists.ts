@@ -1,4 +1,10 @@
-import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
+import flexi, {
+  FlexiPath,
+  PathExistsOptions,
+  PathMeta,
+  ResolveOptions
+} from "../../..";
+import walker from "../../walker";
 
 /**
  * Walks a `path` until it [[exists]]
@@ -6,15 +12,15 @@ import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
  * @param options Resolver options
  */
 const untilExists = (options?: PathExistsOptions): ResolveOptions => {
-  const predicate = (current: FlexiPath) => {
+  const predicate = (current: PathMeta) => {
     let exists = current.exists();
 
     if (!exists && options && options.ignoreFileExtensions === true) {
       exists =
-        current
+        flexi
+          .path(current.path)
           .parent()
-          .files()
-          .find(x => x.name === current.name) !== undefined;
+          .files(x => x.name === current.name).length > 0;
     }
 
     return exists;

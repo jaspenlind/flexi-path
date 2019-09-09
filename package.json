@@ -1,7 +1,7 @@
 {
   "name": "flexi-path",
   "description": "Flexible path builder and walker",
-  "version": "0.0.4-alpha.4",
+  "version": "0.0.1-alpha.1",
   "keywords": [
     "builder",
     "walker",
@@ -92,7 +92,7 @@
     "*.{ts,js}": [
       "eslint --fix",
       "git add",
-      "jest --bail --findRelatedTests"
+      "jest --bail --onlyChanged"
     ]
   }
 }

@@ -65,7 +65,10 @@ describe("resolve", () => {
       predicate: current => {
         return (
           current.name === subFolderName &&
-          current.files().find(x => x.base === "resolve.t") !== undefined
+          flexi
+            .path(current.path)
+            .files()
+            .find(x => x.base === "resolve.t") !== undefined
         );
       }
     };

@@ -44,13 +44,13 @@ export interface Query<T, TResult> {
  * Returns the `parent` of a given `path` or `[[empty]]` when the `path` is `root`
  * @category path
  */
-export type ParentQuery = Query<FlexiPath, FlexiPath>;
+export type ParentQuery = Query<PathMeta, FlexiPath>;
 
 /**
  * Returns the children of a given `path`
  * @category path
  */
-export type ChildQuery = Query<FlexiPath, FlexiPath[]>;
+export type ChildQuery = Query<PathMeta, FlexiPath[]>;
 
 /**
  * Fetches subdirectories of a given `path`
@@ -112,19 +112,22 @@ export interface Flexi {
 }
 
 /**
- * A flexible `path` builder and walker
+ * Interface describing metadata for a `path`
  * @category path
  */
-export interface FlexiPath extends ParsedPath {
+export interface PathMeta extends ParsedPath {
   /**
    * The normalized `string` representation of the `path`
-   * */
+   */
   path: string;
   /**
    * `boolean` value indicating if the `path` is [[root]] path
    */
   isRoot(): boolean;
 
+  /**
+   * `boolean` value indicating if the `path` has a [[root]]
+   */
   hasRoot(): boolean;
 
   /**
@@ -144,6 +147,17 @@ export interface FlexiPath extends ParsedPath {
    * [[PathType]] enum. Possible values: [[Directory]] | [[File]] | [[Unknown]].
    */
   type(): PathType;
+
+  /**
+   * The `depth` of this `path`
+   */
+  depth: number;
+}
+/**
+ * A flexible `path` builder and walker
+ * @category path
+ */
+export interface FlexiPath extends PathMeta {
   /**
    * The `parent` directory of the `path`
    */
@@ -158,10 +172,6 @@ export interface FlexiPath extends ParsedPath {
    * The subdirectories of the `path` and a `path` builder
    */
   subDirectories: SubDirectoryQuery;
-  /**
-   * The files in the current `path`
-   */
-  files: FileQuery;
 
   /**
    * Prepends the `path`s to the path
@@ -208,6 +218,11 @@ export interface FlexiPath extends ParsedPath {
   cut(count: number): FlexiPath;
 
   /**
+   * The files in the current `path`
+   */
+  files: FileQuery;
+
+  /**
    * Intersects paths
    * @param paths The `paths` to `intersect` with
    * @returns The intersected part of the `path`
@@ -225,11 +240,6 @@ export interface FlexiPath extends ParsedPath {
    * Writes the current `path` to disk if possible
    */
   write(): FlexiPath;
-
-  /**
-   * The `depth` of this `path`
-   */
-  depth: number;
 }
 
 /**
@@ -269,12 +279,12 @@ export interface ResolveOptions {
    * Condition that has to be met to indicate the `path` is a match
    * @param current The current level of the walked `path`
    */
-  predicate?: (current: FlexiPath, state: NavigationState) => boolean;
+  predicate?: (current: PathMeta, state: NavigationState) => boolean;
   /**
    * Called on each level walking a `path`
    * @param current The current level of the walked `path`
    */
-  onNavigate?(current: FlexiPath, state: NavigationState): NavigationResult;
+  onNavigate?(current: PathMeta, state: NavigationState): NavigationResult;
 }
 
 /**
@@ -299,7 +309,7 @@ export interface NavigationResult {
  * a `string`, `string[]` or a `FlexiPath` with or without a `baseBath` representing a file path or any arbitrary path
  * @category path
  */
-export type Path = string | string[] | FlexiPath | PathWithBasePath;
+export type Path = string | string[] | PathWithBasePath | FlexiPath;
 
 /**
  * A `path` with a `basePath`
@@ -316,9 +326,9 @@ export interface PathWithBasePath {
  * @param current The current `walked` `path`
  * @returns `boolean` value indicating if walking should continue or not
  */
-export type WalkUntil = (current: FlexiPath) => boolean;
+export type WalkUntil = (current: PathMeta) => boolean;
 
-export type Walking = (current: FlexiPath) => void;
+export type Walking = (current: PathMeta) => void;
 
 /**
  * A `Walker` walked `path`

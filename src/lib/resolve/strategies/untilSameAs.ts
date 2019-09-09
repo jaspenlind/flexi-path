@@ -1,4 +1,4 @@
-import { FlexiPath, ResolveOptions } from "../../..";
+import { FlexiPath, PathMeta, ResolveOptions } from "../../..";
 import walker from "../../walker";
 
 /**
@@ -8,9 +8,9 @@ import walker from "../../walker";
  */
 const untilSameAs = (path: FlexiPath): ResolveOptions => {
   return {
-    predicate: (current: FlexiPath) => {
+    predicate: (current: PathMeta) => {
       const walked = walker.walkBack(path, {
-        until: (other: FlexiPath) => {
+        until: (other: PathMeta) => {
           return current.path === other.path;
         }
       });

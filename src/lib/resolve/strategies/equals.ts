@@ -1,4 +1,9 @@
-import { FlexiPath, PathExistsOptions, ResolveOptions } from "../../..";
+import flexi, {
+  FlexiPath,
+  PathExistsOptions,
+  PathMeta,
+  ResolveOptions
+} from "../../..";
 
 /**
  * Compares two `paths`
@@ -12,12 +17,12 @@ const equals = (
 ): ResolveOptions => {
   let areEqual: boolean;
 
-  const predicate = (current: FlexiPath) => {
+  const predicate = (current: PathMeta) => {
     if (areEqual === undefined) {
       areEqual = current.path === path.path;
 
       if (!areEqual && options && options.ignoreFileExtensions) {
-        const parent = current.parent();
+        const parent = flexi.path(current.path).parent();
 
         areEqual =
           parent !== null && parent.append(current.name).path === path.path;

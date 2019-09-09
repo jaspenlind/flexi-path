@@ -1,4 +1,4 @@
-import flexi, { FlexiPath, Path } from "..";
+import flexi, { FlexiPath, Path, PathMeta } from "..";
 import { parse } from "./path";
 import walker from "./walker";
 /**
@@ -15,11 +15,14 @@ const flatten = (path: Path): FlexiPath[] => {
   const result: FlexiPath[] = [];
 
   walker.walkBack(parse(path), {
-    until: (current: FlexiPath) => {
+    until: (current: PathMeta) => {
       result.unshift(
         flexi.path(current.isRoot() ? current.root : current.base)
       );
-      return current.parent().isEmpty();
+      return flexi
+        .path(current.path)
+        .parent()
+        .isEmpty();
     }
   });
 

@@ -16,7 +16,13 @@ describe("subDirectories", () => {
   });
 
   it("should be empty when path is file", () => {
-    const testFile = testData.createFile("subDirectories.test");
+    const testFile = flexi
+      .path({
+        basePath: testData.testDir,
+        path: "subdirectories_empty_when_path_is_file.js"
+      })
+      .write();
+
     expect(subDirectories(testFile)().map(x => x.path)).toBeEmpty();
   });
 

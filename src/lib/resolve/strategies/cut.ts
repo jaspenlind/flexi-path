@@ -1,4 +1,4 @@
-import { FlexiPath, ResolveOptions } from "../../..";
+import flexi, { FlexiPath, PathMeta, ResolveOptions } from "../../..";
 
 /**
  * Cuts a `path`
@@ -8,9 +8,14 @@ import { FlexiPath, ResolveOptions } from "../../..";
 const cut = (count: number): ResolveOptions => {
   let currentCount = 0;
 
-  const predicate = (current: FlexiPath): boolean => {
+  const predicate = (current: PathMeta): boolean => {
     const done =
-      current.isEmpty() || current.parent().isEmpty() || currentCount >= count;
+      current.isEmpty() ||
+      flexi
+        .path(current.path)
+        .parent()
+        .isEmpty() ||
+      currentCount >= count;
 
     currentCount += 1;
 

@@ -1,6 +1,7 @@
 import flexi, {
   BackwardsWalkedPath,
   FlexiPath,
+  Path,
   PathType,
   Walking,
   WalkUntil
@@ -13,29 +14,30 @@ import flexi, {
  * @category walker
  */
 const walkBack = (
-  path: FlexiPath,
+  path: Path,
   options?: {
     until?: WalkUntil;
     onWalk?: Walking;
   },
   acc?: FlexiPath
 ): BackwardsWalkedPath => {
-  const parent = path.parent();
+  const parsedPath = (path as FlexiPath) || flexi.path(path);
+  const parent = parsedPath.parent();
   const diff = acc || flexi.empty();
 
   if (options && options.onWalk) {
-    options.onWalk(path);
+    options.onWalk(parsedPath);
   }
 
-  if (options && options.until && options.until(path)) {
-    return { diff, result: path };
+  if (options && options.until && options.until(parsedPath)) {
+    return { diff, result: parsedPath };
   }
 
   if (parent.isEmpty()) {
     return { diff, result: flexi.empty() };
   }
 
-  return walkBack(parent, options, diff.prepend(path.base));
+  return walkBack(parent, options, diff.prepend(parsedPath.base));
 };
 
 /**
@@ -45,21 +47,22 @@ const walkBack = (
  * @category walker
  */
 const walk = (
-  path: FlexiPath,
+  path: Path,
   options?: {
     until?: WalkUntil;
     onWalk?: Walking;
   }
 ): FlexiPath[] => {
+  const parsedPath = (path as FlexiPath) || flexi.path(path);
   if (options && options.onWalk) {
-    options.onWalk(path);
+    options.onWalk(parsedPath);
   }
 
-  if (path.isEmpty() || !path.exists()) {
+  if (parsedPath.isEmpty() || !parsedPath.exists()) {
     return [];
   }
 
-  const content = path.children();
+  const content = parsedPath.children();
 
   const until = options && options.until;
 
@@ -76,7 +79,7 @@ const walk = (
       const result: FlexiPath[] = [];
 
       if (curr.type() === PathType.Directory) {
-        const next = path.append(curr.name);
+        const next = parsedPath.append(curr.name);
 
         result.push(...walk(next, options));
       }

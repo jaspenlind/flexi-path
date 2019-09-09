@@ -1,6 +1,6 @@
 import { join } from "path";
 
-import flexi, { FlexiPath, ParentQuery, Path } from "..";
+import flexi, { FlexiPath, ParentQuery, Path, PathMeta } from "..";
 import { parse } from "./path";
 import walker from "./walker";
 
@@ -30,7 +30,7 @@ const parent = (path: Path): ParentQuery => (condition?: any): FlexiPath => {
     return flexi.empty();
   }
 
-  const typedCondition = condition as (current: FlexiPath) => boolean;
+  const typedCondition = condition as (current: PathMeta) => boolean;
 
   return typedCondition
     ? walker.walkBack(parsed, { until: typedCondition }).result
