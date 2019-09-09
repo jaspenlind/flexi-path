@@ -33,7 +33,7 @@ const parent = (path: Path): ParentQuery => (condition?: any): FlexiPath => {
   const typedCondition = condition as (current: FlexiPath) => boolean;
 
   return typedCondition
-    ? walker.walkBack(parsed, typedCondition).result
+    ? walker.walkBack(parsed, { until: typedCondition }).result
     : parse(parentPath(path));
 };
 

@@ -1,9 +1,9 @@
 import flexi, {
+  BackwardsWalkedPath,
   FlexiPath,
   NavigationState,
   Path,
-  ResolveOptions,
-  WalkedPath
+  ResolveOptions
 } from "../..";
 import { parse } from "../path";
 import walker from "../walker";
@@ -45,7 +45,7 @@ const walkUntil = (
 /**
  * @ignore
  */
-const walk = (path: Path, options: ResolveOptions): WalkedPath => {
+const walk = (path: Path, options: ResolveOptions): BackwardsWalkedPath => {
   const parsedPath = parse(path);
   const parsedOptions = parseOptions(options);
 
@@ -55,14 +55,16 @@ const walk = (path: Path, options: ResolveOptions): WalkedPath => {
 
   let aborted = false;
 
-  const result = walker.walkBack(parsedPath, (current: FlexiPath) => {
-    const state = walkUntil(current, parsedOptions);
+  const result = walker.walkBack(parsedPath, {
+    until: (current: FlexiPath) => {
+      const state = walkUntil(current, parsedOptions);
 
-    if (state === NavigationState.Abort) {
-      aborted = true;
+      if (state === NavigationState.Abort) {
+        aborted = true;
+      }
+
+      return state === NavigationState.Abort || state === NavigationState.Found;
     }
-
-    return state === NavigationState.Abort || state === NavigationState.Found;
   });
 
   if (aborted) {

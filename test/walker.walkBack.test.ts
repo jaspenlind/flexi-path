@@ -19,15 +19,25 @@ describe("walk", () => {
       const path = sub.append("path").append("other");
 
       expect(
-        walker.walkBack(path, x => x.name === "sub").result
+        walker.walkBack(path, { until: x => x.name === "sub" }).result
       ).toHaveMatchingMembersOf(sub);
     });
 
     it("is empty when condition is not met", () => {
       expect(
-        walker.walkBack(flexi.path("some/path"), x => x.name === "invalid")
-          .result
+        walker.walkBack(flexi.path("some/path"), {
+          until: x => x.name === "invalid"
+        }).result
       ).toBe(flexi.empty());
+    });
+
+    it("can report walking", () => {
+      const report = jest.fn();
+      const path = flexi.path("first/second/third");
+
+      walker.walkBack(path, { onWalk: () => report() });
+
+      expect(report).toHaveBeenCalledTimes(3);
     });
   });
 });

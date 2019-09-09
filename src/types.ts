@@ -60,6 +60,7 @@ export type SubDirectoryQuery = ChildQuery;
 
 /**
  * Fetches files of a given `path`
+ * @category path
  */
 export type FileQuery = ChildQuery;
 
@@ -317,17 +318,25 @@ export interface PathWithBasePath {
  */
 export type WalkUntil = (current: FlexiPath) => boolean;
 
+export type Walking = (current: FlexiPath) => void;
+
 /**
  * A `Walker` walked `path`
  * @category walker
  */
-export interface WalkedPath {
+export interface WalkedPathResult<T> {
   /**
    * The `path` the `Walker` walked
    */
-  result: FlexiPath;
+  result: T;
+
   /**
    * Then `diff` or `remainder` of the `path` that wasn't `walked`
    */
-  diff: FlexiPath;
+  diff: T;
 }
+/**
+ * Result of a walked `path``
+ * @category walker
+ */
+export type BackwardsWalkedPath = WalkedPathResult<FlexiPath>;

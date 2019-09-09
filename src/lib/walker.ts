@@ -1,20 +1,33 @@
-import flexi, { FlexiPath, PathType, WalkedPath, WalkUntil } from "..";
+import flexi, {
+  BackwardsWalkedPath,
+  FlexiPath,
+  PathType,
+  Walking,
+  WalkUntil
+} from "..";
 
 /**
- * Walked a `path` backwards
+ * Walks a `path` backwards
  * @param path The path to walk
  * @param until Stops walking when condition is met
  * @category walker
  */
 const walkBack = (
   path: FlexiPath,
-  until?: WalkUntil,
+  options?: {
+    until?: WalkUntil;
+    onWalk?: Walking;
+  },
   acc?: FlexiPath
-): WalkedPath => {
+): BackwardsWalkedPath => {
   const parent = path.parent();
   const diff = acc || flexi.empty();
 
-  if (until && until(path)) {
+  if (options && options.onWalk) {
+    options.onWalk(path);
+  }
+
+  if (options && options.until && options.until(path)) {
     return { diff, result: path };
   }
 
@@ -22,15 +35,33 @@ const walkBack = (
     return { diff, result: flexi.empty() };
   }
 
-  return walkBack(parent, until, diff.prepend(path.base));
+  return walkBack(parent, options, diff.prepend(path.base));
 };
 
-const walk = (path: FlexiPath, until?: WalkUntil): FlexiPath[] => {
+/**
+ * Walks a `path`
+ * @param path The path to walk
+ * @param until Stops walking when condition is met
+ * @category walker
+ */
+const walk = (
+  path: FlexiPath,
+  options?: {
+    until?: WalkUntil;
+    onWalk?: Walking;
+  }
+): FlexiPath[] => {
+  if (options && options.onWalk) {
+    options.onWalk(path);
+  }
+
   if (path.isEmpty() || !path.exists()) {
     return [];
   }
 
   const content = path.children();
+
+  const until = options && options.until;
 
   if (until !== undefined) {
     const result = content.filter(x => until(x));
@@ -42,16 +73,19 @@ const walk = (path: FlexiPath, until?: WalkUntil): FlexiPath[] => {
 
   let walked = content.reduce<FlexiPath[]>(
     (prev: FlexiPath[], curr: FlexiPath) => {
-      const next =
-        curr.type() === PathType.Directory
-          ? walk(path.append(curr.name), until)
-          : [];
+      const result: FlexiPath[] = [];
 
-      if (next.length === 0) {
-        next.push(curr);
+      if (curr.type() === PathType.Directory) {
+        const next = path.append(curr.name);
+
+        result.push(...walk(next, options));
       }
 
-      prev.push(...next);
+      if (result.length === 0) {
+        result.push(curr);
+      }
+
+      prev.push(...result);
 
       return prev;
     },

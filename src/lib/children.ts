@@ -2,6 +2,9 @@ import { ChildQuery, FlexiPath, Path } from "..";
 import { parse, readDir } from "./path";
 import walker from "./walker";
 
+/**
+ * @ignore
+ */
 const getContent = (
   path: FlexiPath,
   condition?: (current: FlexiPath) => boolean
@@ -17,6 +20,11 @@ const getContent = (
   return content;
 };
 
+/**
+ * Returns the subdirectories and files for a given `path`
+ * @param path The current `path``
+ * @category path
+ */
 const children = (path: Path): ChildQuery => (
   condition?: any,
   options?: any
@@ -27,7 +35,7 @@ const children = (path: Path): ChildQuery => (
   const recursive = (options && options.recursive) || false;
 
   return recursive
-    ? walker.walk(parsed, typedCondition)
+    ? walker.walk(parsed, { until: typedCondition })
     : getContent(parsed, condition);
 };
 
