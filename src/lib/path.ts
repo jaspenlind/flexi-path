@@ -20,7 +20,6 @@ import type from "./type";
 import write from "./write";
 
 export { default as parse } from "./parse";
-export { default as resolver } from "./resolve";
 export { default as write } from "./write";
 export { default as type } from "./type";
 export { default as concat } from "./concat";

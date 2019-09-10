@@ -41,6 +41,6 @@ describe("subDirectories", () => {
     dir.append("file.txt").write();
 
     expect(dir.subDirectories()).toBeEmpty();
-    expect(dir.subDirectories(x => true)).toBeEmpty();
+    expect(dir.subDirectories(() => true)).toBeEmpty();
   });
 });

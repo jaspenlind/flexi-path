@@ -33,6 +33,6 @@ describe("files", () => {
     dir.append("subDir/").write();
 
     expect(dir.files()).toBeEmpty();
-    expect(dir.files(x => true)).toBeEmpty();
+    expect(dir.files(() => true)).toBeEmpty();
   });
 });

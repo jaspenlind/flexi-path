@@ -1,5 +1,5 @@
-import flexi from "../src";
-import walker from "../src/lib/walker";
+import flexi, { PathMeta } from "../../src";
+import walker from "../../src/lib/walker";
 
 describe("walk", () => {
   describe("walkBack", () => {
@@ -19,14 +19,15 @@ describe("walk", () => {
       const path = sub.append("path").append("other");
 
       expect(
-        walker.walkBack(path, { until: x => x.name === "sub" }).result
+        walker.walkBack(path, { until: (x: PathMeta) => x.name === "sub" })
+          .result
       ).toHaveMatchingMembersOf(sub);
     });
 
     it("is empty when condition is not met", () => {
       expect(
         walker.walkBack(flexi.path("some/path"), {
-          until: x => x.name === "invalid"
+          until: (x: PathMeta) => x.name === "invalid"
         }).result
       ).toBe(flexi.empty());
     });

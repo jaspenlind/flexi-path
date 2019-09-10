@@ -1,6 +1,6 @@
-import flexi from "../src";
-import walker from "../src/lib/walker";
-import { testDir } from "./jest/createTestData";
+import flexi, { PathMeta } from "../../src";
+import walker from "../../src/lib/walker";
+import { testDir } from "../jest/createTestData";
 
 describe("walker", () => {
   describe("walk", () => {
@@ -67,7 +67,7 @@ describe("walker", () => {
       const subFile = path.append("subfile.js").write();
 
       const result = walker.walk(path, {
-        until: x => x.name.startsWith("sub")
+        until: (x: PathMeta) => x.name.startsWith("sub")
       });
 
       expect(result).toHaveLength(3);
@@ -95,7 +95,9 @@ describe("walker", () => {
         .append("test.ts")
         .write();
 
-      const result = walker.walk(path, { until: x => x.base === file.base });
+      const result = walker.walk(path, {
+        until: (x: PathMeta) => x.base === file.base
+      });
 
       expect(result).toHaveLength(1);
       expect(result[0]).toHaveMatchingMembersOf(file);
@@ -108,7 +110,9 @@ describe("walker", () => {
 
       path.append("sub1/sub2/sub3/sub4/sub5/").write();
 
-      expect(walker.walk(path, { until: x => x.name === "sub77" })).toBeEmpty();
+      expect(
+        walker.walk(path, { until: (x: PathMeta) => x.name === "sub77" })
+      ).toBeEmpty();
     });
 
     it("can walk deep paths", () => {
@@ -129,7 +133,7 @@ describe("walker", () => {
       const deepest = written.append("deep/").write();
 
       expect(
-        walker.walk(path, { until: x => x.name === deepest.name })
+        walker.walk(path, { until: (x: PathMeta) => x.name === deepest.name })
       ).toHaveLength(1);
     });
 

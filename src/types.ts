@@ -81,10 +81,7 @@ export interface Flexi {
    *```
    */
   path: (path: Path) => FlexiPath;
-  /**
-   * Walks the `path` until a [[predicate|condition]] is met
-   */
-  resolve: (path: Path, options: ResolveOptions) => FlexiPath;
+
   /**
    * Concatinates multiple `paths` into a new `path`
    */
@@ -251,7 +248,7 @@ export interface FlexiPath extends PathMeta {
 
 /**
  * Represents the current state when navigating a `path`
- * @category resolver
+ * @category walker
  */
 export enum NavigationState {
   /**
@@ -275,41 +272,6 @@ export enum NavigationState {
    * Aborts navigation
    */
   Abort = 4
-}
-
-/**
- * Options representing how a path should be resolved
- * @category resolver
- */
-export interface ResolveOptions {
-  /**
-   * Condition that has to be met to indicate the `path` is a match
-   * @param current The current level of the walked `path`
-   */
-  predicate?: (current: PathMeta, state: NavigationState) => boolean;
-  /**
-   * Called on each level walking a `path`
-   * @param current The current level of the walked `path`
-   */
-  onNavigate?(current: PathMeta, state: NavigationState): NavigationResult;
-}
-
-/**
- * @category resolver
- */
-export interface PathExistsOptions {
-  ignoreFileExtensions?: boolean;
-}
-
-/**
- * The result of a `ResolveOptions`.`onNavigate`
- * @category resolver
- */
-export interface NavigationResult {
-  /**
-   * The `NavigationState`
-   */
-  state: NavigationState;
 }
 
 /**

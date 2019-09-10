@@ -1,6 +1,6 @@
 import { FlexiPath, Path } from "..";
-import { parse, resolver } from "./path";
-import { untilSameAs } from "./resolve/strategies";
+import walker from "./walker";
+
 /**
  * Get the diff for two paths
  * @category path
@@ -9,10 +9,10 @@ import { untilSameAs } from "./resolve/strategies";
  * @returns `diff` of the paths
  */
 const diff = (path: Path, other: Path): [FlexiPath, FlexiPath] => {
-  return [
-    resolver.diff(path, untilSameAs(parse(other))),
-    resolver.diff(other, untilSameAs(parse(path)))
-  ];
+  const first = walker.walkBack(path, { until: walker.until.sameAs(other) });
+  const second = walker.walkBack(other, { until: walker.until.sameAs(path) });
+
+  return [first.diff, second.diff];
 };
 
 export default diff;
