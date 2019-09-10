@@ -1,10 +1,4 @@
-import flexi, {
-  FlexiPath,
-  PathExistsOptions,
-  PathMeta,
-  ResolveOptions
-} from "../../..";
-import walker from "../../walker";
+import flexi, { PathExistsOptions, PathMeta, ResolveOptions } from "../../..";
 
 /**
  * Walks a `path` until it [[exists]]
@@ -22,7 +16,7 @@ const untilExists = (options?: PathExistsOptions): ResolveOptions => {
           .parent()
           .files(x => x.name === current.name).length > 0;
     }
-
+    // move to walker
     return exists;
   };
 

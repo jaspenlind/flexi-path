@@ -1,5 +1,5 @@
 import flexi, { FlexiPath, Path } from "..";
-import { cut as cutStrategy } from "./resolve/strategies";
+import walker from "./walker";
 
 /**
  * Cuts a path
@@ -8,7 +8,10 @@ import { cut as cutStrategy } from "./resolve/strategies";
  * @returns The cutted `path`
  */
 const cut = (path: Path, count: number): FlexiPath => {
-  return flexi.resolve(path, cutStrategy(count)) || flexi.empty();
+  const { depth } = flexi.path(path);
+  const newDepth = depth - count;
+
+  return walker.walkBack(path, { until: x => x.depth === newDepth }).result;
 };
 
 export default cut;

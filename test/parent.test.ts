@@ -41,7 +41,7 @@ describe("parent", () => {
         "/deep/directory/structure/with/multiple/sub/folders/"
       );
 
-      const expected = flexi.path("/deep/directory/");
+      const expected = flexi.path("/deep/directory/structure/");
 
       const received = parent(longPath)(x => x.depth === 3);
 

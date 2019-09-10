@@ -6,6 +6,7 @@ import children from "./children";
 import concat from "./concat";
 import cut from "./cut";
 import diff from "./diff";
+import equals from "./equals";
 import except from "./except";
 import files from "./files";
 import flatten from "./flatten";
@@ -93,16 +94,25 @@ export const path = (current: Path): FlexiPath => {
   const { root, dir, ext, base, name } = nodePath.parse(normalizedPath);
   const getParent = parent(normalizedPath);
   // const getSubDirectories = subDirectories(normalizedPath);
-  const getDepth = normalizedPath.split(constants.sep).length - 1;
+  const getDepth = () => {
+    const levels = normalizedPath.split(constants.sep);
+    if (normalizedPath.endsWith(constants.sep)) {
+      levels.pop();
+    }
+
+    return levels.length - 1;
+  };
 
   const api: FlexiPath = {
     append: (...paths: Path[]) => concat(normalizedPath, ...paths),
     base,
     children: children(normalizedPath),
     cut: (count: number) => cut(normalizedPath, count),
-    depth: getDepth,
+    depth: getDepth(),
     diff: (other: Path) => diff(normalizedPath, other),
     dir,
+    equals: (other: Path, options?: { ignoreFileExtension?: boolean }) =>
+      equals(normalizedPath, other, options),
     except: (...paths: Path[]) => except(normalizedPath, ...paths),
     exists: () => exists(normalizedPath),
     ext,

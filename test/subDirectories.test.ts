@@ -4,11 +4,13 @@ import testData from "./jest/createTestData";
 
 describe("subDirectories", () => {
   it("should contain subdirectory", () => {
-    const subDirectory = testData.createDirectory("subDirectory");
+    const path = flexi.path(testData.testDir);
 
-    expect(subDirectories(testData.testDir)().map(x => x.path)).toContain(
-      subDirectory
-    );
+    const subDirectory = path
+      .append("subDirectories_should_contain_subdirectory/")
+      .write();
+
+    expect(path.subDirectories().map(x => x.base)).toContain(subDirectory.base);
   });
 
   it("can get directories when path is flexi", () => {

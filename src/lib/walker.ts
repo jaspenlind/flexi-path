@@ -21,10 +21,9 @@ const walkBack = (
   },
   acc?: FlexiPath
 ): BackwardsWalkedPath => {
-  const parsedPath = (path as FlexiPath) || flexi.path(path);
+  const parsedPath = flexi.path(path);
   const parent = parsedPath.parent();
   const diff = acc || flexi.empty();
-
   if (options && options.onWalk) {
     options.onWalk(parsedPath);
   }
@@ -53,7 +52,7 @@ const walk = (
     onWalk?: Walking;
   }
 ): FlexiPath[] => {
-  const parsedPath = (path as FlexiPath) || flexi.path(path);
+  const parsedPath = flexi.path(path);
   if (options && options.onWalk) {
     options.onWalk(parsedPath);
   }

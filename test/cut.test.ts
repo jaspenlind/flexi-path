@@ -17,7 +17,7 @@ describe("path", () => {
     it("can cut short path", () => {
       const path = flexi.path("path");
 
-      expect(path.cut(100)).toHaveMatchingMembersOf(path);
+      expect(path.cut(100)).toBe(flexi.empty());
     });
   });
 });

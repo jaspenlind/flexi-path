@@ -26,8 +26,8 @@ describe("path", () => {
     });
 
     it("should write file when path looks like a file", () => {
-      const path = root.append("write-file.js");
-      path.write();
+      const path = root.append("write-file.js").write();
+
       expect(path.exists()).toBeTrue();
     });
 

@@ -118,7 +118,7 @@ describe("walker", () => {
 
       let sub1 = flexi.path("sub1/");
       let sub2 = flexi.path("sub2/");
-      for (let i = 0; i < 50; i += 1) {
+      for (let i = 0; i < 20; i += 1) {
         sub1 = sub1.append("sub1/");
         sub2 = sub2.append("sub2/");
       }

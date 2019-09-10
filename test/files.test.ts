@@ -1,5 +1,5 @@
 import flexi from "../src";
-import flexData from "./jest/createTestData";
+import flexData, { testDir } from "./jest/createTestData";
 
 describe("files", () => {
   it("should be empty when path is invalid", () => {
@@ -7,7 +7,9 @@ describe("files", () => {
   });
 
   it("should be empty when path is a file", () => {
-    const testFile = flexData.createFile("files.test.empty");
+    const testFile = flexi
+      .path({ basePath: testDir, path: "files_empty_when_path_is_file.txt" })
+      .write();
 
     expect(flexi.path(testFile).files()).toBeEmpty();
   });

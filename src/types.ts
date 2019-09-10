@@ -31,7 +31,7 @@ export interface Query<T, TResult> {
    */
   (
     condition: (current: T) => boolean,
-    options?: { recursive: boolean }
+    options?: { recursive?: boolean }
   ): TResult;
 
   /**
@@ -139,6 +139,13 @@ export interface PathMeta extends ParsedPath {
    * `boolean` value indicating if the `path` exists or not
    */
   exists(): boolean;
+
+  /**
+   * Checks if this `path` equals another `path`
+   * @param other the `path` to compare with
+   * @param options options
+   */
+  equals(other: Path, options?: { ignoreFileExtension?: boolean }): boolean;
   /**
    * `boolean` value indicating if the `path`is [[empty]]
    */
