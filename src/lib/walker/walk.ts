@@ -1,22 +1,15 @@
-import flexi, { FlexiPath, Path, PathType, Walking, WalkUntil } from "../..";
-
+import flexi, { FlexiPath, Path, PathType, WalkOptions } from "../..";
+import { reporter } from ".";
 /**
  * Walks a `path`
  * @param path The path to walk
  * @param until Stops walking when condition is met
  * @category walker
  */
-const walk = (
-  path: Path,
-  options?: {
-    until?: WalkUntil;
-    onWalk?: Walking;
-  }
-): FlexiPath[] => {
+const walk = (path: Path, options?: WalkOptions): FlexiPath[] => {
   const parsedPath = flexi.path(path);
-  if (options && options.onWalk) {
-    options.onWalk(parsedPath);
-  }
+
+  reporter(options).report(parsedPath);
 
   if (parsedPath.isEmpty() || !parsedPath.exists()) {
     return [];

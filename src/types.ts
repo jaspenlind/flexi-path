@@ -246,11 +246,16 @@ export interface FlexiPath extends PathMeta {
   write(): FlexiPath;
 }
 
+export interface WalkOptions {
+  until?: WalkUntil;
+  onWalk?: Walking;
+}
+
 /**
  * Represents the current state when navigating a `path`
  * @category walker
  */
-export enum NavigationState {
+export enum WalkedState {
   /**
    * Default state
    * @category walker
@@ -297,7 +302,7 @@ export interface PathWithBasePath {
  */
 export type WalkUntil = (current: PathMeta) => boolean;
 
-export type Walking = (current: PathMeta) => void;
+export type Walking = (current: { path: PathMeta; state: WalkedState }) => void;
 
 /**
  * A `Walker` walked `path`

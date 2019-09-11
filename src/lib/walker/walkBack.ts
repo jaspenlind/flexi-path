@@ -2,9 +2,9 @@ import flexi, {
   BackwardsWalkedPath,
   FlexiPath,
   Path,
-  Walking,
-  WalkUntil
+  WalkOptions
 } from "../..";
+import { reporter } from ".";
 
 /**
  * Walks a `path` backwards
@@ -14,18 +14,14 @@ import flexi, {
  */
 const walkBack = (
   path: Path,
-  options?: {
-    until?: WalkUntil;
-    onWalk?: Walking;
-  },
+  options?: WalkOptions,
   acc?: FlexiPath
 ): BackwardsWalkedPath => {
   const parsedPath = flexi.path(path);
   const parent = parsedPath.parent();
   const diff = acc || flexi.empty();
-  if (options && options.onWalk) {
-    options.onWalk(parsedPath);
-  }
+
+  reporter(options).report(parsedPath);
 
   if (options && options.until && options.until(parsedPath)) {
     const result = parsedPath.isRoot() ? flexi.root() : parsedPath;
