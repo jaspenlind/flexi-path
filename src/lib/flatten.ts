@@ -1,5 +1,5 @@
 import flexi, { FlexiPath, Path, PathMeta } from "..";
-import { parse } from "./path";
+import parse from "./parse";
 import walker from "./walker";
 /**
  * Flattens a `path`

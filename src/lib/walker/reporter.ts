@@ -1,5 +1,5 @@
 import { Path, WalkedState, WalkOptions } from "../..";
-import { parse } from "../path";
+import parse from "../parse";
 
 export { WalkedState, WalkOptions } from "../..";
 

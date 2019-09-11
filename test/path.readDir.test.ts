@@ -1,6 +1,6 @@
 import { parse } from "path";
 
-import { readDir } from "../src/lib/path";
+import { readDir } from "../src/lib/meta";
 import testData from "./jest/createTestData";
 
 describe("path", () => {

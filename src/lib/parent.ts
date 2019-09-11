@@ -1,7 +1,7 @@
 import { join } from "path";
 
 import flexi, { FlexiPath, ParentQuery, Path, PathMeta } from "..";
-import { parse } from "./path";
+import parse from "./parse";
 import walker from "./walker";
 
 /**

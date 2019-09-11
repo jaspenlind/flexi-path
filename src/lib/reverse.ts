@@ -1,6 +1,6 @@
 import { FlexiPath, Path } from "..";
-import { flatten, parse } from "./path";
-
+import parse from "./parse";
+import { flatten } from "./path";
 /**
  * Reverses the `path`
  * @category path

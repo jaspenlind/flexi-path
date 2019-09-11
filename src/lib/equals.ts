@@ -1,5 +1,5 @@
 import flexi, { FlexiPath, Path, PathType } from "..";
-import { constants } from "./path";
+import { constants } from "./meta";
 
 const trimTrailingSep = (path: FlexiPath): FlexiPath => {
   if (path.path.endsWith(constants.sep)) {
@@ -28,9 +28,6 @@ const equals = (
   options?: { ignoreFileExtension?: boolean }
 ): boolean => {
   const ignoreFileExtension = (options && options.ignoreFileExtension) || false;
-
-  console.log(compareablePath(path, ignoreFileExtension).path);
-  console.log(compareablePath(other, ignoreFileExtension).path);
 
   return (
     compareablePath(path, ignoreFileExtension).path ===

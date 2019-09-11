@@ -1,5 +1,6 @@
 import { Path, PathType } from "..";
-import { constants, exists, isValid, parse, stats } from "./path";
+import { constants, exists, isValid, stats } from "./meta";
+import parse from "./parse";
 
 /**
  * @ignore

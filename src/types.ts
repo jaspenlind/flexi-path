@@ -106,6 +106,8 @@ export interface Flexi {
    * Indicates if the `path` is [[root]] or not
    */
   isRoot: (path: Path) => boolean;
+
+  meta: (path: Path) => PathMeta;
 }
 
 /**

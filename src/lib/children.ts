@@ -1,5 +1,6 @@
 import { ChildQuery, FlexiPath, Path, PathMeta } from "..";
-import { parse, readDir } from "./path";
+import { readDir } from "./meta";
+import parse from "./parse";
 import walker from "./walker";
 
 /**

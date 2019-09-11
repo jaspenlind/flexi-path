@@ -1,7 +1,7 @@
 import { join } from "path";
 
 import flexi, { FlexiPath, Path } from "..";
-import { parse } from "./path";
+import parse from "./parse";
 /**
  * Concatinates a `path` with other `paths`
  * @category path

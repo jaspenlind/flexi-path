@@ -1,4 +1,4 @@
-import { stats } from "../src/lib/path";
+import { stats } from "../src/lib/meta";
 import testData from "./jest/createTestData";
 
 describe("path", () => {

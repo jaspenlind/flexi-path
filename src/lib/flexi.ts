@@ -1,6 +1,6 @@
 import { Flexi, FlexiPath } from "../types";
-import path, { concat, constants, exists, isEmpty, isRoot } from "./path";
-
+import meta, { constants, exists, isEmpty, isRoot } from "./meta";
+import path, { concat } from "./path";
 /**
  * @ignore
  */
@@ -25,6 +25,7 @@ const flexi: Flexi = {
   exists,
   isEmpty,
   isRoot,
+  meta,
   path,
   root: () => {
     if (rootPath === undefined) {

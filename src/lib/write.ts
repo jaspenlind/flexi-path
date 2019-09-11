@@ -1,7 +1,9 @@
 import shell from "shelljs";
 
 import flexi, { FlexiPath, Path, PathType } from "..";
-import { exists, parse, type } from "./path";
+import { exists } from "./meta";
+import parse from "./parse";
+import { type } from "./path";
 
 /**
  * Writes the current `path` to disk if possible

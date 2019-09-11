@@ -1,7 +1,7 @@
 import { normalize } from "path";
 
 import flexi from "../src";
-import { parse } from "../src/lib/path";
+import parse from "../src/lib/parse";
 
 describe("path", () => {
   describe("parse", () => {
