@@ -98,5 +98,12 @@ describe("path", () => {
         normalize("a/base/path/second/path")
       );
     });
+
+    it("can parse PathMeta", () => {
+      const meta = flexi.meta("path");
+
+      console.log(parse(meta));
+      expect(parse(meta).path).toBe("path");
+    });
   });
 });

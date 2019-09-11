@@ -1,6 +1,9 @@
 import flexi, { FlexiPath, Path, PathType } from "..";
 import { constants } from "./meta";
 
+/**
+ * @ignore
+ */
 const trimTrailingSep = (path: FlexiPath): FlexiPath => {
   if (path.path.endsWith(constants.sep)) {
     return flexi.path(path.parent()).append(path.base);
@@ -9,6 +12,9 @@ const trimTrailingSep = (path: FlexiPath): FlexiPath => {
   return path;
 };
 
+/**
+ * @ignore
+ */
 const compareablePath = (
   path: Path,
   ignoreFileExtension: boolean
@@ -22,6 +28,9 @@ const compareablePath = (
   return trimTrailingSep(parsed);
 };
 
+/**
+ * @category path
+ */
 const equals = (
   path: Path,
   other: Path,

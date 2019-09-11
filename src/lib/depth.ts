@@ -1,5 +1,8 @@
 import { constants } from "./meta";
 
+/**
+ * @category path
+ */
 const depth = (path: string) => {
   const levels = path.split(constants.sep);
   if (path.endsWith(constants.sep)) {

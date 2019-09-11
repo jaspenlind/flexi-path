@@ -63,6 +63,11 @@ export const readDir = (current: Path): Dirent[] =>
     readdirSync(parse(current).path, { withFileTypes: true })) ||
   [];
 
+/**
+ * Returns metadata for a path
+ * @category path
+ * @param path The `path` to get metadata for
+ */
 const meta = (path: Path): PathMeta => {
   const stringPath =
     typeof path === "string" ? (path as string) : parse(path).path;

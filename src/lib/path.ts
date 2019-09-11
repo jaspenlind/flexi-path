@@ -1,4 +1,4 @@
-import { FlexiPath, Path } from "..";
+import { FlexiPath, Path, PathKind, PathMeta } from "..";
 import children from "./children";
 import concat from "./concat";
 import cut from "./cut";
@@ -9,6 +9,7 @@ import flatten from "./flatten";
 import intersect from "./intersect";
 import meta from "./meta";
 import parent from "./parent";
+import pathKind from "./pathKind";
 import prepend from "./prepend";
 import reverse from "./reverse";
 import subDirectories from "./subDirectories";
@@ -29,6 +30,12 @@ export { default as except } from "./except";
  * @param current A `string` representation of a valid file path or any arbitrary path
  */
 export const path = (current: Path): FlexiPath => {
+  const kind = pathKind(current);
+  const pathMeta =
+    kind === PathKind.PathMeta || kind === PathKind.FlexiPath
+      ? (current as PathMeta)
+      : meta(current);
+
   const api = {
     append: (...paths: Path[]) => concat(current, ...paths),
     children: children(current),
@@ -45,7 +52,7 @@ export const path = (current: Path): FlexiPath => {
     write: () => write(current)
   };
 
-  return Object.freeze({ ...api, ...meta(current) });
+  return Object.freeze({ ...api, ...pathMeta });
 };
 
 export default path;

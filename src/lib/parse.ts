@@ -1,7 +1,59 @@
 import { join } from "path";
 
-import { FlexiPath, Path, PathWithBasePath } from "..";
+import flexi, {
+  FlexiPath,
+  Path,
+  PathKind,
+  PathVistor,
+  PathWithBasePath
+} from "..";
 import path from "./path";
+import pathKind from "./pathKind";
+
+/**
+ * @ignore
+ */
+const pathVisitor = ((): PathVistor<FlexiPath> => {
+  const visitString = (current: Path, kind: PathKind) =>
+    kind === PathKind.String ? path(current) : flexi.empty();
+
+  const visitArray = (current: Path, kind: PathKind) =>
+    kind === PathKind.Array
+      ? visitString(join(...(current as string[])), PathKind.String)
+      : visitString(current, PathKind.String);
+
+  const visitPathWithBasePath = (current: Path, kind: PathKind) => {
+    if (kind === PathKind.PathWithBasePath) {
+      const pathWithBasePath = current as PathWithBasePath;
+      const basePath = pathVisitor.visit(pathWithBasePath.basePath);
+      const currentPath = pathVisitor.visit(pathWithBasePath.path);
+      return pathVisitor.visit(join(basePath.path, currentPath.path));
+    }
+
+    return visitArray(current, kind);
+  };
+
+  const visitPathMeta = (current: Path, kind: PathKind) => {
+    return kind === PathKind.PathMeta
+      ? path(current)
+      : visitPathWithBasePath(current, kind);
+  };
+
+  const visitFlexiPath = (current: Path, kind: PathKind) => {
+    return kind === PathKind.FlexiPath
+      ? (current as FlexiPath)
+      : visitPathMeta(current, kind);
+  };
+
+  const visit = (current: Path): FlexiPath => {
+    const kind = pathKind(current);
+
+    return visitFlexiPath(current, kind);
+  };
+
+  return { visit };
+})();
+
 /**
  * Used for parsing a `Path` into a `FlexiPath`
  * @category path
@@ -9,23 +61,7 @@ import path from "./path";
  * @returns Then parsed `path`
  */
 const parse = (current: Path): FlexiPath => {
-  let parsed: FlexiPath | undefined;
-  if (Array.isArray(current)) {
-    return path(join(...current));
-  }
-
-  if (typeof current === "object") {
-    const pathWithBasePath = current as PathWithBasePath;
-    if (typeof pathWithBasePath.basePath !== "undefined") {
-      const basePath = parse(pathWithBasePath.basePath);
-      const currentPath = parse(pathWithBasePath.path);
-      parsed = path(join(basePath.path, currentPath.path));
-    } else {
-      parsed = current as FlexiPath;
-    }
-  }
-
-  return parsed || path(current as string);
+  return pathVisitor.visit(current);
 };
 
 export default parse;

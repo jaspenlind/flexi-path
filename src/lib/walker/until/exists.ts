@@ -1,5 +1,8 @@
 import flexi, { PathMeta, WalkUntil } from "../../..";
 
+/**
+ * @category walker
+ */
 const exists = (options?: { ignoreFileExtensions?: boolean }): WalkUntil => {
   const ignoreFileExtensions =
     (options && options.ignoreFileExtensions) || false;

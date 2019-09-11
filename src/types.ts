@@ -22,6 +22,7 @@ export enum PathType {
 
 /**
  * Generic query interface
+ * @category path
  */
 export interface Query<T, TResult> {
   /**
@@ -248,6 +249,10 @@ export interface FlexiPath extends PathMeta {
   write(): FlexiPath;
 }
 
+/**
+ * Options defining how the [[walker]] should walk
+ * @category walker
+ */
 export interface WalkOptions {
   until?: WalkUntil;
   onWalk?: Walking;
@@ -285,7 +290,28 @@ export enum WalkedState {
  * a `string`, `string[]` or a `FlexiPath` with or without a `baseBath` representing a file path or any arbitrary path
  * @category path
  */
-export type Path = string | string[] | PathWithBasePath | FlexiPath;
+export type Path = string | string[] | PathWithBasePath | PathMeta | FlexiPath;
+
+/**
+ * Enumeration of different types that can be a `Path`
+ * @category path
+ */
+export enum PathKind {
+  Unknown = 0,
+  String = 1,
+  Array = 2,
+  PathWithBasePath = 3,
+  PathMeta = 4,
+  FlexiPath = 5
+}
+
+/**
+ * Path visitor
+ * @category path
+ */
+export interface PathVistor<T> {
+  visit(path: Path): T;
+}
 
 /**
  * A `path` with a `basePath`
@@ -304,6 +330,9 @@ export interface PathWithBasePath {
  */
 export type WalkUntil = (current: PathMeta) => boolean;
 
+/**
+ * @category walker
+ */
 export type Walking = (current: { path: PathMeta; state: WalkedState }) => void;
 
 /**
