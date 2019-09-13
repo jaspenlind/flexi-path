@@ -5,6 +5,7 @@ import flexi, { Path, PathMeta, PathType } from "..";
 import depth from "./depth";
 import equals from "./equals";
 import parse from "./parse";
+import pathString from "./pathString";
 import type from "./type";
 
 /**
@@ -20,13 +21,13 @@ export const constants = {
  * `boolean` value indicating if the `path` exists or not
  * @category path
  */
-export const exists = (current: Path) => existsSync(flexi.path(current).path);
+export const exists = (path: Path) => existsSync(pathString(path));
 
 /**
  * `boolean` value indicating if the `path` is a `root` path
  * @category path
  */
-export const isRoot = (path: Path) => flexi.path(path).path === constants.sep;
+export const isRoot = (path: Path) => pathString(path) === constants.sep;
 
 /**
  * `boolean` value indicating if the `path` is [[empty]]
@@ -40,27 +41,28 @@ export const isEmpty = (path: Path | null): boolean =>
  * @category path
  */
 export const isValid = (path: Path): boolean =>
-  flexi.path(path).root !== constants.empty;
+  nodePath.parse(pathString(path)).root !== constants.empty;
 
 /**
  * `boolean` value indicating the path has a [[root]]
  * @category path
  */
-export const hasRoot = (path: Path) => parse(path).root === constants.sep;
+export const hasRoot = (path: Path) =>
+  nodePath.parse(pathString(path)).root === constants.sep;
 
 /**
  * @ignore
  */
-export const stats = (current: Path): Stats | null =>
-  (exists(current) && lstatSync(parse(current).path)) || null;
+export const stats = (path: Path): Stats | null =>
+  (exists(path) && lstatSync(parse(path).path)) || null;
 
 /**
  * @ignore
  */
-export const readDir = (current: Path): Dirent[] =>
-  (exists(current) &&
-    type(current) === PathType.Directory &&
-    readdirSync(parse(current).path, { withFileTypes: true })) ||
+export const readDir = (path: string): Dirent[] =>
+  (exists(path) &&
+    type(path) === PathType.Directory &&
+    readdirSync(path, { withFileTypes: true })) ||
   [];
 
 /**
@@ -69,8 +71,7 @@ export const readDir = (current: Path): Dirent[] =>
  * @param path The `path` to get metadata for
  */
 const meta = (path: Path): PathMeta => {
-  const stringPath =
-    typeof path === "string" ? (path as string) : parse(path).path;
+  const stringPath = pathString(path);
 
   const normalizedPath = nodePath.normalize(stringPath);
 
@@ -93,6 +94,16 @@ const meta = (path: Path): PathMeta => {
     root,
     type: () => type(normalizedPath)
   });
+};
+
+let emptyMeta: PathMeta;
+
+export const empty = () => {
+  if (emptyMeta === undefined) {
+    emptyMeta = meta("");
+  }
+
+  return emptyMeta;
 };
 
 export default meta;

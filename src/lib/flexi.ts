@@ -1,39 +1,16 @@
-import { Flexi, FlexiPath } from "../types";
-import meta, { constants, exists, isEmpty, isRoot } from "./meta";
-import path, { concat } from "./path";
-/**
- * @ignore
- */
-let emptyPath: FlexiPath;
-/**
- * @ignore
- */
-let rootPath: FlexiPath;
+import { Flexi } from "../types";
+import meta, { exists, isEmpty, isRoot } from "./meta";
+import path, { concat, empty, root } from "./path";
 
-/**
- * @category api
- */
 const flexi: Flexi = {
   concat,
-  empty: () => {
-    if (emptyPath === undefined) {
-      emptyPath = path(constants.empty);
-    }
-
-    return emptyPath;
-  },
+  empty,
   exists,
   isEmpty,
   isRoot,
   meta,
   path,
-  root: () => {
-    if (rootPath === undefined) {
-      rootPath = path(constants.root);
-    }
-
-    return rootPath;
-  }
+  root
 };
 
 export default flexi;

@@ -1,4 +1,4 @@
-import { ChildQuery, FlexiPath, Path, PathMeta } from "..";
+import { ChildQuery, FlexiPath, Path, PathMeta } from "../types";
 import { readDir } from "./meta";
 import parse from "./parse";
 import walker from "./walker";
@@ -10,7 +10,7 @@ const getContent = (
   path: FlexiPath,
   condition?: (current: FlexiPath) => boolean
 ): FlexiPath[] => {
-  let content = readDir(path)
+  let content = readDir(path.path)
     .map(x => path.append(x.name))
     .sort((first, second) => (first.path > second.path ? 0 : -1));
 

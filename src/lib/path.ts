@@ -7,7 +7,7 @@ import except from "./except";
 import files from "./files";
 import flatten from "./flatten";
 import intersect from "./intersect";
-import meta from "./meta";
+import meta, { constants } from "./meta";
 import parent from "./parent";
 import pathKind from "./pathKind";
 import prepend from "./prepend";
@@ -53,6 +53,24 @@ export const path = (current: Path): FlexiPath => {
   };
 
   return Object.freeze({ ...api, ...pathMeta });
+};
+
+let emptyPath: FlexiPath;
+let rootPath: FlexiPath;
+
+export const empty = () => {
+  if (emptyPath === undefined) {
+    emptyPath = path(constants.empty);
+  }
+  return emptyPath;
+};
+
+export const root = () => {
+  if (rootPath === undefined) {
+    rootPath = path(constants.root);
+  }
+
+  return rootPath;
 };
 
 export default path;

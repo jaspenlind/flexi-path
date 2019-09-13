@@ -11,7 +11,7 @@ import { type } from "./path";
  */
 const write = (path: Path): FlexiPath => {
   const parsed = parse(path);
-  const parsedType = type(parsed);
+  const parsedType = type(parsed.path);
 
   if (parsedType === PathType.Unknown) {
     throw new Error("Path is not valid or type cannot be determined");
