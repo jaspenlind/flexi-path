@@ -43,7 +43,7 @@ describe("parent", () => {
 
       const expected = flexi.path("/deep/directory/structure/");
 
-      const received = parent(longPath)(x => x.depth === 3);
+      const received = parent(longPath.path)(x => x.depth === 3);
 
       expect(received).toHaveMatchingMembersOf(expected);
     });

@@ -1,39 +1,38 @@
 import shell from "shelljs";
 
-import flexi, { FlexiPath, Path, PathType } from "..";
+import flexi, { FlexiPath, PathType } from "..";
 import { exists } from "./meta";
-import parse from "./parse";
-import { type } from "./path";
+import parent from "./parent";
+import type from "./type";
 
 /**
  * Writes the current `path` to disk if possible
  * @category path
  */
-const write = (path: Path): FlexiPath => {
-  const parsed = parse(path);
-  const parsedType = type(parsed.path);
+const write = (path: string): FlexiPath => {
+  const parsedType = type(path);
 
   if (parsedType === PathType.Unknown) {
     throw new Error("Path is not valid or type cannot be determined");
   }
 
-  if (exists(parsed)) {
+  if (exists(path)) {
     throw new Error("Path already exists");
   }
 
   if (parsedType === PathType.Directory) {
-    shell.mkdir("-p", parsed.path);
+    shell.mkdir("-p", path);
   } else {
-    const parsedParent = parsed.parent();
+    const parsedParent = parent(path)();
     if (parsedParent) {
-      if (!parsedParent.exists()) {
+      if (!exists(parsedParent.path)) {
         shell.mkdir("-p", parsedParent.path);
       }
-      shell.touch(parsed.path);
+      shell.touch(path);
     }
   }
 
-  return flexi.path(parsed);
+  return flexi.path(path);
 };
 
 export default write;

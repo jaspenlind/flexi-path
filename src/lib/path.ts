@@ -10,6 +10,7 @@ import intersect from "./intersect";
 import meta, { constants } from "./meta";
 import parent from "./parent";
 import pathKind from "./pathKind";
+import pathString from "./pathString";
 import prepend from "./prepend";
 import reverse from "./reverse";
 import subDirectories from "./subDirectories";
@@ -37,19 +38,23 @@ export const path = (current: Path): FlexiPath => {
       : meta(current);
 
   const api = {
-    append: (...paths: Path[]) => concat(current, ...paths),
-    children: children(current),
-    cut: (count: number) => cut(current, count),
+    append: (...paths: Path[]) =>
+      concat(pathMeta.path, ...paths.map(x => pathString(x))),
+    children: children(pathMeta.path),
+    cut: (count: number) => cut(pathMeta.path, count),
     diff: (other: Path) => diff(current, other),
-    except: (...paths: Path[]) => except(current, ...paths),
-    files: files(current),
-    flatten: () => flatten(current),
-    intersect: (...paths: Path[]) => intersect(current, ...paths),
-    parent: parent(current),
-    prepend: (...paths: Path[]) => prepend(current, ...paths),
-    reverse: () => reverse(current),
-    subDirectories: subDirectories(current),
-    write: () => write(current)
+    except: (...paths: Path[]) =>
+      except(pathMeta.path, ...paths.map(x => pathString(x))),
+    files: files(pathMeta.path),
+    flatten: () => flatten(pathMeta.path),
+    intersect: (...paths: Path[]) =>
+      intersect(pathMeta.path, ...paths.map(x => pathString(x))),
+    parent: parent(pathMeta.path),
+    prepend: (...paths: Path[]) =>
+      prepend(pathMeta.path, ...paths.map(x => pathString(x))),
+    reverse: () => reverse(pathMeta.path),
+    subDirectories: subDirectories(pathMeta.path),
+    write: () => write(pathMeta.path)
   };
 
   return Object.freeze({ ...api, ...pathMeta });

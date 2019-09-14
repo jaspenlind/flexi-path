@@ -1,4 +1,4 @@
-import { FlexiPath, Path } from "..";
+import { FlexiPath } from "..";
 import { flatReduce } from "./flatten";
 
 /**
@@ -7,7 +7,7 @@ import { flatReduce } from "./flatten";
  * @param paths The `paths` to `intersect` with
  * @returns The intersected part of the `path`
  */
-const intersect = (path: Path, ...paths: Path[]): FlexiPath => {
+const intersect = (path: string, ...paths: string[]): FlexiPath => {
   return flatReduce(
     (prev: string[], current: string[]) =>
       prev.filter(x => current.includes(x)),

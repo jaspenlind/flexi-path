@@ -1,12 +1,16 @@
-import flexi, { FlexiPath, Path, PathType } from "..";
-import { constants } from "./meta";
+import { parse } from "path";
 
+import flexi, { FlexiPath, PathType } from "..";
+import concat from "./concat";
+import { constants } from "./meta";
+import parent from "./parent";
+import type from "./type";
 /**
  * @ignore
  */
-const trimTrailingSep = (path: FlexiPath): FlexiPath => {
-  if (path.path.endsWith(constants.sep)) {
-    return flexi.path(path.parent()).append(path.base);
+const trimTrailingSep = (path: string): string => {
+  if (path.endsWith(constants.sep)) {
+    return concat(parent(path)().path, parse(path).base).path;
   }
 
   return path;
@@ -16,24 +20,24 @@ const trimTrailingSep = (path: FlexiPath): FlexiPath => {
  * @ignore
  */
 const compareablePath = (
-  path: Path,
+  path: string,
   ignoreFileExtension: boolean
 ): FlexiPath => {
-  let parsed = flexi.path(path);
+  let newPath = path;
 
-  if (parsed.type() === PathType.File && ignoreFileExtension) {
-    parsed = flexi.path(parsed.parent()).append(parsed.name);
+  if (type(path) === PathType.File && ignoreFileExtension) {
+    newPath = flexi.concat(parent(path)(), parse(path).name).path;
   }
 
-  return trimTrailingSep(parsed);
+  return flexi.path(trimTrailingSep(newPath));
 };
 
 /**
  * @category path
  */
 const equals = (
-  path: Path,
-  other: Path,
+  path: string,
+  other: string,
   options?: { ignoreFileExtension?: boolean }
 ): boolean => {
   const ignoreFileExtension = (options && options.ignoreFileExtension) || false;

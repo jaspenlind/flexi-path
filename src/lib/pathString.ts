@@ -1,4 +1,4 @@
-import { join } from "path";
+import { join, normalize } from "path";
 
 import {
   FlexiPath,
@@ -8,11 +8,14 @@ import {
   PathVistor,
   PathWithBasePath
 } from "../types";
+import { constants } from "./meta";
 import pathKind from "./pathKind";
 
 const pathStringVisitor = ((): PathVistor<string> => {
   const visitString = (current: Path, kind: PathKind) => {
-    return kind === PathKind.String ? (current as string) : "";
+    return kind === PathKind.String
+      ? normalize(current as string)
+      : constants.empty;
   };
 
   const visitArray = (current: Path, kind: PathKind) => {

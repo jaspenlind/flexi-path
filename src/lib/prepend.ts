@@ -1,4 +1,4 @@
-import { FlexiPath, Path } from "..";
+import { FlexiPath } from "..";
 import parse from "./parse";
 import { concat } from "./path";
 
@@ -8,7 +8,7 @@ import { concat } from "./path";
  * @param path The `path` to prepend
  * @param paths One or multiple `paths` to prepend the `path` with
  */
-const prepend = (path: Path, ...paths: Path[]): FlexiPath => {
+const prepend = (path: string, ...paths: string[]): FlexiPath => {
   const allPaths = [...paths, path];
 
   if (allPaths.length > 1) {

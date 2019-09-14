@@ -1,4 +1,4 @@
-import { FlexiPath, Path, PathType, SubDirectoryQuery } from "..";
+import { FlexiPath, PathType, SubDirectoryQuery } from "..";
 import children from "./children";
 
 /**
@@ -6,7 +6,7 @@ import children from "./children";
  * @category path
  * @param path The current `path`
  */
-const subDirectories = (path: Path): SubDirectoryQuery => (
+const subDirectories = (path: string): SubDirectoryQuery => (
   condition?: any,
   options?: any
 ): FlexiPath[] =>

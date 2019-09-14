@@ -1,11 +1,11 @@
-import { FlexiPath, Path } from "..";
+import { FlexiPath } from "..";
 import parse from "./parse";
 import { flatten } from "./path";
 /**
  * Reverses the `path`
  * @category path
  */
-const reverse = (path: Path): FlexiPath => {
+const reverse = (path: string): FlexiPath => {
   const segments = flatten(path).reverse();
 
   if (segments.length < 2) {

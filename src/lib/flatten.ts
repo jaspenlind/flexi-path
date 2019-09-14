@@ -1,5 +1,4 @@
-import flexi, { FlexiPath, Path, PathMeta } from "..";
-import parse from "./parse";
+import flexi, { FlexiPath, PathMeta } from "..";
 import walker from "./walker";
 /**
  * Flattens a `path`
@@ -7,14 +6,14 @@ import walker from "./walker";
  * @param path The `path` to `flattern`
  * @returns An array with the flatterned `path`
  */
-const flatten = (path: Path): FlexiPath[] => {
+const flatten = (path: string): FlexiPath[] => {
   if (flexi.isEmpty(path)) {
     return [];
   }
 
   const result: FlexiPath[] = [];
 
-  walker.walkBack(parse(path), {
+  walker.walkBack(path, {
     until: (current: PathMeta) => {
       result.unshift(
         flexi.path(current.isRoot() ? current.root : current.base)
@@ -34,18 +33,15 @@ const flatten = (path: Path): FlexiPath[] => {
  */
 export const flatReduce = (
   filter: (prev: string[], current: string[]) => string[],
-  path: Path,
-  ...paths: Path[]
+  path: string,
+  ...paths: string[]
 ): FlexiPath => {
-  const parsedPath = parse(path);
-  const parsedPaths = (paths || []).map(x => parse(x));
-
-  if (parsedPath.isEmpty() || parsedPaths.find(x => x.isEmpty())) {
+  if (flexi.isEmpty(path) || paths.find(x => flexi.isEmpty(x))) {
     return flexi.empty();
   }
-  const flattenedPath = parsedPath.flatten().map(x => x.path);
+  const flattenedPath = flatten(path).map(x => x.path);
 
-  const flattenedPaths = parsedPaths.map(x => x.flatten().map(z => z.path));
+  const flattenedPaths = paths.map(x => flatten(x).map(z => z.path));
 
   const result = flattenedPaths.reduce((prev: string[], current: string[]) => {
     return filter(prev, current);

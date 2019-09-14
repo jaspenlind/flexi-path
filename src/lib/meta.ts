@@ -12,7 +12,7 @@ import type from "./type";
  * @ignore
  */
 export const constants = {
-  empty: "",
+  empty: nodePath.normalize(""),
   root: nodePath.sep,
   sep: nodePath.sep
 };
@@ -21,7 +21,9 @@ export const constants = {
  * `boolean` value indicating if the `path` exists or not
  * @category path
  */
-export const exists = (path: Path) => existsSync(pathString(path));
+export const exists = (path: Path) => {
+  return existsSync(pathString(path));
+};
 
 /**
  * `boolean` value indicating if the `path` is a `root` path
@@ -34,14 +36,15 @@ export const isRoot = (path: Path) => pathString(path) === constants.sep;
  * @category path
  */
 export const isEmpty = (path: Path | null): boolean =>
-  path === null || flexi.path(path).path === flexi.empty().path;
+  path === null || pathString(path) === constants.empty;
 
 /**
  * `boolean` value representing if the `path` can be created on the disk
  * @category path
  */
-export const isValid = (path: Path): boolean =>
-  nodePath.parse(pathString(path)).root !== constants.empty;
+export const isValid = (path: Path): boolean => {
+  return nodePath.parse(pathString(path)).root === constants.root;
+};
 
 /**
  * `boolean` value indicating the path has a [[root]]
@@ -53,8 +56,8 @@ export const hasRoot = (path: Path) =>
 /**
  * @ignore
  */
-export const stats = (path: Path): Stats | null =>
-  (exists(path) && lstatSync(parse(path).path)) || null;
+export const stats = (path: string): Stats | null =>
+  (exists(path) && lstatSync(path)) || null;
 
 /**
  * @ignore
@@ -84,7 +87,7 @@ const meta = (path: Path): PathMeta => {
     exists: () => exists(normalizedPath),
     ext,
     equals: (other: Path, options?: { ignoreFileExtension?: boolean }) =>
-      equals(normalizedPath, other, options),
+      equals(normalizedPath, pathString(other), options),
     hasRoot: () => hasRoot(normalizedPath),
     isEmpty: () => isEmpty(normalizedPath),
     isRoot: () => isRoot(normalizedPath),

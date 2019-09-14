@@ -1,18 +1,20 @@
-import { Path, PathType } from "..";
+import { parse } from "path";
+
+import { PathType } from "..";
 import { constants, exists, isValid, stats } from "./meta";
-import parse from "./parse";
+import parent from "./parent";
 
 /**
  * @ignore
  */
-const guessType = (path: Path): PathType => {
-  const parsed = parse(path);
-  if (!isValid(parsed)) {
+const guessType = (path: string): PathType => {
+  if (!isValid(path)) {
     return PathType.Unknown;
   }
+
   const maybeFile =
-    (parsed.ext !== "" || !parsed.path.endsWith(constants.sep)) &&
-    parsed.parent() !== null;
+    parse(path).ext !== "" ||
+    (!path.endsWith(constants.sep) && parent(path)().path !== constants.empty);
 
   return maybeFile ? PathType.File : PathType.Directory;
 };
@@ -24,7 +26,7 @@ const guessType = (path: Path): PathType => {
  * @returns `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
  * on disk is `Unknown`
  */
-const type = (path: Path): PathType => {
+const type = (path: string): PathType => {
   if (!exists(path)) {
     return guessType(path);
   }

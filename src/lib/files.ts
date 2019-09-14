@@ -1,11 +1,11 @@
-import { FileQuery, FlexiPath, Path, PathType } from "..";
+import { FileQuery, FlexiPath, PathType } from "..";
 import children from "./children";
 
 /**
  * The files in the current `path`
  * @category path
  */
-const files = (path: Path): FileQuery => (
+const files = (path: string): FileQuery => (
   condition?: any,
   options?: any
 ): FlexiPath[] =>

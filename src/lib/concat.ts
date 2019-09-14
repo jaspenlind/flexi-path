@@ -1,19 +1,20 @@
 import { join } from "path";
 
-import flexi, { FlexiPath, Path } from "..";
-import parse from "./parse";
+import flexi, { FlexiPath } from "..";
+
 /**
  * Concatinates a `path` with other `paths`
  * @category path
  * @param path The `path` to concatinate
  * @param paths One or multiple `paths` to concatinate the `path` with
  */
-const concat = (path: Path, ...paths: Path[]): FlexiPath => {
-  const initial = parse(path).path;
-
-  const result = (paths || []).reduce<string>((prev: string, current: Path) => {
-    return join(prev, parse(current).path);
-  }, initial);
+const concat = (path: string, ...paths: string[]): FlexiPath => {
+  const result = (paths || []).reduce<string>(
+    (prev: string, current: string) => {
+      return join(prev, current);
+    },
+    path
+  );
 
   return flexi.path(result);
 };

@@ -1,6 +1,7 @@
 import { join } from "path";
 
 import flexi, { FlexiPath, ParentQuery, Path, PathMeta } from "..";
+import { isEmpty, isRoot } from "./meta";
 import parse from "./parse";
 import walker from "./walker";
 
@@ -24,16 +25,16 @@ export const parentPath = (path: Path): Path => {
  * The `parent` directory of the `path`
  * @category path
  */
-const parent = (path: Path): ParentQuery => (condition?: any): FlexiPath => {
-  const parsed = parse(path);
-  if (parsed.isEmpty() || parsed.isRoot()) {
+const parent = (path: string): ParentQuery => (condition?: any): FlexiPath => {
+  // const parsed = parse(path);
+  if (isEmpty(path) || isRoot(path)) {
     return flexi.empty();
   }
 
   const typedCondition = condition as (current: PathMeta) => boolean;
 
   return typedCondition
-    ? walker.walkBack(parsed, { until: typedCondition }).result
+    ? walker.walkBack(path, { until: typedCondition }).result
     : parse(parentPath(path));
 };
 

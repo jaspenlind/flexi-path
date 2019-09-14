@@ -1,4 +1,5 @@
-import flexi, { FlexiPath, Path } from "..";
+import { FlexiPath } from "..";
+import depth from "./depth";
 import walker from "./walker";
 
 /**
@@ -7,9 +8,9 @@ import walker from "./walker";
  * @param count Number of levels to cut
  * @returns The cutted `path`
  */
-const cut = (path: Path, count: number): FlexiPath => {
-  const { depth } = flexi.path(path);
-  const newDepth = depth - count;
+const cut = (path: string, count: number): FlexiPath => {
+  const currentDepth = depth(path);
+  const newDepth = currentDepth - count;
 
   return walker.walkBack(path, { until: x => x.depth === newDepth }).result;
 };
