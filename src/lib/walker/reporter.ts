@@ -1,7 +1,5 @@
-import { Path, WalkedState, WalkOptions } from "../..";
-import parse from "../parse";
-
-export { WalkedState, WalkOptions } from "../..";
+import { Path, WalkedState, WalkOptions } from "..";
+import { parse } from "../path";
 
 /**
  * Reports each stage in a walked path

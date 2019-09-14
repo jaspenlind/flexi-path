@@ -1,4 +1,4 @@
-import { Path, PathMeta, FlexiPath } from ".";
+import { Path, FlexiPath, Walker } from ".";
 
 /**
  * @category path
@@ -43,5 +43,5 @@ export interface Flexi {
    */
   isRoot: (path: Path) => boolean;
 
-  meta: (path: Path) => PathMeta;
+  walk: Walker;
 }

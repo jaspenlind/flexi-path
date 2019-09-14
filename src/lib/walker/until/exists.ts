@@ -1,4 +1,4 @@
-import flexi, { PathMeta, WalkUntil } from "../../..";
+import { flexi, PathMeta, WalkUntil } from "../..";
 
 /**
  * @category walker

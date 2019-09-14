@@ -1,15 +1,15 @@
+import back from "./back";
+import forward from "./forward";
 import until from "./until";
-import walk from "./walk";
-import walkBack from "./walkBack";
 
-export { default as reporter, WalkedState, WalkOptions } from "./reporter";
+export { default as reporter } from "./reporter";
 
 /**
  * @category walker
  */
 const walker = {
-  walk,
-  walkBack,
+  forward,
+  back,
   until
 };
 

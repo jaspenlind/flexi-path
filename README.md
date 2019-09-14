@@ -7,6 +7,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Coverage Status](https://coveralls.io/repos/jaspenlind/flexi-path/badge.svg?branch=master)](https://coveralls.io/r/jaspenlind/flexi-path?branch=master)
 ![David](https://img.shields.io/david/dev/jaspenlind/flexi-path)
+[![GitHub Pages](https://img.shields.io/badge/api-docs-blue)](https://jaspenlind.github.io/flexi-path/)
 ![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
 
 ## Installation
@@ -19,58 +20,91 @@
 
 ## Example
 
-### Get files in currect directory
+### Build paths
 
 ```ts
 import flexi from "flexi-path";
 
-const currentPath = flexi.path(__dirname);
+const path = flexi.path("path").append("other");
 
-const files = currentPath.files();
+const prependedPath = path.prepend("prepended");
 
-//==> [...]
+const finalPath = prependedPath.prepend(__dirName).append("someFile.js");
+
+finalPath.write();
+
+//==> {cur dir}/prepended/path/other/someFile.js
 ```
 
-### Append paths to an existing path
+### Walk paths
 
 ```ts
 import flexi from "flexi-path";
 
-const path = flexi.path("root");
+const path = flexi.path("path/to/existing/file.js");
 
-const otherPath = flexi.path("other");
+flexi.walk.forward(path);
 
-const deeperPath = path
-  .append(otherPath)
-  .append("deeper")
-  .append("path");
+//==> ["path", "to", "existing", "file.js"]
 
-//=> root/deeper/path
+const existingPath = flexi.path("existing/path");
+const completePath = existingPath.append("some/non/existing/parts");
+
+const result = flexi.walk.back(restOfPath, { until: until.exists() });
+
+//==> existing/path
 ```
 
-### Navigate with predicate
+### Compare paths
 
 ```ts
 import flexi from "flexi-path";
 
-const path = flexi
-  .path("/Rootdir/Level1/Level2")
-  .prepend("/another")
-  .parent(x => x.name === "Level1");
+const common = flexi.path("/common/root");
+const first = flexi.path("first/path");
+const second = flexi.path("second/path");
 
-//==> /another/Rootdir/Level1
+const diff = common.append(first).diff(common.append(second));
+
+//==> [
+first
+second
+]
+
+const intersect = first.intersect(second);
+
+//==> path
+
+const except = first.except(second);
+
+//==> first/second
+
+const equals = flexi.path("path").equals("path");
+
+//==> true
+
+flexi.path("").isEmpty()
+
+//==> true
 ```
 
-### Find first valid path
+### Manipulate paths
 
 ```ts
-import flexi, { pathExists } from "flexi-path";
+const path = flexi.path("one/two/three/four/five/six");
 
-const invalidPath = flexi,path("/Rootdir/Level1/file/some/invalid/path/segments")
+const reversed = path.reverse();
 
-const validPath = flexi.resolve(invalidPath, unitilExists());
+//==> six/five/four/three/two/one
 
-//==> /Rootdir/Level1/file
+const cut = reversed.cut(4);
 
-const exists = validPath.exists();
+//==> six/five
+
+const flat = cut.flatten();
+
+//==> [
+	six
+	five
+]
 ```

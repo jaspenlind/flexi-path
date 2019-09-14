@@ -1,11 +1,11 @@
-import reporter, { WalkOptions } from "../../src/lib/walker/reporter";
+import { reporter } from "../../src/lib/walker";
 
 describe("walker", () => {
   describe("reporter", () => {
     it("can report path", () => {
       const report = jest.fn();
 
-      const options: WalkOptions = { onWalk: () => report() };
+      const options = { onWalk: () => report() };
 
       const spy = jest.spyOn(options, "onWalk");
 
