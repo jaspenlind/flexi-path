@@ -1,5 +1,5 @@
-import { FlexiPath, Path, walker } from "..";
-
+import { FlexiPath, Path } from "..";
+import walker from "../walker";
 /**
  * Get the diff for two paths
  * @category path

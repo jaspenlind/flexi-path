@@ -1,4 +1,6 @@
-import { flexi, FlexiPath, PathMeta, walker } from "..";
+import { flexi, FlexiPath, PathMeta } from "..";
+import walker from "../walker";
+
 /**
  * Flattens a `path`
  * @category path

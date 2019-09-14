@@ -1,16 +1,16 @@
-import { flexi, walker } from "../../src/lib";
+import { flexi } from "../../src/lib";
 import { testDir } from "../jest/createTestData";
 
 describe("walker", () => {
   describe("forward", () => {
     it("should be empty when path is empty", () => {
-      expect(walker.forward(flexi.empty()).result).toBeEmpty();
+      expect(flexi.walk.forward(flexi.empty()).result).toBeEmpty();
     });
 
     it("should be empty when path does not exist", () => {
       const path = flexi.path("nonexisting");
 
-      expect(walker.forward(path).result).toBeEmpty();
+      expect(flexi.walk.forward(path).result).toBeEmpty();
     });
 
     it("should be empty when path has no content", () => {
@@ -19,7 +19,7 @@ describe("walker", () => {
         .append("walk_empty_when_no_content/")
         .write();
 
-      expect(walker.forward(path).result).toBeEmpty();
+      expect(flexi.walk.forward(path).result).toBeEmpty();
     });
 
     it("should return all content when no condition", () => {
@@ -41,7 +41,7 @@ describe("walker", () => {
       const sub2 = path.append("sub2/").write();
       const file4 = path.append("file4.php").write();
 
-      const result = walker.forward(path).result.map(x => x.path);
+      const result = flexi.walk.forward(path).result.map(x => x.path);
 
       expect(result).toHaveLength(5);
 
@@ -65,7 +65,7 @@ describe("walker", () => {
 
       const subFile = path.append("subfile.js").write();
 
-      const walked = walker.forward(path, {
+      const walked = flexi.walk.forward(path, {
         until: x => x.name.startsWith("sub")
       });
 
@@ -96,7 +96,7 @@ describe("walker", () => {
         .append("test.ts")
         .write();
 
-      const walked = walker.forward(path, {
+      const walked = flexi.walk.forward(path, {
         until: x => x.base === file.base
       });
 
@@ -112,7 +112,7 @@ describe("walker", () => {
       path.append("sub1/sub2/sub3/sub4/sub5/").write();
 
       expect(
-        walker.forward(path, { until: x => x.name === "sub77" }).result
+        flexi.walk.forward(path, { until: x => x.name === "sub77" }).result
       ).toBeEmpty();
     });
 
@@ -134,7 +134,7 @@ describe("walker", () => {
       const deepest = written.append("deep/").write();
 
       expect(
-        walker.forward(path, { until: x => x.name === deepest.name }).result
+        flexi.walk.forward(path, { until: x => x.name === deepest.name }).result
       ).toHaveLength(1);
     });
 
@@ -145,7 +145,7 @@ describe("walker", () => {
 
       const wholePath = path.append("whole/path").write();
 
-      const walked = walker.forward(path);
+      const walked = flexi.walk.forward(path);
 
       expect(walked.result).toHaveLength(1);
 
@@ -160,7 +160,7 @@ describe("walker", () => {
 
       path.append("two/levels/").write();
 
-      walker.forward(path, { onWalk: () => report() });
+      flexi.walk.forward(path, { onWalk: () => report() });
 
       expect(report).toHaveBeenCalledTimes(3);
     });

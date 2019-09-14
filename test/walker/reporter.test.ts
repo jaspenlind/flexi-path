@@ -1,4 +1,4 @@
-import { reporter } from "../../src/lib/walker";
+import reporter from "../../src/lib/walker/reporter";
 
 describe("walker", () => {
   describe("reporter", () => {

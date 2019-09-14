@@ -1,4 +1,4 @@
-import { flexi, walker } from "../../../src/lib";
+import flexi, { until } from "../../../src";
 
 describe("walker", () => {
   describe("until.sameAs", () => {
@@ -7,13 +7,13 @@ describe("walker", () => {
       const second = flexi.path("another");
 
       expect(
-        walker.back(first, { until: walker.until.sameAs(second) }).result
+        flexi.walk.back(first, { until: until.sameAs(second) }).result
       ).toBe(flexi.empty());
     });
 
     it("should be root", () => {
       expect(
-        walker.back("/first", { until: walker.until.sameAs("/second") }).result
+        flexi.walk.back("/first", { until: until.sameAs("/second") }).result
       ).toBe(flexi.root());
     });
 
@@ -23,7 +23,7 @@ describe("walker", () => {
       const expected = flexi.path("/closest/parent/");
 
       expect(
-        walker.back(first, { until: walker.until.sameAs(second) }).result
+        flexi.walk.back(first, { until: until.sameAs(second) }).result
       ).toHaveMatchingMembersOf(expected);
     });
   });

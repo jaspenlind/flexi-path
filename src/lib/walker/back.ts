@@ -1,5 +1,5 @@
 import { flexi, FlexiPath, Path, WalkedPath, WalkOptions } from "..";
-import { reporter } from ".";
+import reporter from "./reporter";
 
 /**
  * Walks a `path` backwards

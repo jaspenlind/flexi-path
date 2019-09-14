@@ -1,16 +1,16 @@
-import { flexi, walker } from "../../src/lib";
+import { flexi } from "../../src/lib";
 import { testDir } from "../jest/createTestData";
 
 describe("walk", () => {
   describe("back", () => {
     it("should be empty when path is empty", () => {
-      expect(walker.back(flexi.empty()).result).toBe(flexi.empty());
+      expect(flexi.walk.back(flexi.empty()).result).toBe(flexi.empty());
     });
 
     it("can stop when parent is empty", () => {
       const path = flexi.path("path");
 
-      expect(walker.back(path).result).toBe(flexi.empty());
+      expect(flexi.walk.back(path).result).toBe(flexi.empty());
     });
 
     it("can stop when condition is met", () => {
@@ -19,13 +19,13 @@ describe("walk", () => {
       const path = sub.append("path").append("other");
 
       expect(
-        walker.back(path, { until: x => x.name === "sub" }).result
+        flexi.walk.back(path, { until: x => x.name === "sub" }).result
       ).toHaveMatchingMembersOf(sub);
     });
 
     it("is empty when condition is not met", () => {
       expect(
-        walker.back(flexi.path("some/path"), {
+        flexi.walk.back(flexi.path("some/path"), {
           until: x => x.name === "invalid"
         }).result
       ).toBe(flexi.empty());
@@ -35,7 +35,7 @@ describe("walk", () => {
       const report = jest.fn();
       const path = flexi.path("first/second/third");
 
-      walker.back(path, { onWalk: () => report() });
+      flexi.walk.back(path, { onWalk: () => report() });
 
       expect(report).toHaveBeenCalledTimes(3);
     });
@@ -47,7 +47,7 @@ describe("walk", () => {
         .append("subOfSubFolder/resolve.t")
         .write();
 
-      const result = walker.back(fullPath, {
+      const result = flexi.walk.back(fullPath, {
         until: x => x.name === "resolve-subFolder-predicate"
       });
 

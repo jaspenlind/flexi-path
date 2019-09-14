@@ -1,4 +1,5 @@
-import { ChildQuery, FlexiPath, PathMeta, walker } from "..";
+import { ChildQuery, FlexiPath, PathMeta } from "..";
+import walker from "../walker";
 import { concat, readDir } from ".";
 
 /**

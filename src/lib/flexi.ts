@@ -1,6 +1,7 @@
-import { Flexi, Path, walker as walk } from ".";
+import { Flexi, Path } from ".";
 import path, { concat, empty, exists, isEmpty, isRoot, root } from "./path";
 import { pathString } from "./path/parse";
+import walk from "./walker";
 
 /** @category path */
 const flexi: Flexi = {
@@ -15,5 +16,5 @@ const flexi: Flexi = {
   walk
 };
 
-export * from "..";
+export * from "../types";
 export default flexi;

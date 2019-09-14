@@ -1,11 +1,11 @@
-import { flexi, Path, PathMeta, walker, WalkUntil } from "../..";
+import { flexi, Path, PathMeta, WalkUntil } from "../..";
 
 /**
  * @category walker
  */
 const sameAs = (other: Path): WalkUntil => {
   return (x: PathMeta) => {
-    const match = walker.back(other, { until: z => x.path === z.path });
+    const match = flexi.walk.back(other, { until: z => x.path === z.path });
 
     return match.result !== flexi.empty();
   };

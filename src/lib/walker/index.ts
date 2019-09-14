@@ -2,7 +2,7 @@ import back from "./back";
 import forward from "./forward";
 import until from "./until";
 
-export { default as reporter } from "./reporter";
+export { default as until } from "./until";
 
 /**
  * @category walker

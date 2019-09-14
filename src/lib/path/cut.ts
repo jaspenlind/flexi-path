@@ -1,4 +1,5 @@
-import { FlexiPath, walker } from "..";
+import { FlexiPath } from "..";
+import walker from "../walker";
 import { depth } from ".";
 
 /**

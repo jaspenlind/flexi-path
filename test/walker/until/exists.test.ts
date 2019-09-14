@@ -1,6 +1,6 @@
 import { join } from "path";
 
-import { flexi, walker } from "../../../src/lib";
+import flexi, { until } from "../../../src";
 import testData from "../../jest/createTestData";
 
 describe("walker", () => {
@@ -13,7 +13,7 @@ describe("walker", () => {
       const expected = flexi.path(subDir);
 
       expect(
-        walker.back(path, { until: walker.until.exists() }).result
+        flexi.walk.back(path, { until: until.exists() }).result
       ).toHaveMatchingMembersOf(expected);
     });
 
@@ -23,7 +23,7 @@ describe("walker", () => {
       const path = flexi.path(file);
 
       expect(
-        walker.back(path, { until: walker.until.exists() }).result
+        flexi.walk.back(path, { until: until.exists() }).result
       ).toHaveMatchingMembersOf(path);
     });
 
@@ -37,8 +37,8 @@ describe("walker", () => {
         .append("pathExists-fileext");
 
       expect(
-        walker.back(pathWithoutExt, {
-          until: walker.until.exists({ ignoreFileExtensions: true })
+        flexi.walk.back(pathWithoutExt, {
+          until: until.exists({ ignoreFileExtensions: true })
         }).result
       ).toHaveMatchingMembersOf(pathWithoutExt);
     });
@@ -47,7 +47,7 @@ describe("walker", () => {
       const nonExistingPath = flexi.path("invalid");
 
       expect(
-        walker.back(nonExistingPath, { until: walker.until.exists() }).result
+        flexi.walk.back(nonExistingPath, { until: until.exists() }).result
       ).toBe(flexi.empty());
     });
 
@@ -55,7 +55,7 @@ describe("walker", () => {
       const nonExistingPath = flexi.path("/non/existing/path");
 
       expect(
-        walker.back(nonExistingPath, { until: walker.until.exists() }).result
+        flexi.walk.back(nonExistingPath, { until: until.exists() }).result
       ).toBe(flexi.root());
     });
   });

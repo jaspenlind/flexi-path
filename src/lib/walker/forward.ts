@@ -1,5 +1,5 @@
 import { flexi, FlexiPath, Path, PathType, WalkedPath, WalkOptions } from "..";
-import { reporter } from ".";
+import reporter from "./reporter";
 /**
  * Walks a `path`
  * @param path The path to walk

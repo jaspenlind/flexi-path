@@ -9,6 +9,7 @@
 ![David](https://img.shields.io/david/dev/jaspenlind/flexi-path)
 [![GitHub Pages](https://img.shields.io/badge/api-docs-blue)](https://jaspenlind.github.io/flexi-path/)
 ![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
+[![npm](https://img.shields.io/npm/v/flexi-path)](https://www.npmjs.com/package/flexi-path)
 
 ## Installation
 
