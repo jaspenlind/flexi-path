@@ -1,4 +1,4 @@
-import { Flexi, Path } from ".";
+import { Flexi, Path } from "../types";
 import path, { concat, empty, exists, isEmpty, isRoot, root } from "./path";
 import { pathString } from "./path/parse";
 import walk from "./walker";
@@ -16,5 +16,4 @@ const flexi: Flexi = {
   walk
 };
 
-export * from "../types";
 export default flexi;

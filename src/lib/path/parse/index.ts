@@ -1,8 +1,14 @@
 import { join } from "path";
 
 import path from "..";
-import { flexi, FlexiPath, Path, PathWithBasePath } from "../..";
-import { PathKind, PathVistor } from "../../../types";
+import { flexi } from "../..";
+import {
+  FlexiPath,
+  Path,
+  PathKind,
+  PathVistor,
+  PathWithBasePath
+} from "../../../types";
 import pathKind from "./pathKind";
 
 export { default as constants } from "./constants";

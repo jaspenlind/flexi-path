@@ -1,4 +1,4 @@
-import { FileQuery, FlexiPath, PathType } from "..";
+import { FileQuery, FlexiPath, PathType } from "../../types";
 import { children } from ".";
 /**
  * The files in the current `path`

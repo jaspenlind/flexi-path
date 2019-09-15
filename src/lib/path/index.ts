@@ -1,4 +1,4 @@
-import { FlexiPath, Path, PathKind, PathMeta } from "..";
+import { FlexiPath, Path, PathKind, PathMeta } from "../../types";
 import append from "./append";
 import children from "./children";
 import cut from "./cut";

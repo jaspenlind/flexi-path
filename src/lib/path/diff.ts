@@ -1,4 +1,4 @@
-import { FlexiPath, Path } from "..";
+import { FlexiPath, Path } from "../../types";
 import walker from "../walker";
 /**
  * Get the diff for two paths

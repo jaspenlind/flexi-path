@@ -1,6 +1,7 @@
 import shell from "shelljs";
 
-import { flexi, FlexiPath, PathType } from "..";
+import { flexi } from "..";
+import { FlexiPath, PathType } from "../../types";
 import { exists, parent, type } from ".";
 
 /**

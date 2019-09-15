@@ -1,6 +1,6 @@
 import { normalize, parse } from "path";
 
-import { Path, PathMeta } from "../..";
+import { Path, PathMeta } from "../../../types";
 import { pathString } from "../parse";
 import depth from "./depth";
 import equals from "./equals";

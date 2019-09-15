@@ -1,6 +1,7 @@
 import { join } from "path";
 
-import { flexi, FlexiPath } from "..";
+import { flexi } from "..";
+import { FlexiPath } from "../../types";
 
 /**
  * Concatinates a `path` with other `paths`

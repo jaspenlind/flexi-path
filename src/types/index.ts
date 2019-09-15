@@ -1,15 +1,21 @@
-export * from "./Flexi";
-export * from "./FlexiPath";
-export * from "./Path";
-export * from "./PathKind";
-export * from "./PathMeta";
-export * from "./PathType";
-export * from "./PathVistor";
-export * from "./PathWithBasePath";
-export * from "./Query";
-export * from "./WalkedState";
-export * from "./WalkedPath";
-export * from "./Walker";
-export * from "./Walking";
-export * from "./WalkOptions";
-export * from "./WalkUntil";
+export { Flexi } from "./Flexi";
+export { FlexiPath } from "./FlexiPath";
+export { Path } from "./Path";
+export { PathKind } from "./PathKind";
+export { PathMeta } from "./PathMeta";
+export { PathType } from "./PathType";
+export { PathVistor } from "./PathVistor";
+export { PathWithBasePath } from "./PathWithBasePath";
+export {
+  ChildQuery,
+  FileQuery,
+  ParentQuery,
+  Query,
+  SubDirectoryQuery
+} from "./Query";
+export { WalkedState } from "./WalkedState";
+export { WalkedPath } from "./WalkedPath";
+export { Walker } from "./Walker";
+export { Walking } from "./Walking";
+export { WalkOptions } from "./WalkOptions";
+export { WalkUntil } from "./WalkUntil";

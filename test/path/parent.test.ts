@@ -1,7 +1,8 @@
 import { normalize } from "path";
 
-import flexi, { FlexiPath } from "../../src";
+import flexi from "../../src";
 import { parent } from "../../src/lib/path";
+import { FlexiPath } from "../../src/types";
 
 describe("path", () => {
   describe("parent", () => {

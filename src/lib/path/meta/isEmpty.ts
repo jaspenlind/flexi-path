@@ -1,4 +1,4 @@
-import { Path } from "../..";
+import { Path } from "../../../types";
 import { constants, pathString } from "../parse";
 
 /**

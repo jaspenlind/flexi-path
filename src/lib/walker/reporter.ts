@@ -1,4 +1,4 @@
-import { Path, WalkedState, WalkOptions } from "..";
+import { Path, WalkedState, WalkOptions } from "../../types";
 import { parse } from "../path";
 
 /**

@@ -1,6 +1,7 @@
 import { normalize } from "path";
 
-import flexi, { FlexiPath, PathType } from "../../src";
+import flexi from "../../src";
+import { FlexiPath, PathType } from "../../src/types";
 
 describe("path", () => {
   describe("default state", () => {

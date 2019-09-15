@@ -1,4 +1,11 @@
-import { flexi, FlexiPath, Path, PathType, WalkedPath, WalkOptions } from "..";
+import { flexi } from "..";
+import {
+  FlexiPath,
+  Path,
+  PathType,
+  WalkedPath,
+  WalkOptions
+} from "../../types";
 import reporter from "./reporter";
 /**
  * Walks a `path`

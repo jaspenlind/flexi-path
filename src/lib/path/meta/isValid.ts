@@ -1,6 +1,6 @@
 import { parse } from "path";
 
-import { Path } from "../..";
+import { Path } from "../../../types";
 import { constants, pathString } from "../parse";
 /**
  * `boolean` value representing if the `path` can be created on the disk

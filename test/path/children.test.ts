@@ -1,4 +1,5 @@
-import flexi, { PathType } from "../../src";
+import flexi from "../../src";
+import { PathType } from "../../src/types";
 import testData from "../jest/createTestData";
 
 describe("path", () => {

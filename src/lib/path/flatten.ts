@@ -1,4 +1,5 @@
-import { flexi, FlexiPath, PathMeta } from "..";
+import { flexi } from "..";
+import { FlexiPath, PathMeta } from "../../types";
 import walker from "../walker";
 
 /**
