@@ -5,6 +5,7 @@ import testData from "../jest/createTestData";
 describe("path", () => {
   describe("children", () => {
     it("can list files", () => {
+      const twoFiles = 2;
       const dir = flexi
         .path(testData.testDir)
         .append("can_list_files/")
@@ -13,10 +14,11 @@ describe("path", () => {
       dir.append("file1.txt").write();
       dir.append("file2.js").write();
 
-      expect(dir.children()).toHaveLength(2);
+      expect(dir.children()).toHaveLength(twoFiles);
     });
 
     it("can list directories", () => {
+      const threeDirectories = 3;
       const dir = flexi
         .path(testData.testDir)
         .append("can_list_directories/")
@@ -26,10 +28,12 @@ describe("path", () => {
       dir.append("sub2/").write();
       dir.append("sub3/").write();
 
-      expect(dir.children()).toHaveLength(3);
+      expect(dir.children()).toHaveLength(threeDirectories);
     });
 
     it("can list files and directories", () => {
+      const twoDirectories = 2;
+      const twoFiles = 2;
       const dir = flexi
         .path(testData.testDir)
         .append("can_list_files_and_directories/")
@@ -44,9 +48,11 @@ describe("path", () => {
       const result = dir.children();
 
       expect(result.filter(x => x.type() === PathType.Directory)).toHaveLength(
-        2
+        twoDirectories
       );
-      expect(result.filter(x => x.type() === PathType.File)).toHaveLength(2);
+      expect(result.filter(x => x.type() === PathType.File)).toHaveLength(
+        twoFiles
+      );
     });
 
     it("should be empty when directory is empty", () => {
@@ -74,6 +80,7 @@ describe("path", () => {
     });
 
     it("can filter content", () => {
+      const startingWithFileCount = 2;
       const dir = flexi
         .path(testData.testDir)
         .append("can_filter_content/")
@@ -84,10 +91,13 @@ describe("path", () => {
       dir.append("another.txt").write();
       dir.append("dir1/").write();
 
-      expect(dir.children(x => x.name.startsWith("file"))).toHaveLength(2);
+      expect(dir.children(x => x.name.startsWith("file"))).toHaveLength(
+        startingWithFileCount
+      );
     });
 
     it("can walk until found", () => {
+      const belowDirCount = 1;
       const dir = flexi
         .path(testData.testDir)
         .append("walk_until_found/")
@@ -96,10 +106,11 @@ describe("path", () => {
       dir.append("deep", "path", "below/").write();
 
       const result = dir.children(x => x.name === "below", { recursive: true });
+      const [firstResult] = result;
 
-      expect(result).toHaveLength(1);
+      expect(result).toHaveLength(belowDirCount);
 
-      expect(result[0].name).toBe("below");
+      expect(firstResult.name).toBe("below");
     });
 
     it("should be empty when walked and not found", () => {

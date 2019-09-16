@@ -8,8 +8,8 @@ export { default as until } from "./until";
  * @category walker
  */
 const walker = {
-  forward,
   back,
+  forward,
   until
 };
 

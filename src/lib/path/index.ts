@@ -52,8 +52,8 @@ export { default as write } from "./write";
 
 const pathWalker = (path: Path): PathWalker => {
   return {
-    forward: (options?: WalkOptions) => walker.forward(path, options).result,
-    back: (options?: WalkOptions) => walker.back(path, options).result
+    back: (options?: WalkOptions) => walker.back(path, options).result,
+    forward: (options?: WalkOptions) => walker.forward(path, options).result
   };
 };
 

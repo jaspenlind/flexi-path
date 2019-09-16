@@ -1,5 +1,5 @@
 import { flexi } from "../..";
-import { PathMeta, PathType, WalkUntil } from "../../../types";
+import { PathType, WalkUntil } from "../../../types";
 
 /**
  * @category walker

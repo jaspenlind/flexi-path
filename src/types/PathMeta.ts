@@ -7,6 +7,10 @@ import { Path, PathType } from ".";
  */
 export interface PathMeta extends ParsedPath {
   /**
+   * The `depth` of this `path`
+   */
+  depth: number;
+  /**
    * The normalized `string` representation of the `path`
    */
   path: string;
@@ -44,9 +48,4 @@ export interface PathMeta extends ParsedPath {
    * [[PathType]] enum. Possible values: [[Directory]] | [[File]] | [[Unknown]].
    */
   type(): PathType;
-
-  /**
-   * The `depth` of this `path`
-   */
-  depth: number;
 }

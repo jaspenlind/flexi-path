@@ -25,16 +25,15 @@ export const parentPath = (path: Path): Path => {
  * The `parent` directory of the `path`
  * @category path
  */
-const parent = (path: string): ParentQuery => (condition?: any): FlexiPath => {
-  // const parsed = parse(path);
+const parent = (path: string): ParentQuery => (
+  condition?: (current: PathMeta) => boolean
+): FlexiPath => {
   if (isEmpty(path) || isRoot(path)) {
     return flexi.empty();
   }
 
-  const typedCondition = condition as (current: PathMeta) => boolean;
-
-  return typedCondition
-    ? walker.back(path, { until: typedCondition }).result
+  return condition
+    ? walker.back(path, { until: condition }).result
     : parse(parentPath(path));
 };
 

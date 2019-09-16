@@ -42,14 +42,16 @@ describe("walker", () => {
       const file4 = path.append("file4.php").write();
 
       const result = flexi.walk.forward(path).result.map(x => x.path);
+      const [first, second, third, fourth, fifth] = result;
 
-      expect(result).toHaveLength(5);
+      const deepestAppendedPath = 5;
+      expect(result).toHaveLength(deepestAppendedPath);
 
-      expect(result[0]).toBe(file4.path);
-      expect(result[1]).toBe(file1.path);
-      expect(result[2]).toBe(file2.path);
-      expect(result[3]).toBe(file3.path);
-      expect(`${result[4]}/`).toBe(sub2.path);
+      expect(first).toBe(file4.path);
+      expect(second).toBe(file1.path);
+      expect(third).toBe(file2.path);
+      expect(fourth).toBe(file3.path);
+      expect(`${fifth}/`).toBe(sub2.path);
     });
 
     it("should return content matching condition", () => {
@@ -68,8 +70,8 @@ describe("walker", () => {
       const walked = flexi.walk.forward(path, {
         until: x => x.name.startsWith("sub")
       });
-
-      expect(walked.result).toHaveLength(3);
+      const depthOfSub = 3;
+      expect(walked.result).toHaveLength(depthOfSub);
 
       expect(walked.result.find(x => x.name === sub1.name)).not.toBeUndefined();
       expect(walked.result.find(x => x.name === sub2.name)).not.toBeUndefined();
@@ -96,12 +98,17 @@ describe("walker", () => {
         .append("test.ts")
         .write();
 
+      const depthOfCommonPath = 1;
+
       const walked = flexi.walk.forward(path, {
         until: x => x.base === file.base
       });
 
-      expect(walked.result).toHaveLength(1);
-      expect(walked.result[0]).toHaveMatchingMembersOf(file);
+      expect(walked.result).toHaveLength(depthOfCommonPath);
+
+      const [firstWalkedResult] = walked.result;
+
+      expect(firstWalkedResult).toHaveMatchingMembersOf(file);
     });
 
     it("should be empty when condition is not met", () => {
@@ -123,7 +130,11 @@ describe("walker", () => {
 
       let sub1 = flexi.path("sub1/");
       let sub2 = flexi.path("sub2/");
-      for (let i = 0; i < 20; i += 1) {
+
+      const manySubFolders = 20;
+      const stepCount = 1;
+
+      for (let i = 0; i < manySubFolders; i += stepCount) {
         sub1 = sub1.append("sub1/");
         sub2 = sub2.append("sub2/");
       }
@@ -132,10 +143,11 @@ describe("walker", () => {
       const written = path.append(sub2).write();
 
       const deepest = written.append("deep/").write();
+      const depthOfDeepest = 1;
 
       expect(
         flexi.walk.forward(path, { until: x => x.name === deepest.name }).result
-      ).toHaveLength(1);
+      ).toHaveLength(depthOfDeepest);
     });
 
     it("should walk whole path", () => {
@@ -146,10 +158,12 @@ describe("walker", () => {
       const wholePath = path.append("whole/path").write();
 
       const walked = flexi.walk.forward(path);
+      const fullyWalkedDepth = 1;
+      expect(walked.result).toHaveLength(fullyWalkedDepth);
 
-      expect(walked.result).toHaveLength(1);
+      const [firstWalkedResult] = walked.result;
 
-      expect(walked.result[0]).toHaveMatchingMembersOf(wholePath);
+      expect(firstWalkedResult).toHaveMatchingMembersOf(wholePath);
     });
 
     it("can report walking", () => {
@@ -160,9 +174,11 @@ describe("walker", () => {
 
       path.append("two/levels/").write();
 
+      const pathLevelCount = 3;
+
       flexi.walk.forward(path, { onWalk: () => report() });
 
-      expect(report).toHaveBeenCalledTimes(3);
+      expect(report).toHaveBeenCalledTimes(pathLevelCount);
     });
   });
 });

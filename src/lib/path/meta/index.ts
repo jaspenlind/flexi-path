@@ -38,10 +38,10 @@ const meta = (path: Path): PathMeta => {
     base,
     depth: depth(normalizedPath),
     dir,
-    exists: () => exists(normalizedPath),
-    ext,
     equals: (other: Path, options?: { ignoreFileExtension?: boolean }) =>
       equals(normalizedPath, pathString(other), options),
+    exists: () => exists(normalizedPath),
+    ext,
     hasRoot: () => hasRoot(normalizedPath),
     isEmpty: () => isEmpty(normalizedPath),
     isRoot: () => isRoot(normalizedPath),

@@ -11,7 +11,7 @@ export interface Query<T, TResult> {
    * @param options options
    */
   (
-    condition: (current: T) => boolean,
+    condition?: (current: T) => boolean,
     options?: { recursive?: boolean }
   ): TResult;
 

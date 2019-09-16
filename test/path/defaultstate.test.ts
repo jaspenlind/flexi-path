@@ -6,6 +6,7 @@ import { FlexiPath, PathType } from "../../src/types";
 describe("path", () => {
   describe("default state", () => {
     const path = "/directory/containing/a/file.js";
+    const pathDepth = 4;
     let flex: FlexiPath;
 
     beforeEach(() => {
@@ -65,7 +66,7 @@ describe("path", () => {
     });
 
     it("should have depth", () => {
-      expect(flex.depth).toBe(4);
+      expect(flex.depth).toBe(pathDepth);
     });
   });
 });

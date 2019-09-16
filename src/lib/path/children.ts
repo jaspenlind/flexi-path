@@ -11,7 +11,7 @@ const getContent = (
 ): FlexiPath[] => {
   let content = readDir(path)
     .map(x => concat(path, x.name))
-    .sort((first, second) => (first.path > second.path ? 0 : -1));
+    .sort();
 
   if (condition) {
     content = content.filter(x => condition(x));
@@ -22,18 +22,17 @@ const getContent = (
 
 /**
  * Returns the subdirectories and files for a given `path`
- * @param path The current `path``
+ * @param path The current `path`
  * @category path
  */
 const children = (path: string): ChildQuery => (
-  condition?: any,
-  options?: any
+  condition?: (current: PathMeta) => boolean,
+  options?: { recursive?: boolean }
 ): FlexiPath[] => {
-  const typedCondition = condition as (current: PathMeta) => boolean;
   const recursive = (options && options.recursive) || false;
 
   return recursive
-    ? walker.forward(path, { until: typedCondition }).result
+    ? walker.forward(path, { until: condition }).result
     : getContent(path, condition);
 };
 

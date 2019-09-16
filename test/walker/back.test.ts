@@ -1,5 +1,4 @@
 import { flexi } from "../../src/lib";
-import { FlexiPath, PathMeta, WalkedState } from "../../src/types";
 import { testDir } from "../jest/createTestData";
 
 describe("walk", () => {

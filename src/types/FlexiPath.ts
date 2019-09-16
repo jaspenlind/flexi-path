@@ -14,14 +14,19 @@ import {
  */
 export interface FlexiPath extends PathMeta {
   /**
-   * The `parent` directory of the `path`
-   */
-  parent: ParentQuery;
-
-  /**
    * The [[subDrirectories]] and [[files]] for a given `path`
    */
   children: ChildQuery;
+
+  /**
+   * The files in the current `path`
+   */
+  files: FileQuery;
+
+  /**
+   * The `parent` directory of the `path`
+   */
+  parent: ParentQuery;
 
   /**
    * The subdirectories of the `path` and a `path` builder
@@ -71,11 +76,6 @@ export interface FlexiPath extends PathMeta {
    * @returns The cutted `path`
    */
   cut(count: number): FlexiPath;
-
-  /**
-   * The files in the current `path`
-   */
-  files: FileQuery;
 
   /**
    * Intersects paths

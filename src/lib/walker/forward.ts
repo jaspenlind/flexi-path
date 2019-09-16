@@ -7,6 +7,9 @@ import {
   WalkOptions
 } from "../../types";
 import reporter from "./reporter";
+
+const empty = 0;
+
 /**
  * Walks a `path`
  * @param path The path to walk
@@ -32,7 +35,7 @@ const forward = (
   if (untilFunc !== undefined) {
     const result = content.filter(x => untilFunc(x));
 
-    if (result.length > 0) {
+    if (result.length > empty) {
       return { result, diff: [] };
     }
   }
@@ -47,7 +50,7 @@ const forward = (
         result.push(...forward(next, options).result);
       }
 
-      if (result.length === 0) {
+      if (result.length === empty) {
         result.push(curr);
       }
 
@@ -58,7 +61,7 @@ const forward = (
     []
   );
 
-  if (walked.length > 0 && untilFunc !== undefined) {
+  if (walked.length > empty && untilFunc !== undefined) {
     walked = walked.filter(x => untilFunc(x));
   }
 
