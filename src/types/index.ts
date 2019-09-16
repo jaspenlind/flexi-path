@@ -5,6 +5,7 @@ export { PathKind } from "./PathKind";
 export { PathMeta } from "./PathMeta";
 export { PathType } from "./PathType";
 export { PathVistor } from "./PathVistor";
+export { PathWalker } from "./PathWalker";
 export { PathWithBasePath } from "./PathWithBasePath";
 export {
   ChildQuery,
@@ -13,9 +14,10 @@ export {
   Query,
   SubDirectoryQuery
 } from "./Query";
+export { TextTransform } from "./TextTransform";
 export { WalkedState } from "./WalkedState";
 export { WalkedPath } from "./WalkedPath";
-export { Walker, PathWalker } from "./Walker";
+export { Walker } from "./Walker";
 export { Walking } from "./Walking";
 export { WalkOptions } from "./WalkOptions";
 export { WalkUntil } from "./WalkUntil";

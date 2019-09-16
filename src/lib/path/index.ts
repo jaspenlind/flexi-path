@@ -4,6 +4,7 @@ import {
   PathKind,
   PathMeta,
   PathWalker,
+  TextTransform,
   WalkOptions
 } from "../../types";
 import walker from "../walker";
@@ -19,6 +20,7 @@ import meta from "./meta";
 import parent from "./parent";
 import { constants, pathKind, pathString } from "./parse";
 import prepend from "./prepend";
+import read from "./read";
 import reverse from "./reverse";
 import subDirectories from "./subDirectories";
 import write from "./write";
@@ -69,6 +71,12 @@ export const path = (current: Path): FlexiPath => {
       ? (current as PathMeta)
       : meta(current);
 
+  const readWrapper = ({
+    encoding = "utf8",
+    transform = TextTransform.Plain
+  }: { encoding?: string; transform?: TextTransform } = {}): any =>
+    read(pathMeta, { encoding, transform });
+
   return Object.freeze({
     ...pathMeta,
     ...{
@@ -86,6 +94,7 @@ export const path = (current: Path): FlexiPath => {
       parent: parent(pathMeta.path),
       prepend: (...paths: Path[]) =>
         prepend(pathMeta.path, ...paths.map(x => pathString(x))),
+      read: readWrapper,
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),
       walk: () => pathWalker(pathMeta.path),

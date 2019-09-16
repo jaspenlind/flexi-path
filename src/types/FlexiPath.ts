@@ -5,6 +5,7 @@ import {
   Path,
   PathMeta,
   SubDirectoryQuery,
+  TextTransform,
   PathWalker
 } from ".";
 
@@ -91,6 +92,7 @@ export interface FlexiPath extends PathMeta {
    */
   except(...paths: Path[]): FlexiPath;
 
+  read(options?: { encoding?: string; transform?: TextTransform }): any;
   walk(): PathWalker;
   /**
    * Writes the current `path` to disk if possible
