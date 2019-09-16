@@ -1,3 +1,4 @@
+import { writeFileSync } from "fs";
 import shell from "shelljs";
 
 import { flexi } from "..";
@@ -8,7 +9,11 @@ import { exists, parent, type } from ".";
  * Writes the current `path` to disk if possible
  * @category path
  */
-const write = (path: string): FlexiPath => {
+const write = (
+  path: string,
+  content?: string,
+  { encoding = "utf8" }: { encoding?: string } = {}
+): FlexiPath => {
   const parsedType = type(path);
 
   if (parsedType === PathType.Unknown) {
@@ -27,7 +32,12 @@ const write = (path: string): FlexiPath => {
       if (!exists(parsedParent.path)) {
         shell.mkdir("-p", parsedParent.path);
       }
-      shell.touch(path);
+
+      if (content) {
+        writeFileSync(path, content, { encoding });
+      } else {
+        shell.touch(path);
+      }
     }
   }
 

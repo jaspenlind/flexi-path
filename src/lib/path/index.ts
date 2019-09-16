@@ -77,6 +77,10 @@ export const path = (current: Path): FlexiPath => {
   }: { encoding?: string; transform?: TextTransform } = {}): any =>
     read(pathMeta, { encoding, transform });
 
+  const writeWrapper = (
+    content?: string,
+    { encoding = "utf8" }: { encoding?: string } = {}
+  ): FlexiPath => write(pathMeta.path, content, { encoding });
   return Object.freeze({
     ...pathMeta,
     ...{
@@ -98,7 +102,7 @@ export const path = (current: Path): FlexiPath => {
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),
       walk: () => pathWalker(pathMeta.path),
-      write: () => write(pathMeta.path)
+      write: writeWrapper
     }
   });
 };
