@@ -1,20 +1,19 @@
-import { join } from "path";
-
 import flexi, { until } from "../../../src";
 import testData from "../../jest/createTestData";
 
 describe("walker", () => {
   describe("until.exists", () => {
     it("should return first directory that exists", () => {
-      const subDir = testData.createDirectory("pathExistsSub/");
+      const subDir = flexi
+        .path(testData.testDir)
+        .append("pathExistsSub/")
+        .write();
 
-      const path = flexi.path(join(subDir, "non", "existing", "segments"));
+      const path = subDir.append("non", "existing", "segments");
 
-      const expected = flexi.path(subDir);
-
-      expect(
-        flexi.walk.back(path, { until: until.exists() }).result
-      ).toHaveMatchingMembersOf(expected);
+      expect(flexi.walk.back(path, { until: until.exists() }).result.path).toBe(
+        subDir.path
+      );
     });
 
     it("should return file when it exists", () => {
@@ -41,6 +40,21 @@ describe("walker", () => {
           until: until.exists({ ignoreFileExtensions: true })
         }).result
       ).toHaveMatchingMembersOf(pathWithoutExt);
+    });
+
+    it("should return directory independent of file extension", () => {
+      const existingPath = flexi
+        .path(testData.testDir)
+        .append("until-exists-ignore-ext/")
+        .write();
+
+      const missingPath = existingPath.append("some/missing/path");
+
+      expect(
+        flexi.walk.back(missingPath, {
+          until: until.exists({ ignoreFileExtensions: true })
+        }).result.path
+      ).toBe(existingPath.path);
     });
 
     it("should be empty when path is invalid", () => {

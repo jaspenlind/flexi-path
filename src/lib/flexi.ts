@@ -16,4 +16,6 @@ const flexi: Flexi = {
   walk
 };
 
+export * from "../types";
+
 export default flexi;

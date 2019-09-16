@@ -1,5 +1,5 @@
 import { flexi } from "../..";
-import { PathMeta, WalkUntil } from "../../../types";
+import { PathMeta, PathType, WalkUntil } from "../../../types";
 
 /**
  * @category walker
@@ -8,16 +8,22 @@ const exists = (options?: { ignoreFileExtensions?: boolean }): WalkUntil => {
   const ignoreFileExtensions =
     (options && options.ignoreFileExtensions) || false;
 
-  return (x: PathMeta) => {
+  return x => {
     const parsed = flexi.path(x.path);
-    const pathToCompare = ignoreFileExtensions
-      ? parsed
-          .parent()
-          .files()
-          .find(z => z.name === parsed.name) || flexi.empty()
-      : parsed;
+    const parent = parsed.parent();
 
-    return pathToCompare.exists();
+    if (
+      ignoreFileExtensions &&
+      !parsed.exists() &&
+      parent.exists() &&
+      parsed.type() === PathType.File
+    ) {
+      return (
+        parent.files().find(z => z.name === parsed.name) || flexi.empty()
+      ).exists();
+    }
+
+    return parsed.exists();
   };
 };
 
