@@ -8,6 +8,9 @@ import { concat, parse } from ".";
  * @param paths One or multiple `paths` to prepend the `path` with
  */
 const prepend = (path: string, ...paths: string[]): FlexiPath => {
+  if (paths.length === 0) {
+    return parse(path);
+  }
   const allPaths = [...paths, path];
 
   if (allPaths.length > 1) {

@@ -3,7 +3,7 @@ import flexi, { until } from "../../../src";
 describe("walker", () => {
   describe("until.sameAs", () => {
     it("should be empty when paths has no common parent", () => {
-      const first = flexi.path("/unknown/path");
+      const first = flexi.path("unknown/path");
       const second = flexi.path("another");
 
       expect(

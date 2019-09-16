@@ -11,6 +11,7 @@ describe("path", () => {
     const basePathWithPath = `${basePath}/${path}`;
 
     it("should be empty when path is empty", () => {
+      console.log(flexi.empty().path);
       expect(parse(emptyPath)).toHaveMatchingMembersOf(flexi.empty());
     });
 

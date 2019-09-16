@@ -24,8 +24,14 @@ const back = (
     return { diff, result };
   }
 
-  if (parent.isEmpty()) {
-    return { diff, result: flexi.empty() };
+  let emptyOrRoot: FlexiPath | undefined;
+  if (parsedPath.isRoot()) {
+    emptyOrRoot = flexi.root();
+  } else if (parsedPath.isEmpty() || parent.isEmpty()) {
+    emptyOrRoot = flexi.empty();
+  }
+  if (emptyOrRoot !== undefined) {
+    return { diff, result: emptyOrRoot };
   }
 
   return back(parent, options, diff.prepend(parsedPath.base));

@@ -9,3 +9,8 @@ export interface Walker {
     acc?: FlexiPath
   ) => WalkedPath<FlexiPath>;
 }
+
+export interface PathWalker {
+  forward: (options?: WalkOptions) => FlexiPath[];
+  back: (options?: WalkOptions) => FlexiPath;
+}

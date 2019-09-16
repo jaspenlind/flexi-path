@@ -4,7 +4,8 @@ import {
   ParentQuery,
   Path,
   PathMeta,
-  SubDirectoryQuery
+  SubDirectoryQuery,
+  PathWalker
 } from ".";
 
 /**
@@ -90,6 +91,7 @@ export interface FlexiPath extends PathMeta {
    */
   except(...paths: Path[]): FlexiPath;
 
+  walk(): PathWalker;
   /**
    * Writes the current `path` to disk if possible
    */

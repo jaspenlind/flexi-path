@@ -15,7 +15,7 @@ export {
 } from "./Query";
 export { WalkedState } from "./WalkedState";
 export { WalkedPath } from "./WalkedPath";
-export { Walker } from "./Walker";
+export { Walker, PathWalker } from "./Walker";
 export { Walking } from "./Walking";
 export { WalkOptions } from "./WalkOptions";
 export { WalkUntil } from "./WalkUntil";

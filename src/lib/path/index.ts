@@ -1,4 +1,12 @@
-import { FlexiPath, Path, PathKind, PathMeta } from "../../types";
+import {
+  FlexiPath,
+  Path,
+  PathKind,
+  PathMeta,
+  PathWalker,
+  WalkOptions
+} from "../../types";
+import walker from "../walker";
 import append from "./append";
 import children from "./children";
 import cut from "./cut";
@@ -42,6 +50,13 @@ export { default as reverse } from "./reverse";
 export { default as subDirectories } from "./subDirectories";
 export { default as write } from "./write";
 
+const pathWalker = (path: Path): PathWalker => {
+  return {
+    forward: (options?: WalkOptions) => walker.forward(path, options).result,
+    back: (options?: WalkOptions) => walker.back(path, options).result
+  };
+};
+
 /**
  * Creates a new `path`
  * @category path
@@ -73,6 +88,7 @@ export const path = (current: Path): FlexiPath => {
         prepend(pathMeta.path, ...paths.map(x => pathString(x))),
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),
+      walk: () => pathWalker(pathMeta.path),
       write: () => write(pathMeta.path)
     }
   });

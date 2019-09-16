@@ -1,4 +1,5 @@
 import { flexi } from "../../src/lib";
+import { FlexiPath, PathMeta, WalkedState } from "../../src/types";
 import { testDir } from "../jest/createTestData";
 
 describe("walk", () => {
@@ -52,6 +53,29 @@ describe("walk", () => {
       });
 
       expect(result.result.name).toBe("resolve-subFolder-predicate");
+    });
+
+    it("can walk from path", () => {
+      expect(
+        flexi
+          .path("/one/two/three")
+          .walk()
+          .back()
+      ).toBe(flexi.root());
+
+      const forwardWalkPath = flexi
+        .path(testDir)
+        .append("back_can_walk_path/sub/")
+        .write();
+
+      expect(
+        forwardWalkPath
+          .parent()
+          .parent()
+          .parent()
+          .walk()
+          .forward().length
+      ).toBeGreaterThan(2);
     });
 
     it("can resolve with navigate skip override", () => {

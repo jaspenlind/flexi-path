@@ -14,6 +14,19 @@ describe("path", () => {
     });
 
     it("should return diff of the paths", () => {
+      const common = flexi.path("common/root");
+      const first = flexi.path("first/path");
+      const second = flexi.path("second/path");
+
+      const [result1, result2] = common
+        .append(first)
+        .diff(common.append(second));
+
+      expect(result1).toHaveMatchingMembersOf(first);
+      expect(result2).toHaveMatchingMembersOf(second);
+    });
+
+    it("should return diff of the paths when path has root", () => {
       const common = flexi.path("/common/root");
       const first = flexi.path("first/path");
       const second = flexi.path("second/path");
