@@ -12,10 +12,9 @@ const flexi: Flexi = {
   isEmpty,
   isRoot,
   path,
+  pathString,
   root,
   walk
 };
-
-export * from "../types";
 
 export default flexi;

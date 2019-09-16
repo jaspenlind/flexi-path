@@ -19,6 +19,11 @@ export interface Flexi {
   path: (path: Path) => FlexiPath;
 
   /**
+   * Returns the string path of a `path`
+   */
+  pathString: (path: Path) => string;
+
+  /**
    * Concatinates multiple `paths` into a new `path`
    */
   concat: (path: Path, ...paths: Path[]) => FlexiPath;

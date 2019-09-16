@@ -1,5 +1,6 @@
 import { normalize } from "path";
 
+import flexi from "../../../src/lib/flexi";
 import { empty as emptyPath } from "../../../src/lib/path";
 import { empty as emptyMeta } from "../../../src/lib/path/meta";
 import pathString from "../../../src/lib/path/parse/pathString";
@@ -31,6 +32,18 @@ describe("path", () => {
         const path = { ...emptyPath(), ...{ path: "flexiPath" } };
 
         expect(pathString(path)).toBe("flexiPath");
+      });
+
+      it("can get pathString via flexi", () => {
+        const path = "path";
+
+        expect(flexi.pathString(flexi.path(path))).toBe(path);
+        expect(flexi.pathString({ ...emptyMeta(), ...{ path } })).toBe(path);
+        expect(flexi.pathString({ basePath: path, path })).toBe(
+          normalize("path/path")
+        );
+        expect(flexi.pathString([path])).toBe(path);
+        expect(flexi.pathString(path)).toBe(path);
       });
     });
   });
