@@ -44,14 +44,16 @@ describe("path", () => {
         );
 
         const expected = flexi.path("/deep/directory/structure/");
+        const expectedDepth = 3;
 
-        const received = parent(longPath.path)(x => x.depth === 3);
+        const received = parent(longPath.path)(x => x.depth === expectedDepth);
 
         expect(received).toHaveMatchingMembersOf(expected);
       });
 
       it("should be empty when levels is greater than path", () => {
-        expect(parent(flexi.root().path)(x => x.depth === 5000)).toBe(
+        const veryDeep = 5000;
+        expect(parent(flexi.root().path)(x => x.depth === veryDeep)).toBe(
           flexi.empty()
         );
       });

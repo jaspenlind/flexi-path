@@ -1,4 +1,4 @@
-import { FlexiPath, PathType, SubDirectoryQuery } from "../../types";
+import { FlexiPath, PathMeta, PathType, SubDirectoryQuery } from "../../types";
 import { children } from ".";
 
 /**
@@ -7,8 +7,8 @@ import { children } from ".";
  * @param path The current `path`
  */
 const subDirectories = (path: string): SubDirectoryQuery => (
-  condition?: any,
-  options?: any
+  condition?: (current: PathMeta) => boolean,
+  options?: { recursive?: boolean }
 ): FlexiPath[] =>
   children(path)(condition, options).filter(
     x => x.type() === PathType.Directory

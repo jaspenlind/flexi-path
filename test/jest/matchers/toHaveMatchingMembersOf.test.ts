@@ -3,7 +3,10 @@ import { SyncExpectationResult } from "expect/build/types";
 import matcher from "./toHaveMatchingMembersOf";
 
 describe("toHaveMatchingMembersOf", () => {
-  const invoke = (received: any, expected: any): SyncExpectationResult =>
+  const invoke = (
+    received: number | object,
+    expected: number | object
+  ): SyncExpectationResult =>
     matcher.toHaveMatchingMembersOf(
       received,
       expected
