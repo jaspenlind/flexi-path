@@ -3,10 +3,11 @@
 ## Flexible path builder and walker
 
 [![Build Status](https://travis-ci.com/jaspenlind/flexi-path.svg?branch=master)](https://travis-ci.com/jaspenlind/flexi-path)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d53c318f91a54f49822d30d9974c1003)](https://www.codacy.com/manual/jaspenlind/flexi-path?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jaspenlind/flexi-path&amp;utm_campaign=Badge_Grade)
 ![GitHub top language](https://img.shields.io/github/languages/top/jaspenlind/flexi-path)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Coverage Status](https://coveralls.io/repos/jaspenlind/flexi-path/badge.svg?branch=master)](https://coveralls.io/r/jaspenlind/flexi-path?branch=master)
-![David](https://img.shields.io/david/dev/jaspenlind/flexi-path)
+![David](https://img.shields.io/david/jaspenlind/flexi-path)
 [![GitHub Pages](https://img.shields.io/badge/api-docs-blue)](https://jaspenlind.github.io/flexi-path/)
 ![GitHub](https://img.shields.io/github/license/jaspenlind/flexi-path)
 [![npm](https://img.shields.io/npm/v/flexi-path)](https://www.npmjs.com/package/flexi-path)
