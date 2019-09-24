@@ -1,6 +1,14 @@
 import { flexi } from "../..";
-import { PathType, WalkUntil } from "../../../types";
+import { PathMeta, WalkUntil } from "../../../types";
 
+const getFileWithoutExtension = (path: PathMeta): PathMeta => {
+  const parent = flexi.path(path).parent();
+
+  return (
+    (parent.exists() && parent.files().find(file => file.name === path.name)) ||
+    flexi.empty()
+  );
+};
 /**
  * @category walker
  */
@@ -8,22 +16,14 @@ const exists = (options?: { ignoreFileExtensions?: boolean }): WalkUntil => {
   const ignoreFileExtensions =
     (options && options.ignoreFileExtensions) || false;
 
-  return x => {
-    const parsed = flexi.path(x.path);
-    const parent = parsed.parent();
+  return current => {
+    let pathExists = current.exists();
 
-    if (
-      ignoreFileExtensions &&
-      !parsed.exists() &&
-      parent.exists() &&
-      parsed.type() === PathType.File
-    ) {
-      return (
-        parent.files().find(z => z.name === parsed.name) || flexi.empty()
-      ).exists();
+    if (!pathExists && ignoreFileExtensions) {
+      pathExists = getFileWithoutExtension(current).exists();
     }
 
-    return parsed.exists();
+    return pathExists;
   };
 };
 
