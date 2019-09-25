@@ -16,6 +16,29 @@ describe("walker", () => {
       );
     });
 
+    it("should have whole path as diff when no part of path exists", () => {
+      const path = flexi
+        .path("non")
+        .append("existing")
+        .append("path");
+
+      const result = flexi.walk.back(path, { until: until.exists() });
+
+      expect(result.diff.path).toBe(path.path);
+    });
+
+    it("should return segments that does not exist in diff", () => {
+      const path = flexi.path(
+        "/Users/johan/Dev/git/asuswrt-cli/src/lib/commands/jobs/add/adf"
+      );
+
+      const walked = flexi.walk.back(path, {
+        until: until.exists({ ignoreFileExtensions: true })
+      });
+
+      expect(walked.diff.path).toBe("adf");
+    });
+
     it("should return file when it exists", () => {
       const file = testData.createFile("pathExists.file.js");
 

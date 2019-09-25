@@ -30,11 +30,13 @@ const back = (
   } else if (parsedPath.isEmpty() || parent.isEmpty()) {
     emptyOrRoot = flexi.empty();
   }
+  const nextDiff = diff.prepend(parsedPath.base);
+
   if (emptyOrRoot !== undefined) {
-    return { diff, result: emptyOrRoot };
+    return { diff: nextDiff, result: emptyOrRoot };
   }
 
-  return back(parent, options, diff.prepend(parsedPath.base));
+  return back(parent, options, nextDiff);
 };
 
 export default back;
