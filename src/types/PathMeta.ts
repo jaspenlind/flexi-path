@@ -14,6 +14,9 @@ export interface PathMeta extends ParsedPath {
    * The normalized `string` representation of the `path`
    */
   path: string;
+
+  segments: string[];
+
   /**
    * `boolean` value indicating if the `path` is [[root]] path
    */

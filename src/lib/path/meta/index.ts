@@ -9,6 +9,7 @@ import hasRoot from "./hasRoot";
 import isEmpty from "./isEmpty";
 import isRoot from "./isRoot";
 import isValid from "./isValid";
+import segments from "./segments";
 import type from "./type";
 
 export { default as depth } from "./depth";
@@ -49,6 +50,7 @@ const meta = (path: Path): PathMeta => {
     name,
     path: normalizedPath,
     root,
+    segments: segments(normalizedPath),
     type: () => type(normalizedPath)
   });
 };

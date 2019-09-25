@@ -1,5 +1,5 @@
 import flexi, { until } from "../../../src";
-import testData from "../../jest/createTestData";
+import testData, { testDir } from "../../jest/createTestData";
 
 describe("walker", () => {
   describe("until.exists", () => {
@@ -28,15 +28,14 @@ describe("walker", () => {
     });
 
     it("should return segments that does not exist in diff", () => {
-      const path = flexi.path(
-        "/Users/johan/Dev/git/asuswrt-cli/src/lib/commands/jobs/add/adf"
-      );
+      const nonExistingPath = flexi.path("non/existing/path");
+      const path = flexi.path(testDir).append(nonExistingPath);
 
       const walked = flexi.walk.back(path, {
         until: until.exists({ ignoreFileExtensions: true })
       });
 
-      expect(walked.diff.path).toBe("adf");
+      expect(walked.diff.path).toBe(nonExistingPath.path);
     });
 
     it("should return file when it exists", () => {
