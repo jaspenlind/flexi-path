@@ -2,6 +2,9 @@ import { readFileSync } from "fs";
 
 import { PathMeta, PathType, TextTransform } from "../../types";
 
+/**
+ * @category path
+ */
 const read = (
   path: PathMeta,
   {

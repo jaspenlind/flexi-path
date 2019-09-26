@@ -54,6 +54,9 @@ export { default as reverse } from "./reverse";
 export { default as subDirectories } from "./subDirectories";
 export { default as write } from "./write";
 
+/**
+ * @ignore
+ */
 const pathWalker = (path: Path): PathWalker => {
   return {
     back: (options?: WalkOptions) => walker.back(path, options).result,
@@ -99,9 +102,9 @@ export const path = (current: Path): FlexiPath => {
       intersect: (...paths: Path[]) =>
         intersect(pathMeta.path, ...paths.map(x => pathString(x))),
       parent: parent(pathMeta.path),
+      pop: () => pop(pathMeta.path),
       prepend: (...paths: Path[]) =>
         prepend(pathMeta.path, ...paths.map(x => pathString(x))),
-      pop: () => pop(pathMeta.path),
       read: readWrapper,
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),

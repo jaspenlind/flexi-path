@@ -1,6 +1,9 @@
 import { flexi } from "../..";
 import { PathMeta, WalkUntil } from "../../../types";
 
+/**
+ * @ignore
+ */
 const getFileWithoutExtension = (path: PathMeta): PathMeta => {
   const parent = flexi.path(path).parent();
 

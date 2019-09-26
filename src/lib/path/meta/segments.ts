@@ -2,6 +2,9 @@ import { sep } from "path";
 
 import { isEmpty, isRoot } from ".";
 
+/**
+ * @category path
+ */
 const segments = (path: string) => {
   if (isEmpty(path)) {
     return [];

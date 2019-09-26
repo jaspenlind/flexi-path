@@ -2,6 +2,9 @@ import { flexi } from "..";
 import { FlexiPath } from "../../types";
 import { isEmpty, isRoot, segments } from "./meta";
 
+/**
+ * @category path
+ */
 const pop = (path: string): FlexiPath => {
   if (isEmpty(path)) {
     return flexi.empty();
