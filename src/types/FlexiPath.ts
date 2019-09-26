@@ -93,6 +93,12 @@ export interface FlexiPath extends PathMeta {
   except(...paths: Path[]): FlexiPath;
 
   read(options?: { encoding?: string; transform?: TextTransform }): any;
+
+  /**
+   * Removes the last segment from the path and returns it.
+   */
+  pop(): FlexiPath;
+
   walk(): PathWalker;
   /**
    * Writes the current `path` to disk if possible

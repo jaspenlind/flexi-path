@@ -19,6 +19,7 @@ import intersect from "./intersect";
 import meta from "./meta";
 import parent from "./parent";
 import { constants, pathKind, pathString } from "./parse";
+import pop from "./pop";
 import prepend from "./prepend";
 import read from "./read";
 import reverse from "./reverse";
@@ -46,6 +47,7 @@ export { default as files } from "./files";
 export { default as flatten } from "./flatten";
 export { default as intersect } from "./intersect";
 export { default as parent } from "./parent";
+export { default as pop } from "./pop";
 export { default as prepend } from "./prepend";
 export { constants, default as parse } from "./parse";
 export { default as reverse } from "./reverse";
@@ -81,6 +83,7 @@ export const path = (current: Path): FlexiPath => {
     content?: string,
     { encoding = "utf8" }: { encoding?: string } = {}
   ): FlexiPath => write(pathMeta.path, content, { encoding });
+
   return Object.freeze({
     ...pathMeta,
     ...{
@@ -98,6 +101,7 @@ export const path = (current: Path): FlexiPath => {
       parent: parent(pathMeta.path),
       prepend: (...paths: Path[]) =>
         prepend(pathMeta.path, ...paths.map(x => pathString(x))),
+      pop: () => pop(pathMeta.path),
       read: readWrapper,
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),

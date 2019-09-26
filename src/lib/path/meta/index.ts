@@ -20,6 +20,7 @@ export { default as isEmpty } from "./isEmpty";
 export { default as isRoot } from "./isRoot";
 export { default as isValid } from "./isValid";
 export { default as readDir } from "./readDir";
+export { default as segments } from "./segments";
 export { default as stats } from "./stats";
 export { default as type } from "./type";
 
