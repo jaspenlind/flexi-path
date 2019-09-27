@@ -5,7 +5,7 @@ describe("path", () => {
   describe("write", () => {
     const root = flexi.path(testData.testDir);
 
-    it("path should exist after write", () => {
+    it("should exist after write", () => {
       const path = root.append("path-write/");
 
       path.write();
@@ -52,6 +52,22 @@ describe("path", () => {
       const file = root.append("write-with-content.txt").write(content);
 
       expect(file.read()).not.toBeEmpty();
+    });
+
+    it("can overwrite existing file", () => {
+      const file = root.append("write-overwrite-existing.js").write("first");
+
+      const updatedFile = file.write("second", { overwrite: true });
+
+      expect(updatedFile.read()).toBe("second");
+    });
+
+    it("should throw when file already exist", () => {
+      const file = root.append("write-thow-when-exist.js").write("first");
+
+      expect(() => {
+        file.write("second");
+      }).toThrow();
     });
   });
 });

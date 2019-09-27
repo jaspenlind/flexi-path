@@ -103,5 +103,8 @@ export interface FlexiPath extends PathMeta {
   /**
    * Writes the current `path` to disk if possible
    */
-  write(content?: string, options?: { encoding?: string }): FlexiPath;
+  write(
+    content?: any,
+    options?: { encoding?: string; overwrite?: boolean }
+  ): FlexiPath;
 }

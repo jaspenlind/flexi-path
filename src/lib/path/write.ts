@@ -11,8 +11,11 @@ import { exists, parent, type } from ".";
  */
 const write = (
   path: string,
-  content?: string,
-  { encoding = "utf8" }: { encoding?: string } = {}
+  content?: any,
+  {
+    encoding = "utf8",
+    overwrite = false
+  }: { encoding?: string; overwrite?: boolean } = {}
 ): FlexiPath => {
   const parsedType = type(path);
 
@@ -20,7 +23,7 @@ const write = (
     throw new Error("Path is not valid or type cannot be determined");
   }
 
-  if (exists(path)) {
+  if (!overwrite && exists(path)) {
     throw new Error("Path already exists");
   }
 
@@ -34,7 +37,9 @@ const write = (
       }
 
       if (content) {
-        writeFileSync(path, content, { encoding });
+        const options: any = { encoding };
+
+        writeFileSync(path, content, options);
       } else {
         shell.touch(path);
       }

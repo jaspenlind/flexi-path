@@ -83,9 +83,12 @@ export const path = (current: Path): FlexiPath => {
     read(pathMeta, { encoding, transform });
 
   const writeWrapper = (
-    content?: string,
-    { encoding = "utf8" }: { encoding?: string } = {}
-  ): FlexiPath => write(pathMeta.path, content, { encoding });
+    content?: any,
+    {
+      encoding = "utf8",
+      overwrite = false
+    }: { encoding?: string; overwrite?: boolean } = {}
+  ): FlexiPath => write(pathMeta.path, content, { encoding, overwrite });
 
   return Object.freeze({
     ...pathMeta,
