@@ -21,6 +21,14 @@ describe("path", () => {
 
         expect(flexi.isRoot(root)).toBeTrue();
       });
+
+      it("should include root path", () => {
+        const path = flexi.path("/some/path/with/root");
+
+        const [root] = path.segments;
+
+        expect(root).not.toBeEmpty();
+      });
     });
   });
 });

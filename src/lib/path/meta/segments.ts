@@ -10,7 +10,19 @@ const segments = (path: string) => {
     return [];
   }
 
-  return isRoot(path) ? [path] : path.split(sep);
+  if (isRoot(path)) {
+    return [path];
+  }
+
+  const hasRoot = path.startsWith(sep);
+
+  const result = path.split(sep);
+
+  if (hasRoot) {
+    result.unshift(sep);
+  }
+
+  return result;
 };
 
 export default segments;

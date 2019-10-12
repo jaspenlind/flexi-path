@@ -15,5 +15,12 @@ describe("path", () => {
 
       expect(empty.except(flexi.path("path"))).toBe(flexi.empty());
     });
+
+    it("should remain when paths to exclude is empty", () => {
+      const path = flexi.path("some/file/path");
+
+      expect(path.except().path).toBe(path.path);
+      expect(path.except(...[]).path).toBe(path.path);
+    });
   });
 });
