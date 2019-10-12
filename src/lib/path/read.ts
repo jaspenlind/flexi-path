@@ -6,7 +6,8 @@ import { PathMeta, PathType, TextTransform } from "../../types";
 /**
  * @category path
  */
-const read = <T = string>(path: PathMeta, options?: Partial<ReadOptions>): T | string => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const read = (path: PathMeta, options?: Partial<ReadOptions>): any => {
   if (path.type() !== PathType.File) {
     return "";
   }
@@ -16,7 +17,7 @@ const read = <T = string>(path: PathMeta, options?: Partial<ReadOptions>): T | s
   const content = readFileSync(path.path, encoding);
 
   if (transform === TextTransform.JSON) {
-    const parsed: T = JSON.parse(content);
+    const parsed = JSON.parse(content);
 
     return parsed;
   }

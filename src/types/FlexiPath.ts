@@ -94,7 +94,7 @@ export interface FlexiPath extends PathMeta {
    */
   except(...paths: Path[]): FlexiPath;
 
-  read<T = string>(options?: Partial<ReadOptions>): T | string;
+  read(options?: Partial<ReadOptions>): any;
 
   /**
    * Removes the last segment from the path and returns it.
