@@ -22,6 +22,7 @@
     "clean": "rimraf coverage dist docs",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "debug": "node --nolazy --inspect-brk=9229 node_modules/jest/bin/jest.js -i",
+    "docs": "typedoc --tsconfig ./tsconfig.json src && shx cp .nojekyll docs/.nojekyll",
     "format": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts,jsx,tsx}\" -c",
     "lint": "eslint \"**/*.{ts,tsx,js,jsx}\" --fix",
     "postversion": "git push && git push --tags && npm run clean",
