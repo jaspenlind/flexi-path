@@ -18,9 +18,7 @@ describe("walk", () => {
 
       const path = sub.append("path").append("other");
 
-      expect(
-        flexi.walk.back(path, { until: x => x.name === "sub" }).result
-      ).toHaveMatchingMembersOf(sub);
+      expect(flexi.walk.back(path, { until: x => x.name === "sub" }).result).toHaveMatchingMembersOf(sub);
     });
 
     it("is empty when condition is not met", () => {
@@ -78,7 +76,7 @@ describe("walk", () => {
     });
 
     it("can resolve with navigate skip override", () => {
-      test.todo("todo");
+      test.todo("todo can resolve with skip");
       //     const path = flexi.path("/fictional/path/with/file.js");
       //     const expected = flexi.path("/fictional/");
 
@@ -94,7 +92,7 @@ describe("walk", () => {
     });
 
     it("can abort", () => {
-      test.todo("todo");
+      test.todo("todo can abort");
       //     const path = flexi.path("/fictional/path/with/file.js");
 
       //     const result = flexi.resolve(path, {

@@ -8,18 +8,11 @@ import { parse } from "../path";
  * @param state The current state
  * @category walker
  */
-const report = (
-  path: Path,
-  options?: WalkOptions,
-  state?: WalkedState
-): WalkedState => {
+const report = (path: Path, options?: WalkOptions, state?: WalkedState): WalkedState => {
   const reporter = options && options.onWalk;
   const currentState = state || WalkedState.Default;
 
-  return (
-    (reporter && reporter({ path: parse(path), state: currentState })) ||
-    currentState
-  );
+  return (reporter && reporter({ path: parse(path), state: currentState })) || currentState;
 };
 
 /**

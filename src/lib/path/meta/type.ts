@@ -15,8 +15,7 @@ const guessType = (path: string): PathType => {
   }
 
   const maybeFile =
-    parse(path).ext !== "" ||
-    (!path.endsWith(constants.sep) && parent(path)().path !== constants.empty);
+    parse(path).ext !== "" || (!path.endsWith(constants.sep) && parent(path)().path !== constants.empty);
 
   return maybeFile ? PathType.File : PathType.Directory;
 };
@@ -36,9 +35,7 @@ const type = (path: string): PathType => {
   const stat = stats(path);
 
   return (
-    (stat && stat.isDirectory() && PathType.Directory) ||
-    (stat && stat.isFile() && PathType.File) ||
-    PathType.Unknown
+    (stat && stat.isDirectory() && PathType.Directory) || (stat && stat.isFile() && PathType.File) || PathType.Unknown
   );
 };
 

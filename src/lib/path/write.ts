@@ -4,6 +4,7 @@ import shell from "shelljs";
 import { flexi } from "..";
 import { FlexiPath, PathType } from "../../types";
 import { exists, parent, type } from ".";
+import { create, WriteOptions } from "../../models/writeOptions";
 
 /**
  * Writes the current `path` to disk if possible
@@ -11,17 +12,18 @@ import { exists, parent, type } from ".";
  */
 const write = (
   path: string,
+  // any is a support type of writeFileSync
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any,
-  {
-    encoding = "utf8",
-    overwrite = false
-  }: { encoding?: string; overwrite?: boolean } = {}
+  options?: Partial<WriteOptions>
 ): FlexiPath => {
   const parsedType = type(path);
 
   if (parsedType === PathType.Unknown) {
     throw new Error("Path is not valid or type cannot be determined");
   }
+
+  const { encoding, overwrite } = create(options);
 
   if (!overwrite && exists(path)) {
     throw new Error("Path already exists");
@@ -37,9 +39,7 @@ const write = (
       }
 
       if (content) {
-        const options: any = { encoding };
-
-        writeFileSync(path, content, options);
+        writeFileSync(path, content, { encoding });
       } else {
         shell.touch(path);
       }

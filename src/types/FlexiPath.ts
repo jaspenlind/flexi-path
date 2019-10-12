@@ -4,9 +4,11 @@ import {
   ParentQuery,
   Path,
   PathMeta,
+  ReadOptions,
   SubDirectoryQuery,
   TextTransform,
-  PathWalker
+  PathWalker,
+  WriteOptions
 } from ".";
 
 /**
@@ -92,7 +94,7 @@ export interface FlexiPath extends PathMeta {
    */
   except(...paths: Path[]): FlexiPath;
 
-  read(options?: { encoding?: string; transform?: TextTransform }): any;
+  read<T = string>(options?: Partial<ReadOptions>): T | string;
 
   /**
    * Removes the last segment from the path and returns it.
@@ -103,8 +105,5 @@ export interface FlexiPath extends PathMeta {
   /**
    * Writes the current `path` to disk if possible
    */
-  write(
-    content?: any,
-    options?: { encoding?: string; overwrite?: boolean }
-  ): FlexiPath;
+  write(content?: any, options?: Partial<WriteOptions>): FlexiPath;
 }

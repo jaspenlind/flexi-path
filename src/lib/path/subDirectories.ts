@@ -9,9 +9,6 @@ import { children } from ".";
 const subDirectories = (path: string): SubDirectoryQuery => (
   condition?: (current: PathMeta) => boolean,
   options?: { recursive?: boolean }
-): FlexiPath[] =>
-  children(path)(condition, options).filter(
-    x => x.type() === PathType.Directory
-  );
+): FlexiPath[] => children(path)(condition, options).filter(x => x.type() === PathType.Directory);
 
 export default subDirectories;

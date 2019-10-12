@@ -47,12 +47,8 @@ describe("path", () => {
 
       const result = dir.children();
 
-      expect(result.filter(x => x.type() === PathType.Directory)).toHaveLength(
-        twoDirectories
-      );
-      expect(result.filter(x => x.type() === PathType.File)).toHaveLength(
-        twoFiles
-      );
+      expect(result.filter(x => x.type() === PathType.Directory)).toHaveLength(twoDirectories);
+      expect(result.filter(x => x.type() === PathType.File)).toHaveLength(twoFiles);
     });
 
     it("should be empty when directory is empty", () => {
@@ -91,9 +87,7 @@ describe("path", () => {
       dir.append("another.txt").write();
       dir.append("dir1/").write();
 
-      expect(dir.children(x => x.name.startsWith("file"))).toHaveLength(
-        startingWithFileCount
-      );
+      expect(dir.children(x => x.name.startsWith("file"))).toHaveLength(startingWithFileCount);
     });
 
     it("can walk until found", () => {

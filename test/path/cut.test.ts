@@ -14,9 +14,7 @@ describe("path", () => {
     });
     it("can cut empty path", () => {
       const oneLevel = 1;
-      expect(flexi.empty().cut(oneLevel)).toHaveMatchingMembersOf(
-        flexi.empty()
-      );
+      expect(flexi.empty().cut(oneLevel)).toHaveMatchingMembersOf(flexi.empty());
     });
     it("can cut short path", () => {
       const lotsOfLevels = 100;

@@ -1,22 +1,13 @@
 import { join, normalize } from "path";
 
 import { constants } from "..";
-import {
-  FlexiPath,
-  Path,
-  PathKind,
-  PathMeta,
-  PathVistor,
-  PathWithBasePath
-} from "../../../types";
+import { FlexiPath, Path, PathKind, PathMeta, PathVistor, PathWithBasePath } from "../../../types";
 import pathKind from "./pathKind";
 
 /** @ignore */
 const pathStringVisitor = ((): PathVistor<string> => {
   const visitString = (current: Path, kind: PathKind) => {
-    return kind === PathKind.String
-      ? normalize(current as string)
-      : constants.empty;
+    return kind === PathKind.String ? normalize(current as string) : constants.empty;
   };
 
   const visitArray = (current: Path, kind: PathKind) => {
@@ -37,14 +28,10 @@ const pathStringVisitor = ((): PathVistor<string> => {
   };
 
   const visitMeta = (current: Path, kind: PathKind) =>
-    kind === PathKind.PathMeta
-      ? (current as PathMeta).path
-      : visitPathWithBasePath(current, kind);
+    kind === PathKind.PathMeta ? (current as PathMeta).path : visitPathWithBasePath(current, kind);
 
   const visitFlexiPath = (current: Path, kind: PathKind) =>
-    kind === PathKind.FlexiPath
-      ? (current as FlexiPath).path
-      : visitMeta(current, kind);
+    kind === PathKind.FlexiPath ? (current as FlexiPath).path : visitMeta(current, kind);
 
   const visit = (current: Path) => {
     const kind = pathKind(current);

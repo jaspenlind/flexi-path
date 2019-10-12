@@ -75,9 +75,7 @@ describe("walker", () => {
 
       expect(walked.result.find(x => x.name === sub1.name)).not.toBeUndefined();
       expect(walked.result.find(x => x.name === sub2.name)).not.toBeUndefined();
-      expect(
-        walked.result.find(x => x.name === subFile.name)
-      ).not.toBeUndefined();
+      expect(walked.result.find(x => x.name === subFile.name)).not.toBeUndefined();
     });
 
     it("should walk until condition is met", () => {
@@ -112,21 +110,15 @@ describe("walker", () => {
     });
 
     it("should be empty when condition is not met", () => {
-      const path = flexi
-        .path({ basePath: testDir, path: "walk_empty_when_condition_not_met/" })
-        .write();
+      const path = flexi.path({ basePath: testDir, path: "walk_empty_when_condition_not_met/" }).write();
 
       path.append("sub1/sub2/sub3/sub4/sub5/").write();
 
-      expect(
-        flexi.walk.forward(path, { until: x => x.name === "sub77" }).result
-      ).toBeEmpty();
+      expect(flexi.walk.forward(path, { until: x => x.name === "sub77" }).result).toBeEmpty();
     });
 
     it("can walk deep paths", () => {
-      const path = flexi
-        .path({ basePath: testDir, path: "walk_can_walk_deep_paths/" })
-        .write();
+      const path = flexi.path({ basePath: testDir, path: "walk_can_walk_deep_paths/" }).write();
 
       let sub1 = flexi.path("sub1/");
       let sub2 = flexi.path("sub2/");
@@ -145,15 +137,11 @@ describe("walker", () => {
       const deepest = written.append("deep/").write();
       const depthOfDeepest = 1;
 
-      expect(
-        flexi.walk.forward(path, { until: x => x.name === deepest.name }).result
-      ).toHaveLength(depthOfDeepest);
+      expect(flexi.walk.forward(path, { until: x => x.name === deepest.name }).result).toHaveLength(depthOfDeepest);
     });
 
     it("should walk whole path", () => {
-      const path = flexi
-        .path({ basePath: testDir, path: "walk_should_walk_whole_path/" })
-        .write();
+      const path = flexi.path({ basePath: testDir, path: "walk_should_walk_whole_path/" }).write();
 
       const wholePath = path.append("whole/path").write();
 
@@ -168,9 +156,7 @@ describe("walker", () => {
 
     it("can report walking", () => {
       const report = jest.fn();
-      const path = flexi
-        .path({ basePath: testDir, path: "walk_can_report_walking/" })
-        .write();
+      const path = flexi.path({ basePath: testDir, path: "walk_can_report_walking/" }).write();
 
       path.append("two/levels/").write();
 

@@ -11,9 +11,7 @@ describe("walker", () => {
 
       const path = subDir.append("non", "existing", "segments");
 
-      expect(flexi.walk.back(path, { until: until.exists() }).result.path).toBe(
-        subDir.path
-      );
+      expect(flexi.walk.back(path, { until: until.exists() }).result.path).toBe(subDir.path);
     });
 
     it("should have whole path as diff when no part of path exists", () => {
@@ -43,19 +41,13 @@ describe("walker", () => {
 
       const path = flexi.path(file);
 
-      expect(
-        flexi.walk.back(path, { until: until.exists() }).result
-      ).toHaveMatchingMembersOf(path);
+      expect(flexi.walk.back(path, { until: until.exists() }).result).toHaveMatchingMembersOf(path);
     });
 
     it("should return file independent of file extension", () => {
-      flexi
-        .path({ basePath: testData.testDir, path: "pathExists-fileext.ts" })
-        .write();
+      flexi.path({ basePath: testData.testDir, path: "pathExists-fileext.ts" }).write();
 
-      const pathWithoutExt = flexi
-        .path(testData.testDir)
-        .append("pathExists-fileext");
+      const pathWithoutExt = flexi.path(testData.testDir).append("pathExists-fileext");
 
       expect(
         flexi.walk.back(pathWithoutExt, {
@@ -82,17 +74,13 @@ describe("walker", () => {
     it("should be empty when path is invalid", () => {
       const nonExistingPath = flexi.path("invalid");
 
-      expect(
-        flexi.walk.back(nonExistingPath, { until: until.exists() }).result
-      ).toBe(flexi.empty());
+      expect(flexi.walk.back(nonExistingPath, { until: until.exists() }).result).toBe(flexi.empty());
     });
 
     it("should be root when path below does not exist", () => {
       const nonExistingPath = flexi.path("/non/existing/path");
 
-      expect(
-        flexi.walk.back(nonExistingPath, { until: until.exists() }).result
-      ).toBe(flexi.root());
+      expect(flexi.walk.back(nonExistingPath, { until: until.exists() }).result).toBe(flexi.root());
     });
   });
 });

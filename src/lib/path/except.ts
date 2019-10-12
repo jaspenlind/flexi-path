@@ -8,12 +8,7 @@ import { flatReduce } from "./flatten";
  * @returns The `path` except for the `paths` that intersects
  */
 const except = (path: string, ...paths: string[]): FlexiPath => {
-  return flatReduce(
-    (prev: string[], current: string[]) =>
-      prev.filter(x => !current.includes(x)),
-    path,
-    ...paths
-  );
+  return flatReduce((prev: string[], current: string[]) => prev.filter(x => !current.includes(x)), path, ...paths);
 };
 
 export default except;

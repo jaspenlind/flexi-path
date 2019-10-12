@@ -6,15 +6,11 @@ describe("walker", () => {
       const first = flexi.path("unknown/path");
       const second = flexi.path("another");
 
-      expect(
-        flexi.walk.back(first, { until: until.sameAs(second) }).result
-      ).toBe(flexi.empty());
+      expect(flexi.walk.back(first, { until: until.sameAs(second) }).result).toBe(flexi.empty());
     });
 
     it("should be root", () => {
-      expect(
-        flexi.walk.back("/first", { until: until.sameAs("/second") }).result
-      ).toBe(flexi.root());
+      expect(flexi.walk.back("/first", { until: until.sameAs("/second") }).result).toBe(flexi.root());
     });
 
     it("should return closest parent", () => {
@@ -22,9 +18,7 @@ describe("walker", () => {
       const second = flexi.path("/closest/parent/second/path");
       const expected = flexi.path("/closest/parent/");
 
-      expect(
-        flexi.walk.back(first, { until: until.sameAs(second) }).result
-      ).toHaveMatchingMembersOf(expected);
+      expect(flexi.walk.back(first, { until: until.sameAs(second) }).result).toHaveMatchingMembersOf(expected);
     });
   });
 });

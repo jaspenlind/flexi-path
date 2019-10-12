@@ -8,11 +8,7 @@ import reporter from "./reporter";
  * @param until Stops walking when condition is met
  * @category walker
  */
-const back = (
-  path: Path,
-  options?: WalkOptions,
-  acc?: FlexiPath
-): WalkedPath<FlexiPath> => {
+const back = (path: Path, options?: WalkOptions, acc?: FlexiPath): WalkedPath<FlexiPath> => {
   const parsedPath = flexi.path(path);
   const parent = parsedPath.parent();
   const diff = acc || flexi.empty();

@@ -8,9 +8,7 @@ describe("path", () => {
     });
 
     it("should be empty when path is a file", () => {
-      const testFile = flexi
-        .path({ basePath: testDir, path: "files_empty_when_path_is_file.txt" })
-        .write();
+      const testFile = flexi.path({ basePath: testDir, path: "files_empty_when_path_is_file.txt" }).write();
 
       expect(flexi.path(testFile).files()).toBeEmpty();
     });

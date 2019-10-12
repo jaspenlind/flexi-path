@@ -2,13 +2,7 @@ import { join } from "path";
 
 import path from "..";
 import { flexi } from "../..";
-import {
-  FlexiPath,
-  Path,
-  PathKind,
-  PathVistor,
-  PathWithBasePath
-} from "../../../types";
+import { FlexiPath, Path, PathKind, PathVistor, PathWithBasePath } from "../../../types";
 import pathKind from "./pathKind";
 
 export { default as constants } from "./constants";
@@ -19,8 +13,7 @@ export { default as pathString } from "./pathString";
  * @ignore
  */
 const pathVisitor = ((): PathVistor<FlexiPath> => {
-  const visitString = (current: Path, kind: PathKind) =>
-    kind === PathKind.String ? path(current) : flexi.empty();
+  const visitString = (current: Path, kind: PathKind) => (kind === PathKind.String ? path(current) : flexi.empty());
 
   const visitArray = (current: Path, kind: PathKind) =>
     kind === PathKind.Array
@@ -39,15 +32,11 @@ const pathVisitor = ((): PathVistor<FlexiPath> => {
   };
 
   const visitPathMeta = (current: Path, kind: PathKind) => {
-    return kind === PathKind.PathMeta
-      ? path(current)
-      : visitPathWithBasePath(current, kind);
+    return kind === PathKind.PathMeta ? path(current) : visitPathWithBasePath(current, kind);
   };
 
   const visitFlexiPath = (current: Path, kind: PathKind) => {
-    return kind === PathKind.FlexiPath
-      ? (current as FlexiPath)
-      : visitPathMeta(current, kind);
+    return kind === PathKind.FlexiPath ? (current as FlexiPath) : visitPathMeta(current, kind);
   };
 
   const visit = (current: Path): FlexiPath => {

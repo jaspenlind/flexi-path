@@ -17,9 +17,7 @@ describe("path", () => {
       });
 
       it("can return path from path with basePath", () => {
-        expect(pathString({ basePath: "base", path: "path" })).toBe(
-          normalize("base/path")
-        );
+        expect(pathString({ basePath: "base", path: "path" })).toBe(normalize("base/path"));
       });
 
       it("can return path from path meta", () => {
@@ -39,9 +37,7 @@ describe("path", () => {
 
         expect(flexi.pathString(flexi.path(path))).toBe(path);
         expect(flexi.pathString({ ...emptyMeta(), ...{ path } })).toBe(path);
-        expect(flexi.pathString({ basePath: path, path })).toBe(
-          normalize("path/path")
-        );
+        expect(flexi.pathString({ basePath: path, path })).toBe(normalize("path/path"));
         expect(flexi.pathString([path])).toBe(path);
         expect(flexi.pathString(path)).toBe(path);
       });

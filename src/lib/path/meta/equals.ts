@@ -19,10 +19,7 @@ const trimTrailingSep = (path: string): string => {
 /**
  * @ignore
  */
-const compareablePath = (
-  path: string,
-  ignoreFileExtension: boolean
-): FlexiPath => {
+const compareablePath = (path: string, ignoreFileExtension: boolean): FlexiPath => {
   let newPath = path;
 
   if (type(path) === PathType.File && ignoreFileExtension) {
@@ -35,17 +32,10 @@ const compareablePath = (
 /**
  * @category path
  */
-const equals = (
-  path: string,
-  other: string,
-  options?: { ignoreFileExtension?: boolean }
-): boolean => {
+const equals = (path: string, other: string, options?: { ignoreFileExtension?: boolean }): boolean => {
   const ignoreFileExtension = (options && options.ignoreFileExtension) || false;
 
-  return (
-    compareablePath(path, ignoreFileExtension).path ===
-    compareablePath(other, ignoreFileExtension).path
-  );
+  return compareablePath(path, ignoreFileExtension).path === compareablePath(other, ignoreFileExtension).path;
 };
 
 export default equals;

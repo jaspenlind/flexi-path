@@ -7,7 +7,6 @@ import { children } from ".";
 const files = (path: string): FileQuery => (
   condition?: (current: PathMeta) => boolean,
   options?: { recursive?: boolean }
-): FlexiPath[] =>
-  children(path)(condition, options).filter(x => x.type() === PathType.File);
+): FlexiPath[] => children(path)(condition, options).filter(x => x.type() === PathType.File);
 
 export default files;

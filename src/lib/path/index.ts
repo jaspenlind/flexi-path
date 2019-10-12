@@ -1,12 +1,4 @@
-import {
-  FlexiPath,
-  Path,
-  PathKind,
-  PathMeta,
-  PathWalker,
-  TextTransform,
-  WalkOptions
-} from "../../types";
+import { FlexiPath, Path, PathKind, PathMeta, PathWalker, ReadOptions, WriteOptions, WalkOptions } from "../../types";
 import walker from "../walker";
 import append from "./append";
 import children from "./children";
@@ -26,18 +18,7 @@ import reverse from "./reverse";
 import subDirectories from "./subDirectories";
 import write from "./write";
 
-export {
-  default as meta,
-  depth,
-  equals,
-  exists,
-  hasRoot,
-  isEmpty,
-  isRoot,
-  isValid,
-  readDir,
-  type
-} from "./meta";
+export { default as meta, depth, equals, exists, hasRoot, isEmpty, isRoot, isValid, readDir, type } from "./meta";
 
 export { default as append } from "./append";
 export { default as children } from "./children";
@@ -71,43 +52,26 @@ const pathWalker = (path: Path): PathWalker => {
  */
 export const path = (current: Path): FlexiPath => {
   const kind = pathKind(current);
-  const pathMeta =
-    kind === PathKind.PathMeta || kind === PathKind.FlexiPath
-      ? (current as PathMeta)
-      : meta(current);
+  const pathMeta = kind === PathKind.PathMeta || kind === PathKind.FlexiPath ? (current as PathMeta) : meta(current);
 
-  const readWrapper = ({
-    encoding = "utf8",
-    transform = TextTransform.Plain
-  }: { encoding?: string; transform?: TextTransform } = {}): any =>
-    read(pathMeta, { encoding, transform });
-
-  const writeWrapper = (
-    content?: any,
-    {
-      encoding = "utf8",
-      overwrite = false
-    }: { encoding?: string; overwrite?: boolean } = {}
-  ): FlexiPath => write(pathMeta.path, content, { encoding, overwrite });
+  const readWrapper = (options?: Partial<ReadOptions>) => read(pathMeta, options);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const writeWrapper = (content: any, options?: Partial<WriteOptions>) => write(pathMeta.path, content, options);
 
   return Object.freeze({
     ...pathMeta,
     ...{
-      append: (...paths: Path[]) =>
-        append(pathMeta.path, ...paths.map(x => pathString(x))),
+      append: (...paths: Path[]) => append(pathMeta.path, ...paths.map(x => pathString(x))),
       children: children(pathMeta.path),
       cut: (count: number) => cut(pathMeta.path, count),
       diff: (other: Path) => diff(current, other),
-      except: (...paths: Path[]) =>
-        except(pathMeta.path, ...paths.map(x => pathString(x))),
+      except: (...paths: Path[]) => except(pathMeta.path, ...paths.map(x => pathString(x))),
       files: files(pathMeta.path),
       flatten: () => flatten(pathMeta.path),
-      intersect: (...paths: Path[]) =>
-        intersect(pathMeta.path, ...paths.map(x => pathString(x))),
+      intersect: (...paths: Path[]) => intersect(pathMeta.path, ...paths.map(x => pathString(x))),
       parent: parent(pathMeta.path),
       pop: () => pop(pathMeta.path),
-      prepend: (...paths: Path[]) =>
-        prepend(pathMeta.path, ...paths.map(x => pathString(x))),
+      prepend: (...paths: Path[]) => prepend(pathMeta.path, ...paths.map(x => pathString(x))),
       read: readWrapper,
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),

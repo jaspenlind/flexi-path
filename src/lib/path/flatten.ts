@@ -17,9 +17,7 @@ const flatten = (path: string): FlexiPath[] => {
 
   walker.back(path, {
     until: (current: PathMeta) => {
-      result.unshift(
-        flexi.path(current.isRoot() ? current.root : current.base)
-      );
+      result.unshift(flexi.path(current.isRoot() ? current.root : current.base));
       return flexi
         .path(current.path)
         .parent()
@@ -49,10 +47,7 @@ export const flatReduce = (
     return filter(prev, current);
   }, flattenedPath);
 
-  return result.reduce<FlexiPath>(
-    (prev: FlexiPath, current: string) => prev.append(current),
-    flexi.empty()
-  );
+  return result.reduce<FlexiPath>((prev: FlexiPath, current: string) => prev.append(current), flexi.empty());
 };
 
 export default flatten;

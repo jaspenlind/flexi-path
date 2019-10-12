@@ -1,24 +1,24 @@
 import { readFileSync } from "fs";
+import { create, ReadOptions } from "../../models/readOptions";
 
 import { PathMeta, PathType, TextTransform } from "../../types";
 
 /**
  * @category path
  */
-const read = (
-  path: PathMeta,
-  {
-    encoding = "utf8",
-    transform = TextTransform.Plain
-  }: { encoding?: string; transform?: TextTransform } = {}
-): any => {
+const read = <T = string>(path: PathMeta, options?: Partial<ReadOptions>): T | string => {
   if (path.type() !== PathType.File) {
     return "";
   }
+
+  const { encoding, transform } = create(options);
+
   const content = readFileSync(path.path, encoding);
 
   if (transform === TextTransform.JSON) {
-    return JSON.parse(content);
+    const parsed: T = JSON.parse(content);
+
+    return parsed;
   }
   return content;
 };

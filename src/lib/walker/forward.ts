@@ -1,11 +1,5 @@
 import { flexi } from "..";
-import {
-  FlexiPath,
-  Path,
-  PathType,
-  WalkedPath,
-  WalkOptions
-} from "../../types";
+import { FlexiPath, Path, PathType, WalkedPath, WalkOptions } from "../../types";
 import reporter from "./reporter";
 
 const empty = 0;
@@ -16,10 +10,7 @@ const empty = 0;
  * @param until Stops walking when condition is met
  * @category walker
  */
-const forward = (
-  path: Path,
-  options?: WalkOptions
-): WalkedPath<FlexiPath[]> => {
+const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => {
   const parsedPath = flexi.path(path);
 
   reporter(options).report(parsedPath);
@@ -40,26 +31,23 @@ const forward = (
     }
   }
 
-  let walked = content.reduce<FlexiPath[]>(
-    (prev: FlexiPath[], curr: FlexiPath) => {
-      const result: FlexiPath[] = [];
+  let walked = content.reduce<FlexiPath[]>((prev: FlexiPath[], curr: FlexiPath) => {
+    const result: FlexiPath[] = [];
 
-      if (curr.type() === PathType.Directory) {
-        const next = parsedPath.append(curr.name);
+    if (curr.type() === PathType.Directory) {
+      const next = parsedPath.append(curr.name);
 
-        result.push(...forward(next, options).result);
-      }
+      result.push(...forward(next, options).result);
+    }
 
-      if (result.length === empty) {
-        result.push(curr);
-      }
+    if (result.length === empty) {
+      result.push(curr);
+    }
 
-      prev.push(...result);
+    prev.push(...result);
 
-      return prev;
-    },
-    []
-  );
+    return prev;
+  }, []);
 
   if (walked.length > empty && untilFunc !== undefined) {
     walked = walked.filter(x => untilFunc(x));

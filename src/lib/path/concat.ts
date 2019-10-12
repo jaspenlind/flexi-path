@@ -10,12 +10,9 @@ import { FlexiPath } from "../../types";
  * @param paths One or multiple `paths` to concatinate the `path` with
  */
 const concat = (path: string, ...paths: string[]): FlexiPath => {
-  const result = (paths || []).reduce<string>(
-    (prev: string, current: string) => {
-      return join(prev, current);
-    },
-    path
-  );
+  const result = (paths || []).reduce<string>((prev: string, current: string) => {
+    return join(prev, current);
+  }, path);
 
   return flexi.path(result);
 };

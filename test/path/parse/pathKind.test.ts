@@ -14,9 +14,7 @@ describe("path", () => {
       });
 
       it("should be path with base path kind", () => {
-        expect(pathKind({ basePath: "base", path: "path" })).toBe(
-          PathKind.PathWithBasePath
-        );
+        expect(pathKind({ basePath: "base", path: "path" })).toBe(PathKind.PathWithBasePath);
       });
 
       it("should be path meta kind", () => {

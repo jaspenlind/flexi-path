@@ -1,22 +1,16 @@
 module.exports = {
-  collectCoverageFrom: ["src/**/{!(*.d.ts),}.{ts,js}"],
-  globals: {
-    "ts-jest": {
-      tsConfig: "tsconfig.json"
-    }
+  collectCoverageFrom: ["src/**/{!(*.d.ts),}.{ts,js,.tsx,.jsx}"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  moduleNameMapper: {
+    "^.+\\.(css|scss)$": "identity-obj-proxy"
   },
-  moduleFileExtensions: ["js", "ts"],
-  modulePathIgnorePatterns: [
-    "<rootDir>/dist/",
-    "<rootDir>/test/jest/flex.test-data"
-  ],
-  setupFilesAfterEnv: [
-    "jest-extended",
-    "<rootDir>/test/jest/setupFilesAfterEnv.ts"
-  ],
-  testEnvironment: "node",
-  testMatch: ["**/test/**/*.test.(ts|js)"],
+  modulePathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/test/jest/flex.test-data"],
+  preset: "ts-jest",
+  roots: ["<rootDir>/src", "<rootDir>/test"],
+  setupFilesAfterEnv: ["jest-extended", "<rootDir>/test/jest/setupFilesAfterEnv.ts"],
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest"
-  }
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  verbose: true
 };

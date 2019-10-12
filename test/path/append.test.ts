@@ -10,9 +10,7 @@ describe("path", () => {
 
       const appendedPath = existingPath.append("appended/path");
 
-      expect(appendedPath.path).toBe(
-        normalize(`${existingPath.path}/appended/path`)
-      );
+      expect(appendedPath.path).toBe(normalize(`${existingPath.path}/appended/path`));
     });
 
     it("can append multiple paths to an existing path", () => {
@@ -24,9 +22,7 @@ describe("path", () => {
 
       const result = existingPath.append(first, second, third);
 
-      expect(result.path).toBe(
-        normalize("existing path/first/second/base/third")
-      );
+      expect(result.path).toBe(normalize("existing path/first/second/base/third"));
     });
 
     it("can handle empty append", () => {

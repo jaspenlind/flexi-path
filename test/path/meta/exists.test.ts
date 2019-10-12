@@ -19,25 +19,19 @@ describe("path", () => {
           .append("exists_true_for_existing_path_no_trailing/")
           .write();
 
-        const withoutSlash = flexi
-          .path(testDir)
-          .append("exists_true_for_existing_path_no_trailing");
+        const withoutSlash = flexi.path(testDir).append("exists_true_for_existing_path_no_trailing");
 
         expect(withoutSlash.exists()).toBeTrue();
       });
 
       it("should be false for path that doesn't exist", () => {
-        const nonExistingPath = flexi
-          .path(testDir)
-          .append("exists_non_existing_path/");
+        const nonExistingPath = flexi.path(testDir).append("exists_non_existing_path/");
 
         expect(nonExistingPath.exists()).toBeFalse();
       });
 
       it("should be false for path that doesn't exist without trailing slash", () => {
-        const nonExistingPath = flexi
-          .path(testDir)
-          .append("exists_non_existing_path");
+        const nonExistingPath = flexi.path(testDir).append("exists_non_existing_path");
 
         expect(nonExistingPath.exists()).toBeFalse();
       });
@@ -52,9 +46,7 @@ describe("path", () => {
       });
 
       it("should be false for file that doesn't exist", () => {
-        const nonExistingFile = flexi
-          .path(testDir)
-          .append("exists_non_existing_file.js");
+        const nonExistingFile = flexi.path(testDir).append("exists_non_existing_file.js");
 
         expect(nonExistingFile.exists()).toBeFalse();
       });

@@ -27,9 +27,7 @@ describe("path", () => {
         const filePath = flexi.path("/path/with/file.txt");
         const pathWithoutExt = flexi.path("/path/with/file");
 
-        expect(
-          filePath.equals(pathWithoutExt, { ignoreFileExtension: true })
-        ).toBeTrue();
+        expect(filePath.equals(pathWithoutExt, { ignoreFileExtension: true })).toBeTrue();
       });
 
       it("should be true when equal and one path has ending separator", () => {

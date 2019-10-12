@@ -18,9 +18,7 @@ describe("path", () => {
       const first = flexi.path("first/path");
       const second = flexi.path("second/path");
 
-      const [result1, result2] = common
-        .append(first)
-        .diff(common.append(second));
+      const [result1, result2] = common.append(first).diff(common.append(second));
 
       expect(result1).toHaveMatchingMembersOf(first);
       expect(result2).toHaveMatchingMembersOf(second);
@@ -31,9 +29,7 @@ describe("path", () => {
       const first = flexi.path("first/path");
       const second = flexi.path("second/path");
 
-      const [result1, result2] = common
-        .append(first)
-        .diff(common.append(second));
+      const [result1, result2] = common.append(first).diff(common.append(second));
 
       expect(result1).toHaveMatchingMembersOf(first);
       expect(result2).toHaveMatchingMembersOf(second);
