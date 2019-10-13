@@ -19,7 +19,7 @@ const segments = (path: string) => {
   const result = path.split(sep);
 
   if (hasRoot) {
-    result.unshift(sep);
+    result[0] = sep;
   }
 
   return result;

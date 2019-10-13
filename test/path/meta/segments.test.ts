@@ -23,7 +23,9 @@ describe("path", () => {
       });
 
       it("should include root path", () => {
-        const path = flexi.path("/some/path/with/root");
+        const stringPath = "/some/path/with/root";
+
+        const path = flexi.path(stringPath);
 
         const [root] = path.segments;
 
