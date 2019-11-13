@@ -5,5 +5,4 @@ module.exports = {
   name: "flexi-path",
   out: "./docs",
   theme: "default"
-  // readme: "none",
 };
