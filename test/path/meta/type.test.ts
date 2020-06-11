@@ -11,10 +11,7 @@ describe("path", () => {
       });
 
       it("should be file when path is a file", () => {
-        const file = flexi
-          .path(testData.testDir)
-          .append("should_be_file_when_path_is_a_file.js")
-          .write();
+        const file = flexi.path(testData.testDir).append("should_be_file_when_path_is_a_file.js").write();
 
         expect(file.type()).toBe(PathType.File);
       });

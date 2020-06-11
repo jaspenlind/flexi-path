@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-commented-out-tests */
 import { flexi } from "../../src/lib";
 import { testDir } from "../jest/createTestData";
 
@@ -53,56 +54,41 @@ describe("walk", () => {
     });
 
     it("can walk from path", () => {
-      expect(
-        flexi
-          .path("/one/two/three")
-          .walk()
-          .back()
-      ).toBe(flexi.root());
+      expect(flexi.path("/one/two/three").walk().back()).toBe(flexi.root());
 
-      const forwardWalkPath = flexi
-        .path(testDir)
-        .append("back_can_walk_path/sub/")
-        .write();
+      const forwardWalkPath = flexi.path(testDir).append("back_can_walk_path/sub/").write();
 
-      expect(
-        forwardWalkPath
-          .parent()
-          .parent()
-          .parent()
-          .walk()
-          .forward().length
-      ).toBeGreaterThan(2);
+      expect(forwardWalkPath.parent().parent().parent().walk().forward().length).toBeGreaterThan(2);
     });
 
-    it("can resolve with navigate skip override", () => {
-      test.todo("todo can resolve with skip");
-      //     const path = flexi.path("/fictional/path/with/file.js");
-      //     const expected = flexi.path("/fictional/");
+    // it("can resolve with navigate skip override", () => {
+    //   test.todo("todo can resolve with skip");
+    //   //     const path = flexi.path("/fictional/path/with/file.js");
+    //   //     const expected = flexi.path("/fictional/");
 
-      //     const predicate = (x: ParsedPath) => x.name === "path";
-      //     const onNavigate = (x: ParsedPath) => ({
-      //       state:
-      //         x.name === "fictional" ? NavigationState.Found : NavigationState.Skip
-      //     });
+    //   //     const predicate = (x: ParsedPath) => x.name === "path";
+    //   //     const onNavigate = (x: ParsedPath) => ({
+    //   //       state:
+    //   //         x.name === "fictional" ? NavigationState.Found : NavigationState.Skip
+    //   //     });
 
-      //     const result = flexi.resolve(path, { onNavigate, predicate });
+    //   //     const result = flexi.resolve(path, { onNavigate, predicate });
 
-      //     expect(result).toHaveMatchingMembersOf(expected);
-    });
+    //   //     expect(result).toHaveMatchingMembersOf(expected);
+    // });
 
-    it("can abort", () => {
-      test.todo("todo can abort");
-      //     const path = flexi.path("/fictional/path/with/file.js");
+    // it("can abort", () => {
+    //   test.todo("todo can abort");
+    //   //     const path = flexi.path("/fictional/path/with/file.js");
 
-      //     const result = flexi.resolve(path, {
-      //       onNavigate: () => ({
-      //         state: NavigationState.Abort
-      //       }),
-      //       predicate: () => false
-      //     });
+    //   //     const result = flexi.resolve(path, {
+    //   //       onNavigate: () => ({
+    //   //         state: NavigationState.Abort
+    //   //       }),
+    //   //       predicate: () => false
+    //   //     });
 
-      //     expect(result).toBe(flexi.empty());
-    });
+    //   //     expect(result).toBe(flexi.empty());
+    // });
   });
 });

@@ -18,10 +18,15 @@ const report = (path: Path, options?: WalkOptions, state?: WalkedState): WalkedS
 /**
  * @category walker
  */
+// const reporter = (options?: WalkOptions): Reporter => {
+//   return {
+//     report: (path: Path, state?: WalkedState) => report(path, options, state)
+//   };
+// };
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const reporter = (options?: WalkOptions) => {
   return {
     report: (path: Path, state?: WalkedState) => report(path, options, state)
   };
 };
-
 export default reporter;

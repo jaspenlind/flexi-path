@@ -18,6 +18,7 @@ const matchable = <T extends Record<string, any>>(obj: T, mock: any): T => {
   return copy;
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const toHaveMatchingMembersOf = (received: any, expected: any) => {
   if (typeof received !== "object" || typeof expected !== "object") {
     const result: SyncExpectationResult = {

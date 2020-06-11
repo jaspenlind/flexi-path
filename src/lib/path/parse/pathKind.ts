@@ -36,6 +36,6 @@ const pathKindVisitor = ((): PathVistor<PathKind> => {
  * @param path The `path` to get the kind for
  * @category path
  */
-const pathKind = (path: Path) => pathKindVisitor.visit(path);
+const pathKind = (path: Path): PathKind => pathKindVisitor.visit(path);
 
 export default pathKind;

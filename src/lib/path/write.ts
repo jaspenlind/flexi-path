@@ -14,7 +14,7 @@ const write = (
   path: string,
   // any is a support type of writeFileSync
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content?: any,
+  content?: string | NodeJS.ArrayBufferView,
   options?: Partial<WriteOptions>
 ): FlexiPath => {
   const parsedType = type(path);

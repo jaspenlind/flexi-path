@@ -4,10 +4,7 @@ import testData, { testDir } from "../../jest/createTestData";
 describe("walker", () => {
   describe("until.exists", () => {
     it("should return first directory that exists", () => {
-      const subDir = flexi
-        .path(testData.testDir)
-        .append("pathExistsSub/")
-        .write();
+      const subDir = flexi.path(testData.testDir).append("pathExistsSub/").write();
 
       const path = subDir.append("non", "existing", "segments");
 
@@ -15,10 +12,7 @@ describe("walker", () => {
     });
 
     it("should have whole path as diff when no part of path exists", () => {
-      const path = flexi
-        .path("non")
-        .append("existing")
-        .append("path");
+      const path = flexi.path("non").append("existing").append("path");
 
       const result = flexi.walk.back(path, { until: until.exists() });
 
@@ -57,10 +51,7 @@ describe("walker", () => {
     });
 
     it("should return directory independent of file extension", () => {
-      const existingPath = flexi
-        .path(testData.testDir)
-        .append("until-exists-ignore-ext/")
-        .write();
+      const existingPath = flexi.path(testData.testDir).append("until-exists-ignore-ext/").write();
 
       const missingPath = existingPath.append("some/missing/path");
 

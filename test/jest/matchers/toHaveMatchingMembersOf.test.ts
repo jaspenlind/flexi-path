@@ -3,6 +3,7 @@ import { SyncExpectationResult } from "expect/build/types";
 import matcher from "./toHaveMatchingMembersOf";
 
 describe("toHaveMatchingMembersOf", () => {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const invoke = (received: number | object, expected: number | object): SyncExpectationResult =>
     matcher.toHaveMatchingMembersOf(received, expected) as SyncExpectationResult;
 

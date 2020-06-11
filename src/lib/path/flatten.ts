@@ -18,10 +18,8 @@ const flatten = (path: string): FlexiPath[] => {
   walker.back(path, {
     until: (current: PathMeta) => {
       result.unshift(flexi.path(current.isRoot() ? current.root : current.base));
-      return flexi
-        .path(current.path)
-        .parent()
-        .isEmpty();
+      // eslint-disable-next-line prettier/prettier
+      return flexi.path(current.path).parent().isEmpty();
     }
   });
 

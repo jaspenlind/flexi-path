@@ -90,7 +90,7 @@ let rootPath: FlexiPath;
  * Represents an empty `path`
  * @category path
  */
-export const empty = () => {
+export const empty = (): FlexiPath => {
   if (emptyPath === undefined) {
     emptyPath = path(constants.empty);
   }
@@ -101,7 +101,7 @@ export const empty = () => {
  * Represents a root `path`
  * @category path
  */
-export const root = () => {
+export const root = (): FlexiPath => {
   if (rootPath === undefined) {
     rootPath = path(constants.root);
   }

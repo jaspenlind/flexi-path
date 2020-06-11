@@ -14,29 +14,19 @@ describe("walker", () => {
     });
 
     it("should be empty when path has no content", () => {
-      const path = flexi
-        .path(testDir)
-        .append("walk_empty_when_no_content/")
-        .write();
+      const path = flexi.path(testDir).append("walk_empty_when_no_content/").write();
 
       expect(flexi.walk.forward(path).result).toBeEmpty();
     });
 
     it("should return all content when no condition", () => {
-      const path = flexi
-        .path(testDir)
-        .append("walk_all_content_no_condition/")
-        .write();
+      const path = flexi.path(testDir).append("walk_all_content_no_condition/").write();
 
       const sub1 = path.append("sub1/").write();
 
       const file1 = sub1.append("file1.js").write();
       const file2 = sub1.append("file2.txt").write();
-      const file3 = sub1
-        .append("sub1_1")
-        .append("sub1_2")
-        .append("file3.json")
-        .write();
+      const file3 = sub1.append("sub1_1").append("sub1_2").append("file3.json").write();
 
       const sub2 = path.append("sub2/").write();
       const file4 = path.append("file4.php").write();
@@ -55,10 +45,7 @@ describe("walker", () => {
     });
 
     it("should return content matching condition", () => {
-      const path = flexi
-        .path(testDir)
-        .append("walk_content_matching_condition/")
-        .write();
+      const path = flexi.path(testDir).append("walk_content_matching_condition/").write();
 
       const sub1 = path.append("sub1/").write();
       const sub2 = path.append("sub2/").write();
@@ -79,22 +66,11 @@ describe("walker", () => {
     });
 
     it("should walk until condition is met", () => {
-      const path = flexi
-        .path(testDir)
-        .append("walk_until_condition_is_met/")
-        .write();
+      const path = flexi.path(testDir).append("walk_until_condition_is_met/").write();
 
-      path
-        .append("sub1")
-        .append("sub2")
-        .append("sub3/")
-        .write();
+      path.append("sub1").append("sub2").append("sub3/").write();
 
-      const file = path
-        .append("sub1")
-        .append("sub2")
-        .append("test.ts")
-        .write();
+      const file = path.append("sub1").append("sub2").append("test.ts").write();
 
       const depthOfCommonPath = 1;
 

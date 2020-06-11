@@ -5,19 +5,13 @@ describe("path", () => {
   describe("meta", () => {
     describe("exists", () => {
       it("should be true for path that exists", () => {
-        const existingPath = flexi
-          .path(testDir)
-          .append("exists_true_for_existing_path/")
-          .write();
+        const existingPath = flexi.path(testDir).append("exists_true_for_existing_path/").write();
 
         expect(existingPath.exists()).toBeTrue();
       });
 
       it("should be true when directory exists and path has no trailing slash", () => {
-        flexi
-          .path(testDir)
-          .append("exists_true_for_existing_path_no_trailing/")
-          .write();
+        flexi.path(testDir).append("exists_true_for_existing_path_no_trailing/").write();
 
         const withoutSlash = flexi.path(testDir).append("exists_true_for_existing_path_no_trailing");
 
@@ -37,10 +31,7 @@ describe("path", () => {
       });
 
       it("should be true for file that exists", () => {
-        const existingFile = flexi
-          .path(testDir)
-          .append("exists_file_exists.js")
-          .write();
+        const existingFile = flexi.path(testDir).append("exists_file_exists.js").write();
 
         expect(existingFile.exists()).toBeTrue();
       });

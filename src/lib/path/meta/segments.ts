@@ -5,7 +5,7 @@ import { isEmpty, isRoot } from ".";
 /**
  * @category path
  */
-const segments = (path: string) => {
+const segments = (path: string): string[] => {
   if (isEmpty(path)) {
     return [];
   }

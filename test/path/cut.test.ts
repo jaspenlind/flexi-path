@@ -4,10 +4,7 @@ describe("path", () => {
   describe("cut", () => {
     it("can cut path", () => {
       const threeLevels = 3;
-      const path = flexi
-        .path("one")
-        .append("two")
-        .append("three/four/five/six");
+      const path = flexi.path("one").append("two").append("three/four/five/six");
       const expected = flexi.path("one/two/three/");
 
       expect(path.cut(threeLevels).path).toBe(expected.path);

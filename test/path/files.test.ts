@@ -24,10 +24,7 @@ describe("path", () => {
     });
 
     it("should not contain subdirectories", () => {
-      const dir = flexi
-        .path(flexData.testDir)
-        .append("files_should_not_contain_subdirectories/")
-        .write();
+      const dir = flexi.path(flexData.testDir).append("files_should_not_contain_subdirectories/").write();
 
       dir.append("subDir/").write();
 

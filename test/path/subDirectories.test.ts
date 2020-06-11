@@ -32,10 +32,7 @@ describe("path", () => {
     });
 
     it("should not contain files", () => {
-      const dir = flexi
-        .path(testData.testDir)
-        .append("subdirectories_should_not_contain_files/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("subdirectories_should_not_contain_files/").write();
 
       dir.append("file.txt").write();
 

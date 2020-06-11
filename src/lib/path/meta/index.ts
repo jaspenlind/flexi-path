@@ -60,7 +60,7 @@ const meta = (path: Path): PathMeta => {
 let emptyMeta: PathMeta;
 
 /** @category path */
-export const empty = () => {
+export const empty = (): PathMeta => {
   if (emptyMeta === undefined) {
     emptyMeta = meta("");
   }

@@ -6,10 +6,7 @@ describe("path", () => {
   describe("children", () => {
     it("can list files", () => {
       const twoFiles = 2;
-      const dir = flexi
-        .path(testData.testDir)
-        .append("can_list_files/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("can_list_files/").write();
 
       dir.append("file1.txt").write();
       dir.append("file2.js").write();
@@ -19,10 +16,7 @@ describe("path", () => {
 
     it("can list directories", () => {
       const threeDirectories = 3;
-      const dir = flexi
-        .path(testData.testDir)
-        .append("can_list_directories/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("can_list_directories/").write();
 
       dir.append("sub1/").write();
       dir.append("sub2/").write();
@@ -34,10 +28,7 @@ describe("path", () => {
     it("can list files and directories", () => {
       const twoDirectories = 2;
       const twoFiles = 2;
-      const dir = flexi
-        .path(testData.testDir)
-        .append("can_list_files_and_directories/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("can_list_files_and_directories/").write();
 
       dir.append("sub1/").write();
       dir.append("sub2/").write();
@@ -52,19 +43,13 @@ describe("path", () => {
     });
 
     it("should be empty when directory is empty", () => {
-      const empty = flexi
-        .path(testData.testDir)
-        .append("empty_when_directory_is_empty")
-        .write();
+      const empty = flexi.path(testData.testDir).append("empty_when_directory_is_empty").write();
 
       expect(empty.children()).toBeEmpty();
     });
 
     it("should be empty when path is file", () => {
-      const file = flexi
-        .path(testData.testDir)
-        .append("empty_when_path_is_file.js")
-        .write();
+      const file = flexi.path(testData.testDir).append("empty_when_path_is_file.js").write();
 
       expect(file.children()).toBeEmpty();
     });
@@ -77,10 +62,7 @@ describe("path", () => {
 
     it("can filter content", () => {
       const startingWithFileCount = 2;
-      const dir = flexi
-        .path(testData.testDir)
-        .append("can_filter_content/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("can_filter_content/").write();
 
       dir.append("file1.txt").write();
       dir.append("file2.txt").write();
@@ -92,10 +74,7 @@ describe("path", () => {
 
     it("can walk until found", () => {
       const belowDirCount = 1;
-      const dir = flexi
-        .path(testData.testDir)
-        .append("walk_until_found/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("walk_until_found/").write();
 
       dir.append("deep", "path", "below/").write();
 
@@ -108,10 +87,7 @@ describe("path", () => {
     });
 
     it("should be empty when walked and not found", () => {
-      const dir = flexi
-        .path(testData.testDir)
-        .append("empty_when_walked_and_not_found/")
-        .write();
+      const dir = flexi.path(testData.testDir).append("empty_when_walked_and_not_found/").write();
 
       dir.append("deep", "path", "below/").write();
 
