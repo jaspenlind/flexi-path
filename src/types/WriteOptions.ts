@@ -1,5 +1,5 @@
 /** @category path */
 export interface WriteOptions {
-  encoding: string;
+  encoding: BufferEncoding;
   overwrite: boolean;
 }

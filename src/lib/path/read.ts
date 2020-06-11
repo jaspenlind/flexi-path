@@ -14,7 +14,7 @@ const read = (path: PathMeta, options?: Partial<ReadOptions>): any => {
 
   const { encoding, transform } = create(options);
 
-  const content = readFileSync(path.path, encoding);
+  const content = readFileSync(path.path, { encoding });
 
   if (transform === TextTransform.JSON) {
     const parsed = JSON.parse(content);
