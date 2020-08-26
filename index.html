@@ -1,0 +1,398 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>flexi-path</title>
+	<meta name="description" content="Documentation for flexi-path">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">flexi-path</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>flexi-path</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#flexi-path" id="flexi-path" style="color: inherit; text-decoration: none;">
+					<h1>flexi-path</h1>
+				</a>
+				<a href="#flexible-path-builder-and-walker" id="flexible-path-builder-and-walker" style="color: inherit; text-decoration: none;">
+					<h2>Flexible path builder and walker</h2>
+				</a>
+				<p><a href="https://travis-ci.com/jaspenlind/flexi-path"><img src="https://travis-ci.com/jaspenlind/flexi-path.svg?branch=master" alt="Build Status"></a>
+					<a href="https://www.codacy.com/manual/jaspenlind/flexi-path?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jaspenlind/flexi-path&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/d53c318f91a54f49822d30d9974c1003" alt="Codacy Badge"></a>
+					<img src="https://img.shields.io/github/languages/top/jaspenlind/flexi-path" alt="GitHub top language">
+					<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier"></a>
+					<a href="https://coveralls.io/r/jaspenlind/flexi-path?branch=master"><img src="https://coveralls.io/repos/jaspenlind/flexi-path/badge.svg?branch=master" alt="Coverage Status"></a>
+					<img src="https://img.shields.io/david/jaspenlind/flexi-path" alt="David">
+					<a href="https://jaspenlind.github.io/flexi-path/"><img src="https://img.shields.io/badge/api-docs-blue" alt="GitHub Pages"></a>
+					<img src="https://img.shields.io/github/license/jaspenlind/flexi-path" alt="GitHub">
+				<a href="https://www.npmjs.com/package/flexi-path"><img src="https://img.shields.io/npm/v/flexi-path" alt="npm"></a></p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p><code>npm install flexi-path</code></p>
+				<a href="#test" id="test" style="color: inherit; text-decoration: none;">
+					<h2>Test</h2>
+				</a>
+				<p><code>npm test</code></p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<a href="#build-paths" id="build-paths" style="color: inherit; text-decoration: none;">
+					<h3>Build paths</h3>
+				</a>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> flexi <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;flexi-path&quot;</span>;
+
+<span class="hljs-keyword">const</span> path = flexi.path(<span class="hljs-string">&quot;path&quot;</span>).append(<span class="hljs-string">&quot;other&quot;</span>);
+
+<span class="hljs-keyword">const</span> prependedPath = path.prepend(<span class="hljs-string">&quot;prepended&quot;</span>);
+
+<span class="hljs-keyword">const</span> finalPath = prependedPath.prepend(__dirName).append(<span class="hljs-string">&quot;someFile.js&quot;</span>);
+
+finalPath.write();
+
+<span class="hljs-comment">//==&gt; {cur dir}/prepended/path/other/someFile.js</span></code></pre>
+				<a href="#walk-paths" id="walk-paths" style="color: inherit; text-decoration: none;">
+					<h3>Walk paths</h3>
+				</a>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> flexi <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;flexi-path&quot;</span>;
+
+<span class="hljs-keyword">const</span> path = flexi.path(<span class="hljs-string">&quot;path/to/existing/file.js&quot;</span>);
+
+flexi.walk.forward(path);
+
+<span class="hljs-comment">//==&gt; [&quot;path&quot;, &quot;to&quot;, &quot;existing&quot;, &quot;file.js&quot;]</span>
+
+<span class="hljs-keyword">const</span> existingPath = flexi.path(<span class="hljs-string">&quot;existing/path&quot;</span>);
+<span class="hljs-keyword">const</span> completePath = existingPath.append(<span class="hljs-string">&quot;some/non/existing/parts&quot;</span>);
+
+<span class="hljs-keyword">const</span> result = flexi.walk.back(restOfPath, { until: until.exists() });
+
+<span class="hljs-comment">//==&gt; existing/path</span></code></pre>
+				<a href="#compare-paths" id="compare-paths" style="color: inherit; text-decoration: none;">
+					<h3>Compare paths</h3>
+				</a>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> flexi <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;flexi-path&quot;</span>;
+
+<span class="hljs-keyword">const</span> common = flexi.path(<span class="hljs-string">&quot;/common/root&quot;</span>);
+<span class="hljs-keyword">const</span> first = flexi.path(<span class="hljs-string">&quot;first/path&quot;</span>);
+<span class="hljs-keyword">const</span> second = flexi.path(<span class="hljs-string">&quot;second/path&quot;</span>);
+
+<span class="hljs-keyword">const</span> diff = common.append(first).diff(common.append(second));
+
+<span class="hljs-comment">//==&gt; [</span>
+first
+second
+]
+
+<span class="hljs-keyword">const</span> intersect = first.intersect(second);
+
+<span class="hljs-comment">//==&gt; path</span>
+
+<span class="hljs-keyword">const</span> except = first.except(second);
+
+<span class="hljs-comment">//==&gt; first/second</span>
+
+<span class="hljs-keyword">const</span> equals = flexi.path(<span class="hljs-string">&quot;path&quot;</span>).equals(<span class="hljs-string">&quot;path&quot;</span>);
+
+<span class="hljs-comment">//==&gt; true</span>
+
+flexi.path(<span class="hljs-string">&quot;&quot;</span>).isEmpty()
+
+<span class="hljs-comment">//==&gt; true</span></code></pre>
+				<a href="#manipulate-paths" id="manipulate-paths" style="color: inherit; text-decoration: none;">
+					<h3>Manipulate paths</h3>
+				</a>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> path = flexi.path(<span class="hljs-string">&quot;one/two/three/four/five/six&quot;</span>);
+
+<span class="hljs-keyword">const</span> reversed = path.reverse();
+
+<span class="hljs-comment">//==&gt; six/five/four/three/two/one</span>
+
+<span class="hljs-keyword">const</span> cut = reversed.cut(<span class="hljs-number">4</span>);
+
+<span class="hljs-comment">//==&gt; six/five</span>
+
+<span class="hljs-keyword">const</span> flat = cut.flatten();
+
+<span class="hljs-comment">//==&gt; [</span>
+    six
+    five
+]</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/pathkind.html" class="tsd-kind-icon">Path<wbr>Kind</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/pathtype.html" class="tsd-kind-icon">Path<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/texttransform.html" class="tsd-kind-icon">Text<wbr>Transform</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/walkedstate.html" class="tsd-kind-icon">Walked<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/flexi.html" class="tsd-kind-icon">Flexi</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/flexipath.html" class="tsd-kind-icon">Flexi<wbr>Path</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/pathmeta.html" class="tsd-kind-icon">Path<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/pathvistor.html" class="tsd-kind-icon">Path<wbr>Vistor</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/pathwalker.html" class="tsd-kind-icon">Path<wbr>Walker</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/pathwithbasepath.html" class="tsd-kind-icon">Path<wbr>With<wbr>Base<wbr>Path</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/query.html" class="tsd-kind-icon">Query</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/readoptions.html" class="tsd-kind-icon">Read<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/walkoptions.html" class="tsd-kind-icon">Walk<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/walkedpath.html" class="tsd-kind-icon">Walked<wbr>Path</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/walker.html" class="tsd-kind-icon">Walker</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/writeoptions.html" class="tsd-kind-icon">Write<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#childquery" class="tsd-kind-icon">Child<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#filequery" class="tsd-kind-icon">File<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#parentquery" class="tsd-kind-icon">Parent<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#path" class="tsd-kind-icon">Path</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#subdirectoryquery" class="tsd-kind-icon">Sub<wbr>Directory<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#walkuntil" class="tsd-kind-icon">Walk<wbr>Until</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#walking" class="tsd-kind-icon">Walking</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#pathstring" class="tsd-kind-icon">path<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#append" class="tsd-kind-icon">append</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#back" class="tsd-kind-icon">back</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#children" class="tsd-kind-icon">children</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#concat" class="tsd-kind-icon">concat</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#create" class="tsd-kind-icon">create</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#cut" class="tsd-kind-icon">cut</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#depth" class="tsd-kind-icon">depth</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#diff" class="tsd-kind-icon">diff</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#empty" class="tsd-kind-icon">empty</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#equals" class="tsd-kind-icon">equals</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#except" class="tsd-kind-icon">except</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#exists" class="tsd-kind-icon">exists</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#files" class="tsd-kind-icon">files</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#flatten" class="tsd-kind-icon">flatten</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#forward" class="tsd-kind-icon">forward</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#hasroot" class="tsd-kind-icon">has<wbr>Root</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#intersect" class="tsd-kind-icon">intersect</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isempty" class="tsd-kind-icon">is<wbr>Empty</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isroot" class="tsd-kind-icon">is<wbr>Root</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#meta" class="tsd-kind-icon">meta</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parent" class="tsd-kind-icon">parent</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parse" class="tsd-kind-icon">parse</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#path" class="tsd-kind-icon">path</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#pathkind" class="tsd-kind-icon">path<wbr>Kind</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#pop" class="tsd-kind-icon">pop</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#prepend" class="tsd-kind-icon">prepend</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#read" class="tsd-kind-icon">read</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#report" class="tsd-kind-icon">report</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#reporter" class="tsd-kind-icon">reporter</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#reverse" class="tsd-kind-icon">reverse</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#root" class="tsd-kind-icon">root</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sameas" class="tsd-kind-icon">same<wbr>As</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#segments" class="tsd-kind-icon">segments</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#subdirectories" class="tsd-kind-icon">sub<wbr>Directories</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#type" class="tsd-kind-icon">type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#write" class="tsd-kind-icon">write</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#flexi" class="tsd-kind-icon">flexi</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#initial" class="tsd-kind-icon">initial</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#walker" class="tsd-kind-icon">walker</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
