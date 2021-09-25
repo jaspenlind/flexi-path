@@ -38,12 +38,10 @@ export { default as write } from "./write";
 /**
  * @ignore
  */
-const pathWalker = (path: Path): PathWalker => {
-  return {
-    back: (options?: WalkOptions) => walker.back(path, options).result,
-    forward: (options?: WalkOptions) => walker.forward(path, options).result
-  };
-};
+const pathWalker = (path: Path): PathWalker => ({
+  back: (options?: WalkOptions) => walker.back(path, options).result,
+  forward: (options?: WalkOptions) => walker.forward(path, options).result
+});
 
 /**
  * Creates a new `path`
@@ -61,17 +59,17 @@ export const path = (current: Path): FlexiPath => {
   return Object.freeze({
     ...pathMeta,
     ...{
-      append: (...paths: Path[]) => append(pathMeta.path, ...paths.map(x => pathString(x))),
+      append: (...paths: Path[]) => append(pathMeta.path, ...paths.map((x) => pathString(x))),
       children: children(pathMeta.path),
       cut: (count: number) => cut(pathMeta.path, count),
       diff: (other: Path) => diff(current, other),
-      except: (...paths: Path[]) => except(pathMeta.path, ...paths.map(x => pathString(x))),
+      except: (...paths: Path[]) => except(pathMeta.path, ...paths.map((x) => pathString(x))),
       files: files(pathMeta.path),
       flatten: () => flatten(pathMeta.path),
-      intersect: (...paths: Path[]) => intersect(pathMeta.path, ...paths.map(x => pathString(x))),
+      intersect: (...paths: Path[]) => intersect(pathMeta.path, ...paths.map((x) => pathString(x))),
       parent: parent(pathMeta.path),
       pop: () => pop(pathMeta.path),
-      prepend: (...paths: Path[]) => prepend(pathMeta.path, ...paths.map(x => pathString(x))),
+      prepend: (...paths: Path[]) => prepend(pathMeta.path, ...paths.map((x) => pathString(x))),
       read: readWrapper,
       reverse: () => reverse(pathMeta.path),
       subDirectories: subDirectories(pathMeta.path),

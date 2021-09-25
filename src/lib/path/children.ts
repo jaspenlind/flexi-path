@@ -7,11 +7,11 @@ import { concat, readDir } from ".";
  */
 const getContent = (path: string, condition?: (current: FlexiPath) => boolean): FlexiPath[] => {
   let content = readDir(path)
-    .map(x => concat(path, x.name))
+    .map((x) => concat(path, x.name))
     .sort();
 
   if (condition) {
-    content = content.filter(x => condition(x));
+    content = content.filter((x) => condition(x));
   }
 
   return content;

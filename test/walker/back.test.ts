@@ -19,13 +19,13 @@ describe("walk", () => {
 
       const path = sub.append("path").append("other");
 
-      expect(flexi.walk.back(path, { until: x => x.name === "sub" }).result).toHaveMatchingMembersOf(sub);
+      expect(flexi.walk.back(path, { until: (x) => x.name === "sub" }).result).toHaveMatchingMembersOf(sub);
     });
 
     it("is empty when condition is not met", () => {
       expect(
         flexi.walk.back(flexi.path("some/path"), {
-          until: x => x.name === "invalid"
+          until: (x) => x.name === "invalid"
         }).result
       ).toBe(flexi.empty());
     });
@@ -47,7 +47,7 @@ describe("walk", () => {
         .write();
 
       const result = flexi.walk.back(fullPath, {
-        until: x => x.name === "resolve-subFolder-predicate"
+        until: (x) => x.name === "resolve-subFolder-predicate"
       });
 
       expect(result.result.name).toBe("resolve-subFolder-predicate");

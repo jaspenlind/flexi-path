@@ -43,20 +43,19 @@ describe("path", () => {
         const expected = flexi.path("/deep/directory/structure/");
         const expectedDepth = 3;
 
-        const received = parent(longPath.path)(x => x.depth === expectedDepth);
+        const received = parent(longPath.path)((x) => x.depth === expectedDepth);
 
         expect(received).toHaveMatchingMembersOf(expected);
       });
 
       it("should be empty when levels is greater than path", () => {
         const veryDeep = 5000;
-        expect(parent(flexi.root().path)(x => x.depth === veryDeep)).toBe(flexi.empty());
+        expect(parent(flexi.root().path)((x) => x.depth === veryDeep)).toBe(flexi.empty());
       });
     });
 
-    const goToRoot = (current: FlexiPath): FlexiPath | null => {
-      return current.isRoot() ? current : goToRoot(current.parent());
-    };
+    const goToRoot = (current: FlexiPath): FlexiPath | null =>
+      current.isRoot() ? current : goToRoot(current.parent());
 
     it("can navigate to root", () => {
       const root = flexi.root();
@@ -73,26 +72,26 @@ describe("path", () => {
     });
 
     it("should return parent when condition is met", () => {
-      expect(flex.parent(x => x.name === "directory").path).toBe(normalize("/directory/"));
+      expect(flex.parent((x) => x.name === "directory").path).toBe(normalize("/directory/"));
     });
 
     it("should return parent matching condition", () => {
-      expect(flexi.path("some/arbitrary/path").parent(x => x.name === "arbitrary").path).toBe(
+      expect(flexi.path("some/arbitrary/path").parent((x) => x.name === "arbitrary").path).toBe(
         normalize("some/arbitrary/")
       );
     });
 
     it("should be empty when empty", () => {
       const empty = flexi.empty();
-      expect(empty.parent(x => x.path === "notempty")).toBe(empty);
+      expect(empty.parent((x) => x.path === "notempty")).toBe(empty);
     });
 
     it("should be root when condition is root", () => {
-      expect(flexi.path("/some/path").parent(x => x.isRoot())).toHaveMatchingMembersOf(flexi.root());
+      expect(flexi.path("/some/path").parent((x) => x.isRoot())).toHaveMatchingMembersOf(flexi.root());
     });
 
     it("should be empty when nothing matches and path has no root", () => {
-      expect(flexi.path("path/without/root").parent(x => x.name === "nothing")).toBe(flexi.empty());
+      expect(flexi.path("path/without/root").parent((x) => x.name === "nothing")).toBe(flexi.empty());
     });
   });
 });

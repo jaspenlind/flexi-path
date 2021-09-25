@@ -19,7 +19,7 @@ describe("path", () => {
         flexi
           .path(flexData.testDir)
           .files()
-          .map(x => x.path)
+          .map((x) => x.path)
       ).toContain(testFile);
     });
 

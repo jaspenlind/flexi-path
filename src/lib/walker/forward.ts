@@ -24,7 +24,7 @@ const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => 
   const untilFunc = options && options.until;
 
   if (untilFunc !== undefined) {
-    const result = content.filter(x => untilFunc(x));
+    const result = content.filter((x) => untilFunc(x));
 
     if (result.length > empty) {
       return { result, diff: [] };
@@ -50,7 +50,7 @@ const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => 
   }, []);
 
   if (walked.length > empty && untilFunc !== undefined) {
-    walked = walked.filter(x => untilFunc(x));
+    walked = walked.filter((x) => untilFunc(x));
   }
 
   return { result: walked, diff: [] };

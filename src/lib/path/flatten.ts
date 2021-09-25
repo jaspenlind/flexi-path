@@ -34,16 +34,14 @@ export const flatReduce = (
   path: string,
   ...paths: string[]
 ): FlexiPath => {
-  if (flexi.isEmpty(path) || paths.find(x => flexi.isEmpty(x))) {
+  if (flexi.isEmpty(path) || paths.find((x) => flexi.isEmpty(x))) {
     return flexi.empty();
   }
-  const flattenedPath = flatten(path).map(x => x.path);
+  const flattenedPath = flatten(path).map((x) => x.path);
 
-  const flattenedPaths = paths.map(x => flatten(x).map(z => z.path));
+  const flattenedPaths = paths.map((x) => flatten(x).map((z) => z.path));
 
-  const result = flattenedPaths.reduce((prev: string[], current: string[]) => {
-    return filter(prev, current);
-  }, flattenedPath);
+  const result = flattenedPaths.reduce((prev: string[], current: string[]) => filter(prev, current), flattenedPath);
 
   return result.reduce<FlexiPath>((prev: FlexiPath, current: string) => prev.append(current), flexi.empty());
 };

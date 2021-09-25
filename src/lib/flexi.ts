@@ -5,7 +5,7 @@ import walk from "./walker";
 
 /** @category path */
 const flexi: Flexi = {
-  concat: (current: Path, ...paths: Path[]) => concat(pathString(current), ...paths.map(x => pathString(x))),
+  concat: (current: Path, ...paths: Path[]) => concat(pathString(current), ...paths.map((x) => pathString(x))),
   empty,
   exists,
   isEmpty,

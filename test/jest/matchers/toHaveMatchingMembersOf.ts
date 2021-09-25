@@ -13,8 +13,8 @@ const failMessage = (received: any) => (): string =>
 const matchable = <T extends Record<string, any>>(obj: T, mock: any): T => {
   const copy = { ...obj };
   Reflect.ownKeys(copy)
-    .filter(key => typeof Reflect.get(copy, key) === "function")
-    .forEach(key => Reflect.set(copy, key, mock));
+    .filter((key) => typeof Reflect.get(copy, key) === "function")
+    .forEach((key) => Reflect.set(copy, key, mock));
   return copy;
 };
 

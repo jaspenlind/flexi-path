@@ -9,7 +9,7 @@ describe("path", () => {
 
       const subDirectory = path.append("subDirectories_should_contain_subdirectory/").write();
 
-      expect(path.subDirectories().map(x => x.base)).toContain(subDirectory.base);
+      expect(path.subDirectories().map((x) => x.base)).toContain(subDirectory.base);
     });
 
     it("can get directories when path is flexi", () => {
@@ -24,7 +24,7 @@ describe("path", () => {
         })
         .write();
 
-      expect(subDirectories(testFile.path)().map(x => x.path)).toBeEmpty();
+      expect(subDirectories(testFile.path)().map((x) => x.path)).toBeEmpty();
     });
 
     it("should be empty when path is invalid", () => {

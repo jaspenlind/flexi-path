@@ -31,7 +31,7 @@ describe("walker", () => {
       const sub2 = path.append("sub2/").write();
       const file4 = path.append("file4.php").write();
 
-      const result = flexi.walk.forward(path).result.map(x => x.path);
+      const result = flexi.walk.forward(path).result.map((x) => x.path);
       const [first, second, third, fourth, fifth] = result;
 
       const deepestAppendedPath = 5;
@@ -55,14 +55,14 @@ describe("walker", () => {
       const subFile = path.append("subfile.js").write();
 
       const walked = flexi.walk.forward(path, {
-        until: x => x.name.startsWith("sub")
+        until: (x) => x.name.startsWith("sub")
       });
       const depthOfSub = 3;
       expect(walked.result).toHaveLength(depthOfSub);
 
-      expect(walked.result.find(x => x.name === sub1.name)).not.toBeUndefined();
-      expect(walked.result.find(x => x.name === sub2.name)).not.toBeUndefined();
-      expect(walked.result.find(x => x.name === subFile.name)).not.toBeUndefined();
+      expect(walked.result.find((x) => x.name === sub1.name)).not.toBeUndefined();
+      expect(walked.result.find((x) => x.name === sub2.name)).not.toBeUndefined();
+      expect(walked.result.find((x) => x.name === subFile.name)).not.toBeUndefined();
     });
 
     it("should walk until condition is met", () => {
@@ -75,7 +75,7 @@ describe("walker", () => {
       const depthOfCommonPath = 1;
 
       const walked = flexi.walk.forward(path, {
-        until: x => x.base === file.base
+        until: (x) => x.base === file.base
       });
 
       expect(walked.result).toHaveLength(depthOfCommonPath);
@@ -90,7 +90,7 @@ describe("walker", () => {
 
       path.append("sub1/sub2/sub3/sub4/sub5/").write();
 
-      expect(flexi.walk.forward(path, { until: x => x.name === "sub77" }).result).toBeEmpty();
+      expect(flexi.walk.forward(path, { until: (x) => x.name === "sub77" }).result).toBeEmpty();
     });
 
     it("can walk deep paths", () => {
@@ -113,7 +113,7 @@ describe("walker", () => {
       const deepest = written.append("deep/").write();
       const depthOfDeepest = 1;
 
-      expect(flexi.walk.forward(path, { until: x => x.name === deepest.name }).result).toHaveLength(depthOfDeepest);
+      expect(flexi.walk.forward(path, { until: (x) => x.name === deepest.name }).result).toHaveLength(depthOfDeepest);
     });
 
     it("should walk whole path", () => {

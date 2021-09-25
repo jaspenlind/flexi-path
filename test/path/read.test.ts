@@ -8,7 +8,7 @@ interface PackageJson {
 
 const packageJson = flexi
   .path(__dirname)
-  .parent(x => x.name === "flexi-path")
+  .parent((x) => x.name === "flexi-path")
   .append("package.json");
 
 describe("read", () => {

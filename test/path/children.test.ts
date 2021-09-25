@@ -38,8 +38,8 @@ describe("path", () => {
 
       const result = dir.children();
 
-      expect(result.filter(x => x.type() === PathType.Directory)).toHaveLength(twoDirectories);
-      expect(result.filter(x => x.type() === PathType.File)).toHaveLength(twoFiles);
+      expect(result.filter((x) => x.type() === PathType.Directory)).toHaveLength(twoDirectories);
+      expect(result.filter((x) => x.type() === PathType.File)).toHaveLength(twoFiles);
     });
 
     it("should be empty when directory is empty", () => {
@@ -69,7 +69,7 @@ describe("path", () => {
       dir.append("another.txt").write();
       dir.append("dir1/").write();
 
-      expect(dir.children(x => x.name.startsWith("file"))).toHaveLength(startingWithFileCount);
+      expect(dir.children((x) => x.name.startsWith("file"))).toHaveLength(startingWithFileCount);
     });
 
     it("can walk until found", () => {
@@ -78,7 +78,7 @@ describe("path", () => {
 
       dir.append("deep", "path", "below/").write();
 
-      const result = dir.children(x => x.name === "below", { recursive: true });
+      const result = dir.children((x) => x.name === "below", { recursive: true });
       const [firstResult] = result;
 
       expect(result).toHaveLength(belowDirCount);
@@ -91,7 +91,7 @@ describe("path", () => {
 
       dir.append("deep", "path", "below/").write();
 
-      const result = dir.children(x => x.name === "invalid");
+      const result = dir.children((x) => x.name === "invalid");
 
       expect(result).toBeEmpty();
     });

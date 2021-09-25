@@ -12,7 +12,7 @@ const cut = (path: string, count: number): FlexiPath => {
   const currentDepth = depth(path);
   const newDepth = currentDepth - count;
 
-  return walker.back(path, { until: x => x.depth === newDepth }).result;
+  return walker.back(path, { until: (x) => x.depth === newDepth }).result;
 };
 
 export default cut;

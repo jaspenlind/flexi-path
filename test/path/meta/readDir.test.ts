@@ -19,7 +19,7 @@ describe("path", () => {
       it("should return files in directory", () => {
         const file = parse(testData.createFile("path.readDir.dir.test"));
 
-        const result = readDir(testData.testDir).find(x => x.name === file.base);
+        const result = readDir(testData.testDir).find((x) => x.name === file.base);
 
         expect(result).not.toBeUndefined();
       });
