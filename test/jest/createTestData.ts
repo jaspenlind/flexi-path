@@ -6,6 +6,7 @@ export const testDir = join(__dirname, "flex-test-data");
 beforeAll(() => {
   try {
     shell.rm("-rf", testDir);
+    /* eslint-disable-next-line security/detect-non-literal-fs-filename -- Safe as no value holds user input */
     shell.mkdir(testDir);
   } catch {
     // do nothing

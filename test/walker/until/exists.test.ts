@@ -24,6 +24,7 @@ describe("walker", () => {
       const path = flexi.path(testDir).append(nonExistingPath);
 
       const walked = flexi.walk.back(path, {
+        /* eslint-disable-next-line security/detect-non-literal-fs-filename -- Safe as no value holds user input */
         until: until.exists({ ignoreFileExtensions: true })
       });
 
@@ -45,6 +46,7 @@ describe("walker", () => {
 
       expect(
         flexi.walk.back(pathWithoutExt, {
+          /* eslint-disable-next-line security/detect-non-literal-fs-filename -- Safe as no value holds user input */
           until: until.exists({ ignoreFileExtensions: true })
         }).result
       ).toHaveMatchingMembersOf(pathWithoutExt);
@@ -57,6 +59,7 @@ describe("walker", () => {
 
       expect(
         flexi.walk.back(missingPath, {
+          /* eslint-disable-next-line security/detect-non-literal-fs-filename -- Safe as no value holds user input */
           until: until.exists({ ignoreFileExtensions: true })
         }).result.path
       ).toBe(existingPath.path);
