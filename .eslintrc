@@ -31,6 +31,7 @@
   },
   "rules": {
     "arrow-parens": ["error", "always"],
+    "no-undefined": "error",
     "newline-per-chained-call": "off",
     "import/prefer-default-export": ["off"],
     "import/extensions": ["error", { "ts": "never" }],

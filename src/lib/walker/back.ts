@@ -28,7 +28,7 @@ const back = (path: Path, options?: WalkOptions, acc?: FlexiPath): WalkedPath<Fl
   }
   const nextDiff = diff.prepend(parsedPath.base);
 
-  if (emptyOrRoot !== undefined) {
+  if (typeof emptyOrRoot !== "undefined") {
     return { diff: nextDiff, result: emptyOrRoot };
   }
 

@@ -61,7 +61,7 @@ let emptyMeta: PathMeta;
 
 /** @category path */
 export const empty = (): PathMeta => {
-  if (emptyMeta === undefined) {
+  if (typeof emptyMeta === "undefined") {
     emptyMeta = meta("");
   }
 
