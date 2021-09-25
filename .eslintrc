@@ -31,11 +31,12 @@
   },
   "rules": {
     "arrow-parens": ["error", "always"],
-    "no-undefined": "error",
-    "newline-per-chained-call": "off",
-    "import/prefer-default-export": ["off"],
+    "complexity": ["warn", 4],
     "import/extensions": ["error", { "ts": "never" }],
+    "import/prefer-default-export": ["off"],
+    "newline-per-chained-call": "off",
     "no-restricted-syntax": ["off", "ForOfStatement"],
+    "no-undefined": "error",
     "@typescript-eslint/explicit-function-return-type": ["off"],
     "@typescript-eslint/explicit-member-accessibility": [
       "error",

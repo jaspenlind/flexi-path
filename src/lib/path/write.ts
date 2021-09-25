@@ -7,6 +7,49 @@ import { exists, parent, type } from ".";
 import { create, WriteOptions } from "../../models/writeOptions";
 
 /**
+ * @ignore
+ */
+const createDirectory = (path: string): void => {
+  if (!exists(path)) {
+    shell.mkdir("-p", path);
+  }
+};
+
+const createFile = (path: string, options: WriteOptions, content?: string | NodeJS.ArrayBufferView): void => {
+  const directory = parent(path)();
+
+  if (!directory) {
+    return;
+  }
+
+  createDirectory(directory.path);
+
+  if (content) {
+    writeFileSync(path, content, { encoding: options.encoding });
+  } else {
+    shell.touch(path);
+  }
+};
+
+/**
+ * @ignore
+ */
+const ensureValidType = (pathType: PathType): void => {
+  if (pathType === PathType.Unknown) {
+    throw new Error("Path is not valid or type cannot be determined");
+  }
+};
+
+/**
+ * @ignore
+ */
+const ensureNotExists = (path: string, options: WriteOptions): void => {
+  if (!options.overwrite && exists(path)) {
+    throw new Error("Path already exists");
+  }
+};
+
+/**
  * Writes the current `path` to disk if possible
  * @category path
  */
@@ -18,32 +61,15 @@ const write = (
   options?: Partial<WriteOptions>
 ): FlexiPath => {
   const parsedType = type(path);
+  const allOptions = create(options);
 
-  if (parsedType === PathType.Unknown) {
-    throw new Error("Path is not valid or type cannot be determined");
-  }
-
-  const { encoding, overwrite } = create(options);
-
-  if (!overwrite && exists(path)) {
-    throw new Error("Path already exists");
-  }
+  ensureValidType(parsedType);
+  ensureNotExists(path, allOptions);
 
   if (parsedType === PathType.Directory) {
-    shell.mkdir("-p", path);
+    createDirectory(path);
   } else {
-    const parsedParent = parent(path)();
-    if (parsedParent) {
-      if (!exists(parsedParent.path)) {
-        shell.mkdir("-p", parsedParent.path);
-      }
-
-      if (content) {
-        writeFileSync(path, content, { encoding });
-      } else {
-        shell.touch(path);
-      }
-    }
+    createFile(path, allOptions, content);
   }
 
   return flexi.path(path);

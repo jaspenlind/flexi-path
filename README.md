@@ -3,7 +3,7 @@
 ## Flexible path builder and walker
 
 [![Build Status](https://travis-ci.com/jaspenlind/flexi-path.svg?branch=master)](https://travis-ci.com/jaspenlind/flexi-path)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d53c318f91a54f49822d30d9974c1003)](https://www.codacy.com/manual/jaspenlind/flexi-path?utm_source=github.com&utm_medium=referral&utm_content=jaspenlind/flexi-path&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d53c318f91a54f49822d30d9974c1003)](https://www.codacy.com/gh/jaspenlind/flexi-path/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jaspenlind/flexi-path&utm_campaign=Badge_Grade)
 ![GitHub top language](https://img.shields.io/github/languages/top/jaspenlind/flexi-path)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Coverage Status](https://coveralls.io/repos/jaspenlind/flexi-path/badge.svg?branch=master)](https://coveralls.io/r/jaspenlind/flexi-path?branch=master)

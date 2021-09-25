@@ -9,13 +9,18 @@ export { PathType } from "../../../types";
 /**
  * @ignore
  */
+const mightBeFile = (path: string): boolean =>
+  parse(path).ext !== "" || (!path.endsWith(constants.sep) && parent(path)().path !== constants.empty);
+
+/**
+ * @ignore
+ */
 const guessType = (path: string): PathType => {
   if (!isValid(path)) {
     return PathType.Unknown;
   }
 
-  const maybeFile =
-    parse(path).ext !== "" || (!path.endsWith(constants.sep) && parent(path)().path !== constants.empty);
+  const maybeFile = mightBeFile(path);
 
   return maybeFile ? PathType.File : PathType.Directory;
 };
@@ -34,9 +39,11 @@ const type = (path: string): PathType => {
 
   const stat = stats(path);
 
-  return (
-    (stat && stat.isDirectory() && PathType.Directory) || (stat && stat.isFile() && PathType.File) || PathType.Unknown
-  );
+  if (!stat) {
+    return PathType.Unknown;
+  }
+
+  return stat.isDirectory() ? PathType.Directory : PathType.File;
 };
 
 export default type;
