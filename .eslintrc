@@ -8,6 +8,9 @@
     "plugin:security/recommended",
     "plugin:jest/recommended"
   ],
+  "globals": {
+    "NodeJS": true
+  },
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
@@ -37,6 +40,7 @@
     "newline-per-chained-call": "off",
     "no-restricted-syntax": ["off", "ForOfStatement"],
     "no-undefined": "error",
+    "no-undef": "error",
     "@typescript-eslint/explicit-function-return-type": ["off"],
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
