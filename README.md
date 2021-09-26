@@ -106,7 +106,7 @@ const cut = reversed.cut(4);
 const flat = cut.flatten();
 
 //==> [
-	six
-	five
+  six
+  five
 ]
 ```

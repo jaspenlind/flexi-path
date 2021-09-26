@@ -47,6 +47,7 @@ describe("path", () => {
 
     it("should write content to file", () => {
       const content =
+        // eslint-disable-next-line max-len
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor dictum tempus. Nullam eget consectetur nisi, vitae facilisis lacus. Donec vitae faucibus est. Nunc eu nisl elementum, vehicula tellus vitae, efficitur augue. Cras vehicula velit vitae enim dapibus posuere. Pellentesque ac molestie lectus. Pellentesque magna lectus, porttitor ut interdum id, vestibulum eget urna. Mauris magna velit, sodales a laoreet sed, hendrerit sed lectus. Vivamus vitae arcu in enim luctus dapibus quis aliquet mi. Sed aliquam sed sem a pharetra. Pellentesque eu mauris convallis, rutrum arcu in, tempor purus. Curabitur porta non sem a imperdiet. Aliquam erat volutpat.";
 
       const file = root.append("write-with-content.txt").write(content);

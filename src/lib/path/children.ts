@@ -22,12 +22,13 @@ const getContent = (path: string, condition?: (current: FlexiPath) => boolean): 
  * @param path The current `path`
  * @category path
  */
-const children =
-  (path: string): ChildQuery =>
-  (condition?: (current: PathMeta) => boolean, options?: { recursive?: boolean }): FlexiPath[] => {
-    const recursive = (options && options.recursive) || false;
+const children = (path: string): ChildQuery => (
+  condition?: (current: PathMeta) => boolean,
+  options?: { recursive?: boolean }
+): FlexiPath[] => {
+  const recursive = (options && options.recursive) || false;
 
-    return recursive ? walker.forward(path, { until: condition }).result : getContent(path, condition);
-  };
+  return recursive ? walker.forward(path, { until: condition }).result : getContent(path, condition);
+};
 
 export default children;

@@ -9,7 +9,7 @@ import { parse } from "../path";
  * @category walker
  */
 const report = (path: Path, options?: WalkOptions, state?: WalkedState): WalkedState => {
-  const reporter = options && options.onWalk;
+  const reporter = options?.onWalk;
   const currentState = state || WalkedState.Default;
 
   return (reporter && reporter({ path: parse(path), state: currentState })) || currentState;
@@ -24,9 +24,7 @@ const report = (path: Path, options?: WalkOptions, state?: WalkedState): WalkedS
 //   };
 // };
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const reporter = (options?: WalkOptions) => {
-  return {
-    report: (path: Path, state?: WalkedState) => report(path, options, state)
-  };
-};
+const reporter = (options?: WalkOptions) => ({
+  report: (path: Path, state?: WalkedState) => report(path, options, state)
+});
 export default reporter;
