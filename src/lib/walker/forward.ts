@@ -1,8 +1,63 @@
+import { create, empty } from "../../models/walked-path";
 import { flexi } from "..";
 import { FlexiPath, Path, PathType, WalkedPath, WalkOptions } from "../../types";
 import reporter from "./reporter";
 
-const empty = 0;
+/**
+ * @ignore
+ */
+const emptyPath = (path: FlexiPath): WalkedPath<FlexiPath[]> | null =>
+  path.isEmpty() || !path.exists() ? empty : null;
+
+/**
+ * @ignore
+ */
+const untilPath = (paths: FlexiPath[], options?: WalkOptions): WalkedPath<FlexiPath[]> | null => {
+  const untilFunc = options?.until;
+
+  if (typeof untilFunc === "undefined" || paths.length === 0) {
+    return null;
+  }
+
+  const result = paths.filter((x) => untilFunc(x));
+
+  if (result.length > 0) {
+    return create({ result });
+  }
+
+  return null;
+};
+
+/**
+ * @ignore
+ */
+const walkPath = (path: FlexiPath, options?: WalkOptions | undefined) => {
+  let walked = path.children().reduce<FlexiPath[]>((prev: FlexiPath[], curr: FlexiPath) => {
+    const result: FlexiPath[] = [];
+
+    if (curr.type() === PathType.Directory) {
+      const next = path.append(curr.name);
+      // eslint-disable-next-line no-use-before-define
+      result.push(...forward(next, options).result);
+    }
+
+    if (result.length === 0) {
+      result.push(curr);
+    }
+
+    prev.push(...result);
+
+    return prev;
+  }, []);
+
+  const untilFunc = options?.until;
+
+  if (walked.length > 0 && typeof untilFunc !== "undefined") {
+    walked = walked.filter((x) => untilFunc(x));
+  }
+
+  return walked;
+};
 
 /**
  * Walks a `path`
@@ -15,45 +70,11 @@ const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => 
 
   reporter(options).report(parsedPath);
 
-  if (parsedPath.isEmpty() || !parsedPath.exists()) {
-    return { result: [], diff: [] };
-  }
-
-  const content = parsedPath.children();
-
-  const untilFunc = options && options.until;
-
-  if (typeof untilFunc !== "undefined") {
-    const result = content.filter((x) => untilFunc(x));
-
-    if (result.length > empty) {
-      return { result, diff: [] };
-    }
-  }
-
-  let walked = content.reduce<FlexiPath[]>((prev: FlexiPath[], curr: FlexiPath) => {
-    const result: FlexiPath[] = [];
-
-    if (curr.type() === PathType.Directory) {
-      const next = parsedPath.append(curr.name);
-
-      result.push(...forward(next, options).result);
-    }
-
-    if (result.length === empty) {
-      result.push(curr);
-    }
-
-    prev.push(...result);
-
-    return prev;
-  }, []);
-
-  if (walked.length > empty && typeof untilFunc !== "undefined") {
-    walked = walked.filter((x) => untilFunc(x));
-  }
-
-  return { result: walked, diff: [] };
+  return (
+    emptyPath(parsedPath) ||
+    untilPath(parsedPath.children(), options) ||
+    create({ result: walkPath(parsedPath, options) })
+  );
 };
 
 export default forward;

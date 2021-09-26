@@ -38,6 +38,7 @@
     "import/extensions": ["error", { "ts": "never" }],
     "import/prefer-default-export": ["off"],
     "newline-per-chained-call": "off",
+    "no-nested-ternary": "warn",
     "no-restricted-syntax": ["off", "ForOfStatement"],
     "no-undefined": "error",
     "no-undef": "error",
