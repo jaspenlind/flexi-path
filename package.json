@@ -1,7 +1,7 @@
 {
   "name": "flexi-path",
   "description": "Flexible path builder and walker",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "keywords": [
     "builder",
     "walker",
