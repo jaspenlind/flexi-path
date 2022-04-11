@@ -7,7 +7,7 @@ module.exports = {
   modulePathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/test/jest/flex.test-data"],
   preset: "ts-jest",
   roots: ["<rootDir>/src", "<rootDir>/test"],
-  setupFilesAfterEnv: ["jest-extended", "<rootDir>/test/jest/setupFilesAfterEnv.ts"],
+  setupFilesAfterEnv: ["jest-extended/all", "<rootDir>/test/jest/setupFilesAfterEnv.ts"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   transform: {
     "^.+\\.tsx?$": "ts-jest"
