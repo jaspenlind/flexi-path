@@ -6,9 +6,7 @@ import { children } from ".";
  * @category path
  * @param path The current `path`
  */
-const subDirectories =
+export const subDirectories =
   (path: string): SubDirectoryQuery =>
   (condition?: (current: PathMeta) => boolean, options?: { recursive?: boolean }): FlexiPath[] =>
-    children(path)(condition, options).filter((x) => x.type() === PathType.Directory);
-
-export default subDirectories;
+    children(path)(condition, options).filter((x: any) => x.type() === PathType.Directory);

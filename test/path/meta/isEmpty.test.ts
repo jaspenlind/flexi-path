@@ -1,5 +1,6 @@
+import { isEmpty } from "../../../src/lib/path/meta";
 import flexi from "../../../src";
-import { constants, isEmpty } from "../../../src/lib/path";
+import { constants } from "../../../src/lib/path";
 
 describe("path", () => {
   describe("meta", () => {

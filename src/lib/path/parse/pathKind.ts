@@ -1,7 +1,5 @@
 import { FlexiPath, Path, PathKind, PathMeta, PathVistor, PathWithBasePath } from "../../../types";
 
-export { FlexiPath, Path, PathMeta, PathKind, PathVistor } from "../../../types";
-
 /**
  * @ignore
  */
@@ -36,6 +34,4 @@ const pathKindVisitor = ((): PathVistor<PathKind> => {
  * @param path The `path` to get the kind for
  * @category path
  */
-const pathKind = (path: Path): PathKind => pathKindVisitor.visit(path);
-
-export default pathKind;
+export const pathKind = (path: Path): PathKind => pathKindVisitor.visit(path);

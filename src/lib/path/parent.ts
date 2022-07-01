@@ -1,9 +1,10 @@
 import { join } from "path";
 
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath, ParentQuery, Path, PathMeta } from "../../types";
 import walker from "../walker";
-import { isEmpty, isRoot, parse } from ".";
+import { parse } from ".";
+import { isEmpty, isRoot } from "./meta";
 
 /**
  * @ignore
@@ -23,7 +24,7 @@ export const parentPath = (path: Path): Path => {
  * The `parent` directory of the `path`
  * @category path
  */
-const parent =
+export const parent =
   (path: string): ParentQuery =>
   (condition?: (current: PathMeta) => boolean): FlexiPath => {
     if (isEmpty(path) || isRoot(path)) {
@@ -32,5 +33,3 @@ const parent =
 
     return condition ? walker.back(path, { until: condition }).result : parse(parentPath(path));
   };
-
-export default parent;

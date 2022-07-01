@@ -8,7 +8,7 @@ const empty = 0;
  * @param path The `path` to prepend
  * @param paths One or multiple `paths` to prepend the `path` with
  */
-const prepend = (path: string, ...paths: string[]): FlexiPath => {
+export const prepend = (path: string, ...paths: string[]): FlexiPath => {
   if (paths.length === empty) {
     return parse(path);
   }
@@ -21,5 +21,3 @@ const prepend = (path: string, ...paths: string[]): FlexiPath => {
 
   return parse(path);
 };
-
-export default prepend;

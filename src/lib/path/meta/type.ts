@@ -32,7 +32,7 @@ const guessType = (path: string): PathType => {
  * @returns `PathType` enum. Possible values: [`Directory`|`File`|`Unknown`]. A `path` that doesn't exist
  * on disk is `Unknown`
  */
-const type = (path: string): PathType => {
+export const type = (path: string): PathType => {
   if (!exists(path)) {
     return guessType(path);
   }
@@ -45,5 +45,3 @@ const type = (path: string): PathType => {
 
   return stat.isDirectory() ? PathType.Directory : PathType.File;
 };
-
-export default type;

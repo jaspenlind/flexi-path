@@ -5,6 +5,4 @@ import { exists } from ".";
 /**
  * @ignore
  */
-const stats = (path: string): Stats | null => (exists(path) && lstatSync(path)) || null;
-
-export default stats;
+export const stats = (path: string): Stats | null => (exists(path) && lstatSync(path)) || null;

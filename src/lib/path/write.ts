@@ -1,10 +1,11 @@
 import { writeFileSync } from "fs";
 import shell from "shelljs";
 
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath, PathType } from "../../types";
-import { exists, parent, type } from ".";
+import { parent } from ".";
 import { create, WriteOptions } from "../../models/writeOptions";
+import { exists, type } from "./meta";
 
 /**
  * @ignore
@@ -53,7 +54,7 @@ const ensureNotExists = (path: string, options: WriteOptions): void => {
  * Writes the current `path` to disk if possible
  * @category path
  */
-const write = (
+export const write = (
   path: string,
   // any is a support type of writeFileSync
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -74,5 +75,3 @@ const write = (
 
   return flexi.path(path);
 };
-
-export default write;

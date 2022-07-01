@@ -1,4 +1,4 @@
-import { flexi } from "../..";
+import { flexi } from "../../..";
 import { PathMeta, WalkUntil } from "../../../types";
 
 /**

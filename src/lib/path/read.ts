@@ -7,7 +7,7 @@ import { PathMeta, PathType, TextTransform } from "../../types";
  * @category path
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const read = (path: PathMeta, options?: Partial<ReadOptions>): any => {
+export const read = (path: PathMeta, options?: Partial<ReadOptions>): any => {
   if (path.type() !== PathType.File) {
     return "";
   }
@@ -23,5 +23,3 @@ const read = (path: PathMeta, options?: Partial<ReadOptions>): any => {
   }
   return content;
 };
-
-export default read;

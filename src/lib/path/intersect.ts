@@ -7,7 +7,5 @@ import { flatReduce } from "./flatten";
  * @param paths The `paths` to `intersect` with
  * @returns The intersected part of the `path`
  */
-const intersect = (path: string, ...paths: string[]): FlexiPath =>
+export const intersect = (path: string, ...paths: string[]): FlexiPath =>
   flatReduce((prev: string[], current: string[]) => prev.filter((x) => current.includes(x)), path, ...paths);
-
-export default intersect;
