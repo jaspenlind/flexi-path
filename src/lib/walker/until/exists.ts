@@ -12,7 +12,7 @@ const getFileWithoutExtension = (path: PathMeta): PathMeta => {
 /**
  * @category walker
  */
-const exists = (options?: { ignoreFileExtensions?: boolean }): WalkUntil => {
+export const exists = (options?: { ignoreFileExtensions?: boolean }): WalkUntil => {
   const ignoreFileExtensions = (options && options.ignoreFileExtensions) || false;
 
   return (current) => {
@@ -25,5 +25,3 @@ const exists = (options?: { ignoreFileExtensions?: boolean }): WalkUntil => {
     return pathExists;
   };
 };
-
-export default exists;

@@ -1,4 +1,6 @@
-import exists from "./exists";
-import sameAs from "./sameAs";
+import { exists } from "./exists";
+import { sameAs } from "./sameAs";
 
-export default { exists, sameAs };
+export const until = { exists, sameAs };
+
+export default until;

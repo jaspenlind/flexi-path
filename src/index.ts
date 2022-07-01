@@ -3,9 +3,15 @@ import path, { concat, empty, root } from "./lib/path";
 import { exists, isEmpty, isRoot } from "./lib/path/meta";
 import { pathString } from "./lib/path/parse";
 import walker from "./lib/walker";
+// import { sameAs } from "./lib/walker/until/sameAs";
+// import { exists as untilExists } from "./lib/walker/until/exists";
 
 export * from "./types";
-export { default as until } from "./lib/walker/until";
+export { until } from "./lib/walker/until";
+// export const until = {
+//   sameAs,
+//   exists: untilExists
+// };
 
 /** @category path */
 export const flexi: Flexi = {
