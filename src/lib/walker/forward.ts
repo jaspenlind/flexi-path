@@ -1,5 +1,5 @@
 import { create, empty } from "../../models/walked-path";
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath, Path, PathType, WalkedPath, WalkOptions } from "../../types";
 import reporter from "./reporter";
 
@@ -65,7 +65,7 @@ const walkPath = (path: FlexiPath, options?: WalkOptions | undefined) => {
  * @param until Stops walking when condition is met
  * @category walker
  */
-const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => {
+export const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => {
   const parsedPath = flexi.path(path);
 
   reporter(options).report(parsedPath);
@@ -76,5 +76,3 @@ const forward = (path: Path, options?: WalkOptions): WalkedPath<FlexiPath[]> => 
     create({ result: walkPath(parsedPath, options) })
   );
 };
-
-export default forward;

@@ -1,4 +1,4 @@
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath, Path, WalkedPath, WalkOptions } from "../../types";
 import reporter from "./reporter";
 
@@ -34,7 +34,7 @@ const emptyOrRoot = (path: FlexiPath, diff: FlexiPath): WalkedPath<FlexiPath> | 
  * @param until Stops walking when condition is met
  * @category walker
  */
-const back = (path: Path, options?: WalkOptions, acc?: FlexiPath): WalkedPath<FlexiPath> => {
+export const back = (path: Path, options?: WalkOptions, acc?: FlexiPath): WalkedPath<FlexiPath> => {
   const parsedPath = flexi.path(path);
   const diff = acc || flexi.empty();
   const diffWithPrependedBase = diff.prepend(parsedPath.base);
@@ -47,5 +47,3 @@ const back = (path: Path, options?: WalkOptions, acc?: FlexiPath): WalkedPath<Fl
     back(parsedPath.parent(), options, diffWithPrependedBase)
   );
 };
-
-export default back;

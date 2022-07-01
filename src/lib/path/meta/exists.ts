@@ -8,7 +8,7 @@ import { isEmpty } from ".";
  * `boolean` value indicating if the `path` exists or not
  * @category path
  */
-const exists = (path: Path): boolean => {
+export const exists = (path: Path): boolean => {
   const pathAsString = pathString(path);
   if (isEmpty(pathAsString)) {
     return false;
@@ -16,5 +16,3 @@ const exists = (path: Path): boolean => {
 
   return existsSync(pathAsString);
 };
-
-export default exists;

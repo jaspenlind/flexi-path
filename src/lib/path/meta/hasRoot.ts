@@ -7,6 +7,4 @@ import { constants, pathString } from "../parse";
  * `boolean` value indicating the path has a [[root]]
  * @category path
  */
-const hasRoot = (path: Path): boolean => parse(pathString(path)).root === constants.sep;
-
-export default hasRoot;
+export const hasRoot = (path: Path): boolean => parse(pathString(path)).root === constants.sep;

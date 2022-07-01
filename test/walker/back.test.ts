@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-commented-out-tests */
-import { flexi } from "../../src/lib";
+import { flexi } from "../../src";
 import { testDir } from "../jest/createTestData";
 
 describe("walk", () => {

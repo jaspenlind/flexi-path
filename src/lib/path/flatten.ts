@@ -1,4 +1,4 @@
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath, PathMeta } from "../../types";
 import walker from "../walker";
 
@@ -8,7 +8,7 @@ import walker from "../walker";
  * @param path The `path` to `flattern`
  * @returns An array with the flatterned `path`
  */
-const flatten = (path: string): FlexiPath[] => {
+export const flatten = (path: string): FlexiPath[] => {
   if (flexi.isEmpty(path)) {
     return [];
   }
@@ -45,5 +45,3 @@ export const flatReduce = (
 
   return result.reduce<FlexiPath>((prev: FlexiPath, current: string) => prev.append(current), flexi.empty());
 };
-
-export default flatten;

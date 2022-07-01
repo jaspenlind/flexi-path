@@ -1,7 +1,7 @@
 import { parse } from "path";
 
 import { concat, constants, parent } from "..";
-import { flexi } from "../..";
+import { flexi } from "../../..";
 import { FlexiPath, PathType } from "../../../types";
 import { type } from ".";
 
@@ -32,10 +32,8 @@ const compareablePath = (path: string, ignoreFileExtension: boolean): FlexiPath 
 /**
  * @category path
  */
-const equals = (path: string, other: string, options?: { ignoreFileExtension?: boolean }): boolean => {
+export const equals = (path: string, other: string, options?: { ignoreFileExtension?: boolean }): boolean => {
   const ignoreFileExtension = (options && options.ignoreFileExtension) || false;
 
   return compareablePath(path, ignoreFileExtension).path === compareablePath(other, ignoreFileExtension).path;
 };
-
-export default equals;

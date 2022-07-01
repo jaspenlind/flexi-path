@@ -2,7 +2,7 @@ import { join, normalize } from "path";
 
 import { constants } from "..";
 import { FlexiPath, Path, PathKind, PathMeta, PathVistor, PathWithBasePath } from "../../../types";
-import pathKind from "./pathKind";
+import { pathKind } from "./pathKind";
 
 /** @ignore */
 const pathStringVisitor = ((): PathVistor<string> => {
@@ -45,6 +45,4 @@ const pathStringVisitor = ((): PathVistor<string> => {
  * Returns the path string from a `path`
  * @category path
  */
-const pathString = pathStringVisitor.visit;
-
-export default pathString;
+export const pathString = pathStringVisitor.visit;

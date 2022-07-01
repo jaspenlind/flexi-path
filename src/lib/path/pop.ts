@@ -1,11 +1,11 @@
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath } from "../../types";
 import { isEmpty, isRoot, segments } from "./meta";
 
 /**
  * @category path
  */
-const pop = (path: string): FlexiPath => {
+export const pop = (path: string): FlexiPath => {
   if (isEmpty(path)) {
     return flexi.empty();
   }
@@ -16,5 +16,3 @@ const pop = (path: string): FlexiPath => {
 
   return flexi.path(segments(path).pop() || flexi.empty().path);
 };
-
-export default pop;

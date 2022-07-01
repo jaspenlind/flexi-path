@@ -1,28 +1,27 @@
 import { normalize, parse } from "path";
-
 import { Path, PathMeta } from "../../../types";
 import { pathString } from "../parse";
-import depth from "./depth";
-import equals from "./equals";
-import exists from "./exists";
-import hasRoot from "./hasRoot";
-import isEmpty from "./isEmpty";
-import isRoot from "./isRoot";
-import isValid from "./isValid";
-import segments from "./segments";
-import type from "./type";
+import { depth } from "./depth";
+import { equals } from "./equals";
+import { exists } from "./exists";
+import { hasRoot } from "./hasRoot";
+import { isEmpty } from "./isEmpty";
+import { isRoot } from "./isRoot";
+import { isValid } from "./isValid";
+import { segments } from "./segments";
+import { type } from "./type";
 
-export { default as depth } from "./depth";
-export { default as exists } from "./exists";
-export { default as equals } from "./equals";
-export { default as hasRoot } from "./hasRoot";
-export { default as isEmpty } from "./isEmpty";
-export { default as isRoot } from "./isRoot";
-export { default as isValid } from "./isValid";
-export { default as readDir } from "./readDir";
-export { default as segments } from "./segments";
-export { default as stats } from "./stats";
-export { default as type } from "./type";
+export { depth } from "./depth";
+export { exists } from "./exists";
+export { equals } from "./equals";
+export { hasRoot } from "./hasRoot";
+export { isEmpty } from "./isEmpty";
+export { isRoot } from "./isRoot";
+export { isValid } from "./isValid";
+export { readDir } from "./readDir";
+export { segments } from "./segments";
+export { stats } from "./stats";
+export { type } from "./type";
 
 /**
  * Returns metadata for a path

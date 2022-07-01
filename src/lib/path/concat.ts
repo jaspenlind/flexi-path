@@ -1,6 +1,6 @@
 import { join } from "path";
 
-import { flexi } from "..";
+import { flexi } from "../..";
 import { FlexiPath } from "../../types";
 
 /**
@@ -9,12 +9,10 @@ import { FlexiPath } from "../../types";
  * @param path The `path` to concatinate
  * @param paths One or multiple `paths` to concatinate the `path` with
  */
-const concat = (path: string, ...paths: string[]): FlexiPath => {
+export const concat = (path: string, ...paths: string[]): FlexiPath => {
   const result = (paths || []).reduce<string>((prev: string, current: string) => {
     return join(prev, current);
   }, path);
 
   return flexi.path(result);
 };
-
-export default concat;

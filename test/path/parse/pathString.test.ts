@@ -1,9 +1,9 @@
 import { normalize } from "path";
 
-import flexi from "../../../src/lib/flexi";
+import { flexi } from "../../../src";
 import { empty as emptyPath } from "../../../src/lib/path";
 import { empty as emptyMeta } from "../../../src/lib/path/meta";
-import pathString from "../../../src/lib/path/parse/pathString";
+import { pathString } from "../../../src/lib/path/parse";
 
 describe("path", () => {
   describe("parse", () => {

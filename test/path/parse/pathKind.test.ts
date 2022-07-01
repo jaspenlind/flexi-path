@@ -1,6 +1,6 @@
-import flexi from "../../../src";
-import meta from "../../../src/lib/path/meta";
-import pathKind, { PathKind } from "../../../src/lib/path/parse/pathKind";
+import flexi, { PathKind } from "../../../src";
+import { meta } from "../../../src/lib/path";
+import { pathKind } from "../../../src/lib/path/parse";
 
 describe("path", () => {
   describe("parse", () => {

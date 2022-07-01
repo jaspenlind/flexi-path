@@ -1,4 +1,4 @@
-import { flexi } from "../../src/lib";
+import { flexi } from "../../src";
 import { testDir } from "../jest/createTestData";
 
 describe("walker", () => {

@@ -5,7 +5,7 @@ import { isEmpty, isRoot } from ".";
 /**
  * @category path
  */
-const segments = (path: string): string[] => {
+export const segments = (path: string): string[] => {
   if (isEmpty(path)) {
     return [];
   }
@@ -24,5 +24,3 @@ const segments = (path: string): string[] => {
 
   return result;
 };
-
-export default segments;

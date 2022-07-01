@@ -1,6 +1,7 @@
 import { ChildQuery, FlexiPath, PathMeta } from "../../types";
 import walker from "../walker";
-import { concat, readDir } from ".";
+import { concat } from ".";
+import { readDir } from "./meta";
 
 /**
  * @ignore
@@ -22,12 +23,10 @@ const getContent = (path: string, condition?: (current: FlexiPath) => boolean): 
  * @param path The current `path`
  * @category path
  */
-const children =
+export const children =
   (path: string): ChildQuery =>
   (condition?: (current: PathMeta) => boolean, options?: { recursive?: boolean }): FlexiPath[] => {
     const recursive = (options && options.recursive) || false;
 
     return recursive ? walker.forward(path, { until: condition }).result : getContent(path, condition);
   };
-
-export default children;
