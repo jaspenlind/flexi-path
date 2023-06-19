@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "declaration": true,
+    "forceConsistentCasingInFileNames": false,
     "paths": {
       "*": ["../node_modules/*", "types/*"]
     }
